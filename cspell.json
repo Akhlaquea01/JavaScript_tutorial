@@ -1,8 +1,4 @@
 {
-  "dependencies": {
-    "eslint": "^8.16.0"
-  },
-  "cspell": {
     "version": "0.2",
     "ignorePaths": [],
     "dictionaryDefinitions": [],
@@ -10,5 +6,4 @@
     "words": [],
     "ignoreWords": [],
     "import": []
-  }
 }
