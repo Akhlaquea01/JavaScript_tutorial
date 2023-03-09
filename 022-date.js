@@ -5,7 +5,7 @@ console.log(now);
 
 console.log(new Date('Aug 02 2020 18:05:41'));
 console.log(new Date('December 24, 2015'));
-console.log(new Date(account1.movementsDates[0]));
+console.log(new Date(account1.movementsDates[ 0 ]));
 
 console.log(new Date(2037, 10, 19, 15, 23, 5));
 console.log(new Date(2037, 10, 31));
@@ -46,3 +46,6 @@ const calcDaysPassed = (date1, date2) =>
 const days1 = calcDaysPassed(new Date(2037, 3, 4), new Date(2037, 3, 14));
 console.log(days1);
 
+console.log(now.toLocaleString('default', {
+  weekday: "long",
+}));
