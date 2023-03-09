@@ -1,4 +1,4 @@
-// Taking Decisions: if / else Statements
+// TOPIC: Taking Decisions: if-else Statements
 const age = 15;
 
 if (age >= 18) {
@@ -18,9 +18,8 @@ if (birthYear <= 2000) {
 }
 console.log(century);
 
-////////////////////////////////////
-// Coding Challenge #2
 
+//Que:
 /*
 Use the BMI example from Challenge #1, and the code you already wrote, and improve it:
 
@@ -48,7 +47,7 @@ const BMIJohn = massJohn / (heightJohn * heightJohn);
 console.log(BMIMark, BMIJohn);
 
 if (BMIMark > BMIJohn) {
-  console.log(`Mark's BMI (${BMIMark}) is higher than John's (${BMIJohn})!`)
+  console.log(`Mark's BMI (${BMIMark}) is higher than John's (${BMIJohn})!`);
 } else {
-  console.log(`John's BMI (${BMIJohn}) is higher than Marks's (${BMIMark})!`)
+  console.log(`John's BMI (${BMIJohn}) is higher than Marks's (${BMIMark})!`);
 }

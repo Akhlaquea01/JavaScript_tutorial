@@ -1,41 +1,149 @@
-// Equality Operators: == vs. ===
+////////////////////////////////////
+// TOPIC: Basic Operators
+// TOPIC: Math operators
+const yearNow = 2037;
+const ageJonas1 = yearNow - 1991;
+const ageSarah1 = yearNow - 2018;
+console.log(ageJonas1, ageSarah1);
+
+console.log(ageJonas1 * 2, ageJonas1 / 10, 2 ** 3); //INFO: 2 ** 3 means 2 to the power of 3 = 2 * 2 * 2
+
+const firstName2 = 'Jonas';
+const lastName2 = 'Schmedtmann';
+console.log(firstName2 + ' ' + lastName2);
+
+// TOPIC: Assignment operators
+let z = 10 + 5; // 15
+z += 10; // z = z + 10 = 25
+z *= 4; // z = z * 4 = 100
+z++; // z = z + 1 = 101
+z--; // z = z - 1 = 100
+z--; // z = z - 1 = 99
+console.log(z);
+
+// TOPIC: Comparison operators
+console.log(ageJonas1 > ageSarah1); // >, <, >=, <=
+console.log(ageSarah1 >= 18);
+
+const isFullAge = ageSarah1 >= 18;
+
+console.log(yearNow - 1991 > yearNow - 2018);
+
+// TOPIC: Operator Precedence
+const now = 2037;
+const ageJonas = now - 1991;
+const ageSarah = now - 2018;
+
+console.log(now - 1991 > now - 2018);
+
+let x, y;
+x = y = 25 - 10 - 5; // x = y = 10, x = 10
+console.log(x, y);
+
+const averageAge = (ageJonas + ageSarah) / 2;
+console.log(ageJonas, ageSarah, averageAge);
+
+
+
+// TOPIC: Logical Assignment Operators
+const rest1 = {
+  name: 'Capri',
+  numGuests: 0,
+};
+
+const rest2 = {
+  name: 'La Piazza',
+  owner: 'Giovanni Rossi',
+};
+
+// TOPIC: OR assignment operator
+rest1.numGuests = rest1.numGuests || 10;
+rest2.numGuests = rest2.numGuests || 10;
+console.log(rest1);
+console.log(rest2);
+rest1.numGuests ||= 20;
+rest2.numGuests ||= 20;
+
+// TOPIC: nullish assignment operator (null or undefined)
+rest1.numGuests ??= 10;
+rest2.numGuests ??= 10;
+
+// TOPIC: AND assignment operator
+rest1.owner = rest1.owner && '<ANONYMOUS>';
+rest2.owner = rest2.owner && '<ANONYMOUS>';
+console.log(rest1);
+console.log(rest2);
+rest1.owner &&= '<ANONYMOUS2>';
+rest2.owner &&= '<ANONYMOUS2>';
+
+console.log(rest1);
+console.log(rest2);
+
+
+// TOPIC: The Nullish Coalescing Operator
+const restaurant = {};
+restaurant.numGuests = 0;
+const guests = restaurant.numGuests || 10;
+console.log(guests);
+
+// TOPIC: Nullish: null and undefined (NOT 0 or '')
+const guestCorrect = restaurant.numGuests ?? 10;
+console.log(guestCorrect);
+
+// TOPIC: Short Circuiting (&& and ||)
+// Use ANY data type, return ANY data type, short-circuiting
+
+console.log('---- OR ----');
+console.log(3 || 'Jonas');
+console.log('' || 'Jonas');
+console.log(true || 0);
+console.log(undefined || null);
+
+console.log(undefined || 0 || '' || 'Hello' || 23 || null);
+
+restaurant.numGuests = 0;
+const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+console.log(guests1, 'guests1');
+
+const guests2 = restaurant.numGuests || 10;
+console.log(guests2, 'guests2');
+
+console.log('---- AND ----');
+console.log(0 && 'Jonas');
+console.log(7 && 'Jonas');
+
+console.log('Hello' && 23 && null && 'jonas');
+
+// TOPIC: Equality Operators: == vs. ===
 const age = '18';
 if (age === 18) console.log('You just became an adult :D (strict)');
 
 if (age == 18) console.log('You just became an adult :D (loose)');
 
-const favourite = Number(prompt("What's your favourite number?"));//work on browser only
-console.log(favourite);
-console.log(typeof favourite);
+const favourite = 22;
 
-if (favourite === 23) { // 22 === 23 -> FALSE
-  console.log('Cool! 23 is an amzaing number!')
+if (favourite === 23) {
+  console.log('Cool! 23 is an amzaing number!');
 } else if (favourite === 7) {
-  console.log('7 is also a cool number')
+  console.log('7 is also a cool number');
 } else if (favourite === 9) {
-  console.log('9 is also a cool number')
+  console.log('9 is also a cool number');
 } else {
-  console.log('Number is not 23 or 7 or 9')
+  console.log('Number is not 23 or 7 or 9');
 }
 
 if (favourite !== 23) console.log('Why not 23?');
 
-////////////////////////////////////
-// Logical Operators
-const hasDriversLicense = true; // A
-const hasGoodVision = true; // B
+//TOPIC:  Logical Operators
+const hasDriversLicense = true;
+const hasGoodVision = true;
 
 console.log(hasDriversLicense && hasGoodVision);
 console.log(hasDriversLicense || hasGoodVision);
 console.log(!hasDriversLicense);
 
-// if (hasDriversLicense && hasGoodVision) {
-//   console.log('Sarah is able to drive!');
-// } else {
-//   console.log('Someone else should drive...');
-// }
 
-const isTired = false; // C
+const isTired = false;
 console.log(hasDriversLicense && hasGoodVision && isTired);
 
 if (hasDriversLicense && hasGoodVision && !isTired) {
@@ -44,8 +152,7 @@ if (hasDriversLicense && hasGoodVision && !isTired) {
   console.log('Someone else should drive...');
 }
 
-////////////////////////////////////
-// Coding Challenge #3
+// Que:
 
 /*
 There are two gymnastics teams, Dolphins and Koalas. They compete against each other 3 times. The winner with the highest average score wins the a trophy!

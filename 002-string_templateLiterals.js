@@ -1,4 +1,4 @@
-// Strings and Template Literals
+// TOPIC: Strings and Template Literals
 const firstName = 'Jonas';
 const job = 'teacher';
 const birthYear = 1991;
