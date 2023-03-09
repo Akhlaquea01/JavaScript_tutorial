@@ -1,16 +1,16 @@
-// Functions
+// TOPIC: Functions
 function logger() {
-    console.log('My name is Jonas');
+  console.log('My name is Jonas');
 }
 
-// calling / running / invoking function
+// => calling / running / invoking function
 logger();
 logger();
 logger();
 
 function fruitProcessor(apples, oranges) {
-    const juice = `Juice with ${apples} apples and ${oranges} oranges.`;
-    return juice;
+  const juice = `Juice with ${apples} apples and ${oranges} oranges.`;
+  return juice;
 }
 
 const appleJuice = fruitProcessor(5, 0);
@@ -19,60 +19,96 @@ console.log(appleJuice);
 const appleOrangeJuice = fruitProcessor(2, 4);
 console.log(appleOrangeJuice);
 
-const num = Number('23');
 
-///////////////////////////////////////
-// Function Declarations vs. Expressions
-
-// Function declaration
-function calcAge1(birthYeah) {
-    return 2037 - birthYeah;
+// TOPIC: Function declaration
+function calcAge(birthYear) {
+  return new Date().getFullYear() - birthYear;
 }
-const age1 = calcAge1(1991);
+const age1 = calcAge(1999);
+console.log(age1);
 
-// Function expression
-const calcAge2 = function (birthYeah) {
-    return 2037 - birthYeah;
+// TOPIC: Function expression
+const calcAge2 = function (birthYear) {
+  return new Date().getFullYear() - birthYear;
 };
 const age2 = calcAge2(1991);
+console.log(age2);
 
-console.log(age1, age2);
 
-///////////////////////////////////////
-// Arrow functions
+// TOPIC: Arrow functions
 
-const calcAge3 = birthYeah => 2037 - birthYeah;
+const calcAge3 = birthYear => new Date().getFullYear() - birthYear;
 const age3 = calcAge3(1991);
 console.log(age3);
 
-const yearsUntilRetirement = (birthYeah, firstName) => {
-    const age = 2037 - birthYeah;
-    const retirement = 65 - age;
-    // return retirement;
-    return `${firstName} retires in ${retirement} years`;
+const yearsUntilRetirement = (birthYear, firstName) => {
+  const age = new Date().getFullYear() - birthYear;
+  const retirement = 65 - age;
+  return `${firstName} retires in ${retirement} years`;
 };
 
-console.log(yearsUntilRetirement(1991, 'Jonas')); console.log(yearsUntilRetirement(1980, 'Bob'));
+console.log(yearsUntilRetirement(1991, 'Akhlaque'));
+console.log(yearsUntilRetirement(1980, 'Ashfaque'));
 
-///////////////////////////////////////
-// Functions Calling Other Functions
+
+// TOPIC: Functions Calling Other Functions
 function cutFruitPieces(fruit) {
-    return fruit * 4;
-  }
-  
-  function fruitProcessor(apples, oranges) {
-    const applePieces = cutFruitPieces(apples);
-    const orangePieces = cutFruitPieces(oranges);
-  
-    const juice = `Juice with ${applePieces} piece of apple and ${orangePieces} pieces of orange.`;
-    return juice;
-  }
-  console.log(fruitProcessor(2, 3));
+  return fruit * 4;
+}
 
-  ///////////////////////////////////////
-// Coding Challenge #1
+function fruitProcessor(apples, oranges) {
+  const applePieces = cutFruitPieces(apples);
+  const orangePieces = cutFruitPieces(oranges);
 
-/*
+  const juice = `Juice with ${applePieces} piece of apple and ${orangePieces} pieces of orange.`;
+  return juice;
+}
+console.log(fruitProcessor(2, 3));
+
+
+// TOPIC: Functions Accepting Callback Functions
+const oneWord = function (str) {
+  return str.replace(/ /g, '').toLowerCase();
+};
+
+const upperFirstWord = function (str) {
+  const [ first, ...others ] = str.split(' ');
+  return [ first.toUpperCase(), ...others ].join(' ');
+};
+
+// Higher-order function
+const transformer = function (str, fn) {
+  console.log(`Original string: ${str}`);
+  console.log(`Transformed string: ${fn(str)}`);
+
+  console.log(`Transformed by: ${fn.name}`);
+};
+
+transformer('JavaScript is the best!', upperFirstWord);
+transformer('JavaScript is the best!', oneWord);
+
+
+// TOPIC: Functions Returning Functions
+const greet = function (greeting) {
+  return function (name) {
+    console.log(`${greeting} ${name}`);
+  };
+};
+
+const greeterHey = greet('Hey');
+greeterHey('Jonas');
+greeterHey('Steven');
+
+greet('Hello')('Jonas');
+
+// Challenge
+const greetArr = greeting => name => console.log(`${greeting} ${name}`);
+
+greetArr('Hi')('Jonas');
+
+
+
+/* Que:
 Back to the two gymnastics teams, the Dolphins and the Koalas! There is a new gymnastics discipline, which works differently.
 Each team competes 3 times, and then the average of the 3 scores is calculated (so one average score per team).
 A team ONLY wins if it has at least DOUBLE the average score of the other team. Otherwise, no team wins!
@@ -96,11 +132,6 @@ GOOD LUCK 😀
 const calcAverage = (a, b, c) => (a + b + c) / 3;
 console.log(calcAverage(3, 4, 5));
 
-// Test 1
-let scoreDolphins = calcAverage(44, 23, 71);
-let scoreKoalas = calcAverage(65, 54, 49);
-console.log(scoreDolphins, scoreKoalas);
-
 const checkWinner = function (avgDolphins, avgKoalas) {
   if (avgDolphins >= 2 * avgKoalas) {
     console.log(`Dolphins win 🏆 (${avgDolphins} vs. ${avgKoalas})`);
@@ -109,87 +140,15 @@ const checkWinner = function (avgDolphins, avgKoalas) {
   } else {
     console.log('No team wins...');
   }
-}
+};
+// Test 1
+let scoreDolphins = calcAverage(44, 23, 71);
+let scoreKoalas = calcAverage(65, 54, 49);
+console.log(scoreDolphins, scoreKoalas);
 checkWinner(scoreDolphins, scoreKoalas);
-
-checkWinner(576, 111);
 
 // Test 2
 scoreDolphins = calcAverage(85, 54, 41);
 scoreKoalas = calcAverage(23, 34, 27);
 console.log(scoreDolphins, scoreKoalas);
 checkWinner(scoreDolphins, scoreKoalas);
-
-// How Passing Arguments Works: Values vs. Reference
-const flight = 'LH234';
-const jonas = {
-  name: 'Jonas Schmedtmann',
-  passport: 24739479284,
-};
-
-const checkIn = function (flightNum, passenger) {
-  flightNum = 'LH999';
-  passenger.name = 'Mr. ' + passenger.name;
-
-  if (passenger.passport === 24739479284) {
-    console.log('Checked in');
-  } else {
-    console.log('Wrong passport!');
-  }
-};
-
-// checkIn(flight, jonas);
-// console.log(flight);
-// console.log(jonas);
-
-// Is the same as doing...
-// const flightNum = flight;
-// const passenger = jonas;
-
-const newPassport = function (person) {
-  person.passport = Math.trunc(Math.random() * 100000000000);
-};
-
-newPassport(jonas);
-checkIn(flight, jonas);
-
-///////////////////////////////////////
-// Functions Accepting Callback Functions
-const oneWord = function (str) {
-  return str.replace(/ /g, '').toLowerCase();
-};
-
-const upperFirstWord = function (str) {
-  const [first, ...others] = str.split(' ');
-  return [first.toUpperCase(), ...others].join(' ');
-};
-
-// Higher-order function
-const transformer = function (str, fn) {
-  console.log(`Original string: ${str}`);
-  console.log(`Transformed string: ${fn(str)}`);
-
-  console.log(`Transformed by: ${fn.name}`);
-};
-
-transformer('JavaScript is the best!', upperFirstWord);
-transformer('JavaScript is the best!', oneWord);
-
-///////////////////////////////////////
-// Functions Returning Functions
-const greet = function (greeting) {
-  return function (name) {
-    console.log(`${greeting} ${name}`);
-  };
-};
-
-const greeterHey = greet('Hey');
-greeterHey('Jonas');
-greeterHey('Steven');
-
-greet('Hello')('Jonas');
-
-// Challenge
-const greetArr = greeting => name => console.log(`${greeting} ${name}`);
-
-greetArr('Hi')('Jonas');
