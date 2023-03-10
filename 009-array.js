@@ -226,8 +226,8 @@ console.log(flattened); // Expected output: Array [1, 2, 3, 4, 5, 6]
 
 
 const arr2 = [ "it's Sunny in", "", "California" ];
-arr1.map((x) => x.split(" ")); // [["it's","Sunny","in"],[""],["California"]]
-arr1.flatMap((x) => x.split(" ")); // ["it's","Sunny","in", "", "California"]
+arr2.map((x) => x.split(" ")); // [["it's","Sunny","in"],[""],["California"]]
+arr2.flatMap((x) => x.split(" ")); // ["it's","Sunny","in", "", "California"]
 
 
 // TOPIC: Sorting Arrays
