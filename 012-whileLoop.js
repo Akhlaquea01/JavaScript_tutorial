@@ -1,4 +1,4 @@
-// The while Loop
+// TOPIC: while Loop
 
 let rep = 1;
 while (rep <= 10) {
@@ -14,10 +14,8 @@ while (dice !== 6) {
     if (dice === 6) console.log('Loop is about to end...');
 }
 
-///////////////////////////////////////
-// Coding Challenge #4
-
 /*
+Que:
 Let's improve Steven's tip calculator even more, this time using loops!
 
 1. Create an array 'bills' containing all 10 test bill values
@@ -61,3 +59,14 @@ const calcAverage = function (arr) {
 console.log(calcAverage([ 2, 3, 7 ]));
 console.log(calcAverage(totals));
 console.log(calcAverage(tips));
+
+// TOPIC: Do While
+let text = ""
+let i = 0;
+
+do {
+  text += "The number is " + i;
+  i++;
+}
+while (i < 10); 
+console.log(text);

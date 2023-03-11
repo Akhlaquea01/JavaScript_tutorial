@@ -1,30 +1,28 @@
-// Immediately Invoked Function Expressions (IIFE)
+// TOPIC: Immediately Invoked Function Expressions (IIFE)
 const runOnce = function () {
-    console.log('This will never run again');
-  };
-  runOnce();
-  
-  // IIFE
-  (function () {
-    console.log('This will never run again');
-    const isPrivate = 23;
-  })();
-  
-  // console.log(isPrivate);
-  
-  (() => console.log('This will ALSO never run again'))();
-  
-  {
-    const isPrivate = 23;
-    var notPrivate = 46;
-  }
-  // console.log(isPrivate);
-  console.log(notPrivate);
+  console.log('This will never run again');
+};
+runOnce();
 
-  ///////////////////////////////////////
-// Coding Challenge #2
+// TOPIC: IIFE
+(function () {
+  console.log('This will never run again');
+})();
+
+
+(() => console.log('This will ALSO never run again'))();
+
+{
+  const isPrivate = 23;
+  var notPrivate = 46;
+}
+// console.log(isPrivate);
+console.log(notPrivate);
+
+///////////////////////////////////////
 
 /* 
+Que:
 This is more of a thinking challenge than a coding challenge 🤓
 
 Take the IIFE below and at the end of the function, attach an event listener that changes the color of the selected h1 element ('header') to blue, each time the BODY element is clicked. Do NOT select the h1 element again!
@@ -42,5 +40,4 @@ GOOD LUCK 😀
     header.style.color = 'blue';
   });
 })();
-  
-  
+

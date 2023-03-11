@@ -1,9 +1,8 @@
-// The call and apply Methods
+// TOPIC: The call and apply Methods
 const lufthansa = {
     airline: 'Lufthansa',
     iataCode: 'LH',
     bookings: [],
-    // book: function() {}
     book(flightNum, name) {
         console.log(
             `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
@@ -24,9 +23,9 @@ const eurowings = {
 const book = lufthansa.book;
 
 // Does NOT work
-// book(23, 'Sarah Williams');
+// book(23, 'Sarah Williams'); // INFO:wont be able to push in bookings
 
-// Call method
+// TOPIC: Call method
 book.call(eurowings, 23, 'Sarah Williams');
 console.log(eurowings);
 
@@ -41,15 +40,14 @@ const swiss = {
 
 book.call(swiss, 583, 'Mary Cooper');
 
-// Apply method
+// TOPIC: Apply method
 const flightData = [ 583, 'George Cooper' ];
 book.apply(swiss, flightData);
 console.log(swiss);
 
 book.call(swiss, ...flightData);
 
-///////////////////////////////////////
-// The bind Method
+// TOPIC: Bind Method
 
 const bookEW = book.bind(eurowings);
 const bookLH = book.bind(lufthansa);
@@ -61,7 +59,7 @@ const bookEW23 = book.bind(eurowings, 23);
 bookEW23('Jonas Schmedtmann');
 bookEW23('Martha Cooper');
 
-// With Event Listeners
+// =>With Event Listeners
 lufthansa.planes = 300;
 lufthansa.buyPlane = function () {
     console.log(this);
@@ -71,7 +69,7 @@ lufthansa.buyPlane = function () {
 };
 lufthansa.buyPlane();
 
-// Partial application
+// =>Partial application
 const addTax = (rate, value) => value + value * rate;
 console.log(addTax(0.1, 200));
 

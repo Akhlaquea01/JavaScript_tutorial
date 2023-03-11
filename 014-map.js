@@ -1,4 +1,4 @@
-// Maps: Iteration
+// TOPIC: Maps
 const question = new Map([
     ['question', 'What is the best programming language in the world?'],
     [1, 'C'],
@@ -10,7 +10,16 @@ const question = new Map([
   ]);
   console.log(question);
   
-  // Convert object to map
+  // => Convert object to map
+  const openingHours = {
+    'sun': { open: '10', close: '18' },
+    'mon': { open: '9', close: '19' },
+    'tue': { open: '9', close: '19' },
+    'wed': { open: '9', close: '19' },
+    'thu': { open: '9', close: '19' },
+    'fri': { open: '9', close: '21' },
+    'sat': { open: '10', close: '18' },
+};
   console.log(Object.entries(openingHours));
   const hoursMap = new Map(Object.entries(openingHours));
   console.log(hoursMap);
@@ -20,21 +29,19 @@ const question = new Map([
   for (const [key, value] of question) {
     if (typeof key === 'number') console.log(`Answer ${key}: ${value}`);
   }
-  // const answer = Number(prompt('Your answer'));
   const answer = 3;
   console.log(answer);
   
   console.log(question.get(question.get('correct') === answer));
   
-  // Convert map to array
+  // =>Convert map to array
   console.log([...question]);
-  // console.log(question.entries());
+  console.log(question.entries());
   console.log([...question.keys()]);
   console.log([...question.values()]);
   
   
-  ///////////////////////////////////////
-  // Maps: Fundamentals
+  // TOPIC: Map: Fundamentals
   const rest = new Map();
   rest.set('name', 'Classico Italiano');
   rest.set(1, 'Firenze, Italy');
@@ -60,14 +67,12 @@ const question = new Map([
   
   const arr = [1, 2];
   rest.set(arr, 'Test');
-  rest.set(document.querySelector('h1'), 'Heading');
   console.log(rest);
   console.log(rest.size);
   
   console.log(rest.get(arr));
 
-  // forEach With Maps
-// Map
+// =>Map
 const currencies = new Map([
   ['USD', 'United States dollar'],
   ['EUR', 'Euro'],
@@ -77,3 +82,58 @@ const currencies = new Map([
 currencies.forEach(function (value, key, map) {
   console.log(`${key}: ${value}`);
 });
+
+
+// Que:
+// Define the initial data
+const x = [{
+  "id": "15",
+  "type": "wallet_transaction",
+  "attributes": {
+    "id": 15,
+    "name": "sudhakar",
+    "created_at": "2023-03-02T16:48:32.186+05:30",
+    "amount": "100.0",
+    "payment_method": "Manually by Admin",
+    "status": "complete",
+    "order_id": "null"
+  }
+}];
+
+// Create a map to store the year and month data
+const yearMap = new Map();
+
+// Loop through the initial data and add it to the yearMap
+x.forEach(transaction => {
+  const date = new Date(transaction.attributes.created_at);
+  const year = date.getFullYear();
+  const month = date.toLocaleString('default', { month: 'long' });
+
+  if (yearMap.has(year)) {
+    const yearData = yearMap.get(year);
+    const monthData = yearData.months.find(m => m.month === month);
+
+    if (monthData) {
+      monthData.data.push(transaction);
+    } else {
+      yearData.months.push({
+        month,
+        year,
+        data: [transaction]
+      });
+    }
+  } else {
+    yearMap.set(year, {
+      year,
+      months: [{
+        month,
+        year,
+        data: [transaction]
+      }]
+    });
+  }
+});
+
+// Convert the yearMap to an array
+const y = Array.from(yearMap.values());
+console.log(y);

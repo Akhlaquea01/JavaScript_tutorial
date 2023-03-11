@@ -1,4 +1,4 @@
-// Sets
+// TOPIC: Sets
 const ordersSet = new Set([
   'Pasta',
   'Pizza',
@@ -22,7 +22,7 @@ console.log(ordersSet);
 
 for (const order of ordersSet) console.log(order);
 
-// Example
+// => Example
 const staff = [ 'Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter' ];
 const staffUnique = [ ...new Set(staff) ];
 console.log(staffUnique);
@@ -32,8 +32,8 @@ console.log(
 );
 
 console.log(new Set('jonasschmedtmann').size);
-// forEach With  Sets
-// Set
+
+// => forEach With  Sets
 const currenciesUnique = new Set([ 'USD', 'GBP', 'USD', 'EUR', 'EUR' ]);
 console.log(currenciesUnique);
 currenciesUnique.forEach(function (value, _, map) {
