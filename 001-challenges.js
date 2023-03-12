@@ -1,8 +1,7 @@
 'use strict';
 ////////////////////////////////////
-// Coding Challenge #1
-
 /*
+Que:
 Mark and John are trying to compare their BMI (Body Mass Index), which is calculated using the formula: BMI = mass / height ** 2 = mass / (height * height). (mass in kg and height in meter).
 
 1. Store Mark's and John's mass and height in variables
@@ -97,9 +96,9 @@ console.log(amplitudeNew);
 
 
 ///////////////////////////////////////
-// Coding Challenge #1
 
 /*
+Que:
 Given an array of forecasted maximum temperatures, the thermometer displays a string with these temperatures.
 
 Example: [17, 21, 23] will print "... 17ºC in 1 days ... 21ºC in 2 days ... 23ºC in 3 days ..."
@@ -139,9 +138,9 @@ const printForecast = function (arr) {
 printForecast(data1);
 
 ///////////////////////////////////////
-// Coding Challenge #1
 
 /* 
+Que:
 Julia and Kate are doing a study on dogs. So each of them asked 5 dog owners about their dog's age, and stored the data into an array (one array for each). For now, they are just interested in knowing whether a dog is an adult or a puppy. A dog is an adult if it is at least 3 years old, and it's a puppy if it's less than 3 years old.
 
 Create a function 'checkDogs', which accepts 2 arrays of dog's ages ('dogsJulia' and 'dogsKate'), and does the following things:
@@ -177,13 +176,13 @@ const checkDogs = function (dogsJulia, dogsKate) {
   });
 };
 // checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
-checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
+checkDogs([ 9, 16, 6, 8, 3 ], [ 10, 5, 6, 1, 4 ]);
 
 
 ///////////////////////////////////////
-// Coding Challenge #2
 
 /* 
+Que:
 Let's go back to Julia and Kate's study about dogs. This time, they want to convert dog ages to human ages and calculate the average age of the dogs in their study.
 
 Create a function 'calcAverageHumanAge', which accepts an arrays of dog's ages ('ages'), and does the following things in order:
@@ -217,13 +216,14 @@ const calcAverageHumanAge = function (ages) {
 
   return average;
 };
-const avg1 = calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
-const avg2 = calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
+const avg1 = calcAverageHumanAge([ 5, 2, 4, 1, 15, 8, 3 ]);
+const avg2 = calcAverageHumanAge([ 16, 6, 10, 5, 6, 1, 4 ]);
 console.log(avg1, avg2);
 
-// Coding Challenge #3
+//////////////////////////////////////
 
 /* 
+Que:
 Rewrite the 'calcAverageHumanAge' function from the previous challenge, but this time as an arrow function, and using chaining!
 
 TEST DATA 1: [5, 2, 4, 1, 15, 8, 3]
@@ -240,15 +240,15 @@ const calcAverageHumanAge2 = ages =>
     .reduce((acc, age, i, arr) => acc + age / arr.length, 0);
 // adults.length
 
-const avg3 = calcAverageHumanAge2([5, 2, 4, 1, 15, 8, 3]);
-const avg4 = calcAverageHumanAge2([16, 6, 10, 5, 6, 1, 4]);
+const avg3 = calcAverageHumanAge2([ 5, 2, 4, 1, 15, 8, 3 ]);
+const avg4 = calcAverageHumanAge2([ 16, 6, 10, 5, 6, 1, 4 ]);
 console.log(avg3, avg4);
 
 
 ///////////////////////////////////////
-// Coding Challenge #4
 
 /* 
+Que:
 Julia and Kate are still studying dogs, and this time they are studying if dogs are eating too much or too little.
 Eating too much means the dog's current food portion is larger than the recommended portion, and eating too little is the opposite.
 Eating an okay amount means the dog's current food portion is within a range 10% above and 10% below the recommended portion (see hint).
@@ -278,10 +278,10 @@ GOOD LUCK 😀
 
 
 const dogs = [
-  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
-  { weight: 8, curFood: 200, owners: ['Matilda'] },
-  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
-  { weight: 32, curFood: 340, owners: ['Michael'] },
+  { weight: 22, curFood: 250, owners: [ 'Alice', 'Bob' ] },
+  { weight: 8, curFood: 200, owners: [ 'Matilda' ] },
+  { weight: 13, curFood: 275, owners: [ 'Sarah', 'John' ] },
+  { weight: 32, curFood: 340, owners: [ 'Michael' ] },
 ];
 
 // 1.
@@ -291,8 +291,7 @@ dogs.forEach(dog => (dog.recFood = Math.trunc(dog.weight ** 0.75 * 28)));
 const dogSarah = dogs.find(dog => dog.owners.includes('Sarah'));
 console.log(dogSarah);
 console.log(
-  `Sarah's dog is eating too ${
-    dogSarah.curFood > dogSarah.recFood ? 'much' : 'little'
+  `Sarah's dog is eating too ${dogSarah.curFood > dogSarah.recFood ? 'much' : 'little'
   } `
 );
 
@@ -334,9 +333,9 @@ console.log(dogsSorted);
 
 
 ///////////////////////////////////////
-// Coding Challenge #1
 
 /* 
+Que:
 1. Use a constructor function to implement a Car. A car has a make and a speed property. The speed property is the current speed of the car in km/h;
 2. Implement an 'accelerate' method that will increase the car's speed by 10, and log the new speed to the console;
 3. Implement a 'brake' method that will decrease the car's speed by 5, and log the new speed to the console;
@@ -373,9 +372,9 @@ bmw.brake();
 bmw.accelerate();
 
 ///////////////////////////////////////
-// Coding Challenge #2
 
 /*
+Que:
 1. Re-create challenge 1, but this time using an ES6 class;
 2. Add a getter called 'speedUS' which returns the current speed in mi/h (divide by 1.6);
 3. Add a setter called 'speedUS' which sets the current speed in mi/h (but converts it to km/h before storing the value, by multiplying the input by 1.6);
@@ -422,9 +421,9 @@ console.log(ford);
 
 
 ///////////////////////////////////////
-// Coding Challenge #3
 
 /*
+Que:
 1. Use a constructor function to implement an Electric Car (called EV) as a CHILD "class" of Car. Besides a make and current speed, the EV also has the current battery charge in % ('charge' property);
 2. Implement a 'chargeBattery' method which takes an argument 'chargeTo' and sets the battery charge to 'chargeTo';
 3. Implement an 'accelerate' method that will increase the car's speed by 20, and decrease the charge by 1%. Then log a message like this: 'Tesla going at 140 km/h, with a charge of 22%';
@@ -479,9 +478,9 @@ tesla.accelerate();
 
 
 ///////////////////////////////////////
-// Coding Challenge #4
 
 /* 
+Que:
 1. Re-create challenge #3, but this time using ES6 classes: create an 'EVCl' child class of the 'CarCl' class
 2. Make the 'charge' property private;
 3. Implement the ability to chain the 'accelerate' and 'chargeBattery' methods of this class, and also update the 'brake' method in the 'CarCl' class. They experiment with chining!
@@ -491,7 +490,7 @@ DATA CAR 1: 'Rivian' going at 120 km/h, with a charge of 23%
 GOOD LUCK 😀
 */
 
-class CarCl {
+class CarCal {
   constructor(make, speed) {
     this.make = make;
     this.speed = speed;
@@ -517,7 +516,7 @@ class CarCl {
   }
 }
 
-class EVCl extends CarCl {
+class EVCl extends CarCal {
   #charge;
 
   constructor(make, speed, charge) {
@@ -534,8 +533,7 @@ class EVCl extends CarCl {
     this.speed += 20;
     this.#charge--;
     console.log(
-      `${this.make} is going at ${this.speed} km/h, with a charge of ${
-        this.#charge
+      `${this.make} is going at ${this.speed} km/h, with a charge of ${this.#charge
       }`
     );
     return this;
@@ -557,9 +555,9 @@ console.log(rivian.speedUS);
 
 
 ///////////////////////////////////////
-// Coding Challenge #2
 
 /*
+Que:
 Steven is still building his tip calculator, using the same rules as before: Tip 15% of the bill if the bill value is between 50 and 300, and if the value is different, the tip is 20%.
 
 1. Write a function 'calcTip' that takes any bill value as an input and returns the corresponding tip, calculated based on the rules above (you can check out the code from first tip calculator challenge if you need to). Use the function type you like the most. Test the function using a bill value of 100.
@@ -587,9 +585,9 @@ console.log(bills, tips, totals);
 
 
 ///////////////////////////////////////
-// Coding Challenge #3
 
 /*
+Que:
 Let's go back to Mark and John comparing their BMIs! This time, let's use objects to implement the calculations! Remember: BMI = mass / height ** 2 = mass / (height * height). (mass in kg and height in meter)
 
 1. For each of them, create an object with properties for their full name, mass, and height (Mark Miller and John Smith)
@@ -606,8 +604,8 @@ const mark = {
   mass: 78,
   height: 1.69,
   calcBMI: function () {
-      this.bmi = this.mass / this.height ** 2;
-      return this.bmi;
+    this.bmi = this.mass / this.height ** 2;
+    return this.bmi;
   }
 };
 
@@ -616,8 +614,8 @@ const john = {
   mass: 92,
   height: 1.95,
   calcBMI: function () {
-      this.bmi = this.mass / this.height ** 2;
-      return this.bmi;
+    this.bmi = this.mass / this.height ** 2;
+    return this.bmi;
   }
 };
 
@@ -635,9 +633,9 @@ if (mark.bmi > john.bmi) {
 }
 
 ///////////////////////////////////////
-// Coding Challenge #3
 
 /* 
+Que:
 Let's continue with our football betting app! This time, we have a map with a log of the events that happened during the game. The values are the events themselves, and the keys are the minutes in which each event happened (a football game has 90 minutes plus some extra time).
 
 1. Create an array 'events' of the different game events that happened (no duplicates)
@@ -650,22 +648,22 @@ GOOD LUCK 😀
 */
 
 const gameEvents = new Map([
-  [17, '⚽️ GOAL'],
-  [36, '🔁 Substitution'],
-  [47, '⚽️ GOAL'],
-  [61, '🔁 Substitution'],
-  [64, '🔶 Yellow card'],
-  [69, '🔴 Red card'],
-  [70, '🔁 Substitution'],
-  [72, '🔁 Substitution'],
-  [76, '⚽️ GOAL'],
-  [80, '⚽️ GOAL'],
-  [92, '🔶 Yellow card'],
+  [ 17, '⚽️ GOAL' ],
+  [ 36, '🔁 Substitution' ],
+  [ 47, '⚽️ GOAL' ],
+  [ 61, '🔁 Substitution' ],
+  [ 64, '🔶 Yellow card' ],
+  [ 69, '🔴 Red card' ],
+  [ 70, '🔁 Substitution' ],
+  [ 72, '🔁 Substitution' ],
+  [ 76, '⚽️ GOAL' ],
+  [ 80, '⚽️ GOAL' ],
+  [ 92, '🔶 Yellow card' ],
 ]);
 
 
 // 1.
-const events = [...new Set(gameEvents.values())];
+const events = [ ...new Set(gameEvents.values()) ];
 console.log(events);
 
 // 2.
@@ -675,14 +673,14 @@ gameEvents.delete(64);
 console.log(
   `An event happened, on average, every ${90 / gameEvents.size} minutes`
 );
-const time = [...gameEvents.keys()].pop();
+const time = [ ...gameEvents.keys() ].pop();
 console.log(time);
 console.log(
   `An event happened, on average, every ${time / gameEvents.size} minutes`
 );
 
 // 4.
-for (const [min, event] of gameEvents) {
+for (const [ min, event ] of gameEvents) {
   const half = min <= 45 ? 'FIRST' : 'SECOND';
   console.log(`[${half} HALF] ${min}: ${event}`);
 }

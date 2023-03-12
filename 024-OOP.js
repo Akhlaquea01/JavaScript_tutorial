@@ -1,8 +1,5 @@
 'use strict';
-
-
-///////////////////////////////////////
-// Constructor Functions and the new Operator
+// TOPIC: Constructor Functions and the new Operator
 const Person = function (firstName, birthYear) {
   // Instance properties
   this.firstName = firstName;
@@ -12,10 +9,10 @@ const Person = function (firstName, birthYear) {
 const jonas = new Person('Jonas', 1991);
 console.log(jonas);
 
-// 1. New {} is created
-// 2. function is called, this = {}
-// 3. {} linked to prototype
-// 4. function automatically return {}
+// =>1. New {} is created
+// =>2. function is called, this = {}
+// =>3. {} linked to prototype
+// =>4. function automatically return {}
 
 const matilda = new Person('Matilda', 2017);
 const jack = new Person('Jack', 1975);
@@ -28,8 +25,7 @@ Person.hey = function () {
 };
 Person.hey();
 
-///////////////////////////////////////
-// Prototypes
+// TOPIC: Prototypes
 console.log(Person.prototype);
 
 Person.prototype.calcAge = function () {
@@ -45,7 +41,6 @@ console.log(Person.prototype.isPrototypeOf(jonas));
 console.log(Person.prototype.isPrototypeOf(matilda));
 console.log(Person.prototype.isPrototypeOf(Person));
 
-// .prototyeOfLinkedObjects
 
 Person.prototype.species = 'Homo Sapiens';
 console.log(jonas.species, matilda.species);
@@ -54,8 +49,7 @@ console.log(jonas.hasOwnProperty('firstName'));
 console.log(jonas.hasOwnProperty('species'));
 
 
-///////////////////////////////////////
-// Prototypal Inheritance on Built-In Objects
+// =>Prototypal Inheritance on Built-In Objects
 console.log(jonas.__proto__);
 // Object.prototype (top of prototype chain)
 console.log(jonas.__proto__.__proto__);
@@ -80,10 +74,9 @@ console.dir(x => x + 1);
 
 
 
-///////////////////////////////////////
-// ES6 Classes
+// =>ES6 Classes
 
-// Class declaration
+// TOPIC: Class declaration
 class PersonCl {
   constructor(fullName, birthYear) {
     this.fullName = fullName;
@@ -133,16 +126,15 @@ console.log(jessica.__proto__ === PersonCl.prototype);
 // };
 jessica.greet();
 
-// 1. Classes are NOT hoisted
-// 2. Classes are first-class citizens
-// 3. Classes are executed in strict mode
+// =>1. Classes are NOT hoisted
+// =>2. Classes are first-class citizens
+// =>3. Classes are executed in strict mode
 
 const walter = new PersonCl('Walter White', 1965);
-// PersonCl.hey();
+PersonCl.hey();
 
 
-///////////////////////////////////////
-// Setters and Getters
+// TOPIC: Setters and Getters
 const account = {
   owner: 'Jonas',
   movements: [ 200, 530, 120, 300 ],
@@ -162,8 +154,7 @@ account.latest = 50;
 console.log(account.movements);
 
 
-///////////////////////////////////////
-// Object.create
+// TOPIC: Object.create
 const PersonProto = {
   calcAge() {
     console.log(2037 - this.birthYear);
@@ -188,27 +179,23 @@ sarah.init('Sarah', 1979);
 sarah.calcAge();
 
 
+// TOPIC: Inheritance Between "Classes": Constructor Functions
 
-
-///////////////////////////////////////
-// Inheritance Between "Classes": Constructor Functions
-
-const Person = function (firstName, birthYear) {
+const Person2 = function (firstName, birthYear) {
   this.firstName = firstName;
   this.birthYear = birthYear;
 };
 
-Person.prototype.calcAge = function () {
+Person2.prototype.calcAge = function () {
   console.log(2037 - this.birthYear);
 };
 
 const Student = function (firstName, birthYear, course) {
-  Person.call(this, firstName, birthYear);
+  Person2.call(this, firstName, birthYear);
   this.course = course;
 };
 
-// Linking prototypes
-Student.prototype = Object.create(Person.prototype);
+Student.prototype = Object.create(Person2.prototype);
 
 Student.prototype.introduce = function () {
   console.log(`My name is ${this.firstName} and I study ${this.course}`);
@@ -222,19 +209,16 @@ console.log(mike.__proto__);
 console.log(mike.__proto__.__proto__);
 
 console.log(mike instanceof Student);
-console.log(mike instanceof Person);
+console.log(mike instanceof Person2);
 console.log(mike instanceof Object);
 
 Student.prototype.constructor = Student;
 console.dir(Student.prototype.constructor);
 
 
+// TOPIC: Inheritance Between "Classes": ES6 Classes
 
-
-///////////////////////////////////////
-// Inheritance Between "Classes": ES6 Classes
-
-class PersonCl {
+class PersonCl2 {
   constructor(fullName, birthYear) {
     this.fullName = fullName;
     this.birthYear = birthYear;
@@ -262,13 +246,12 @@ class PersonCl {
     return this._fullName;
   }
 
-  // Static method
   static hey() {
     console.log('Hey there 👋');
   }
 }
 
-class StudentCl extends PersonCl {
+class StudentCl extends PersonCl2 {
   constructor(fullName, birthYear, course) {
     // Always needs to happen first!
     super(fullName, birthYear);
@@ -293,8 +276,7 @@ martha.introduce();
 martha.calcAge();
 
 
-///////////////////////////////////////
-// Inheritance Between "Classes": Object.create
+// TOPIC: Inheritance Between "Classes": Object.create
 
 const PersonProto2 = {
   calcAge() {
@@ -307,7 +289,6 @@ const PersonProto2 = {
   },
 };
 
-const steven = Object.create(PersonProto2);
 
 const StudentProto = Object.create(PersonProto2);
 StudentProto.init = function (firstName, birthYear, course) {
@@ -325,21 +306,13 @@ jay.introduce();
 jay.calcAge();
 
 
-///////////////////////////////////////
-// Encapsulation: Protected Properties and Methods
-// Encapsulation: Private Class Fields and Methods
-
-// 1) Public fields
-// 2) Private fields
-// 3) Public methods
-// 4) Private methods
-// (there is also the static version)
+// TOPIC: Encapsulation: Private Class Fields and Methods
 
 class Account {
-  // 1) Public fields (instances)
-  locale = navigator.language;
+  // => 1) Public fields (instances)
+  locale = 'en';
 
-  // 2) Private fields (instances)
+  // => 2) Private fields (instances)
   #movements = [];
   #pin;
 
@@ -355,9 +328,8 @@ class Account {
     console.log(`Thanks for opening an account, ${owner}`);
   }
 
-  // 3) Public methods
+  // => 3) Public methods
 
-  // Public interface
   getMovements() {
     return this.#movements;
   }
@@ -373,7 +345,6 @@ class Account {
   }
 
   requestLoan(val) {
-    // if (this.#approveLoan(val)) {
     if (this._approveLoan(val)) {
       this.deposit(val);
       console.log(`Loan approved`);
@@ -385,8 +356,7 @@ class Account {
     console.log('Helper');
   }
 
-  // 4) Private methods
-  // #approveLoan(val) {
+  // => 4) Private methods
   _approveLoan(val) {
     return true;
   }
@@ -402,7 +372,7 @@ console.log(acc1);
 Account.helper();
 
 
-// Chaining
+// =>Chaining
 acc1.deposit(300).deposit(500).withdraw(35).requestLoan(25000).withdraw(4000);
 console.log(acc1.getMovements());
 
