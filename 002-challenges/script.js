@@ -2,9 +2,9 @@
 
 
 ///////////////////////////////////////
-// Coding Challenge #4
 
 /* 
+Que:
 Write a program that receives a list of variable names written in underscore_case and convert them to camelCase.
 
 The input will come from a textarea inserted into the DOM (see code below), and conversion will happen when the button is pressed.
@@ -41,12 +41,12 @@ document.querySelector('button').addEventListener('click', function () {
   const text = document.querySelector('textarea').value;
   const rows = text.split('\n');
 
-  for (const [i, row] of rows.entries()) {
-    const [first, second] = row.toLowerCase().trim().split('_');
+  for (const [ i, row ] of rows.entries()) {
+    const [ first, second ] = row.toLowerCase().trim().split('_');
 
     const output = `${first}${second.replace(
-      second[0],
-      second[0].toUpperCase()
+      second[ 0 ],
+      second[ 0 ].toUpperCase()
     )}`;
     console.log(`${output.padEnd(20)}${'✅'.repeat(i + 1)}`);
   }
@@ -55,9 +55,9 @@ document.querySelector('button').addEventListener('click', function () {
 
 
 ///////////////////////////////////////
-// Coding Challenge #2
 
 /* 
+Que:
 Let's continue with our football betting app!
 
 1. Loop over the game.scored array and print each player name to the console, along with the goal number (Example: "Goal 1: Lewandowski")
@@ -110,7 +110,7 @@ const game = {
     ],
   ],
   score: '4:0',
-  scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+  scored: [ 'Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels' ],
   date: 'Nov 9th, 2037',
   odds: {
     team1: 1.33,
@@ -121,7 +121,7 @@ const game = {
 
 
 // 1.
-for (const [i, player] of game.scored.entries())
+for (const [ i, player ] of game.scored.entries())
   console.log(`Goal ${i + 1}: ${player}`);
 
 // 2.
@@ -132,8 +132,8 @@ average /= odds.length;
 console.log(average);
 
 // 3.
-for (const [team, odd] of Object.entries(game.odds)) {
-  const teamStr = team === 'x' ? 'draw' : `victory ${game[team]}`;
+for (const [ team, odd ] of Object.entries(game.odds)) {
+  const teamStr = team === 'x' ? 'draw' : `victory ${game[ team ]}`;
   console.log(`Odd of ${teamStr} ${odd}`);
 }
 
@@ -145,21 +145,13 @@ for (const [team, odd] of Object.entries(game.odds)) {
 // So the solution is to loop over the array, and add the array elements as object properties, and then increase the count as we encounter a new occurence of a certain element
 const scorers = {};
 for (const player of game.scored) {
-  scorers[player] ? scorers[player]++ : (scorers[player] = 1);
+  scorers[ player ] ? scorers[ player ]++ : (scorers[ player ] = 1);
 }
 
-
-
-
-
-
-
-
-
 ///////////////////////////////////////
-// Coding Challenge #1
 
 /* 
+Que:
 We're building a football betting app (soccer for my American friends 😅)!
 
 Suppose we get data from a web service about a certain game (below). In this challenge we're gonna work with the data. So here are your tasks:
@@ -179,19 +171,19 @@ GOOD LUCK 😀
 
 
 // 1.
-const [players1, players2] = game.players;
+const [ players1, players2 ] = game.players;
 console.log(players1, players2);
 
 // 2.
-const [gk, ...fieldPlayers] = players1;
+const [ gk, ...fieldPlayers ] = players1;
 console.log(gk, fieldPlayers);
 
 // 3.
-const allPlayers = [...players1, ...players2];
+const allPlayers = [ ...players1, ...players2 ];
 console.log(allPlayers);
 
 // 4.
-const players1Final = [...players1, 'Thiago', 'Coutinho', 'Periscic'];
+const players1Final = [ ...players1, 'Thiago', 'Coutinho', 'Periscic' ];
 
 // 5.
 const {
