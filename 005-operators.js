@@ -64,6 +64,15 @@ console.log(rest2);
 rest1.numGuests ||= 20;
 rest2.numGuests ||= 20;
 
+// => Efficient way to use multiple || 
+const orVal = "or";
+if (orVal == 'or' || orVal == 'and' || orVal == 'xor') {
+  console.log(orVal);
+}
+if ([ 'or', 'and', 'xor' ].includes(orVal)) {
+  console.log(orVal);
+}
+
 // TOPIC: nullish assignment operator (null or undefined)
 rest1.numGuests ??= 10;
 rest2.numGuests ??= 10;

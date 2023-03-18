@@ -75,7 +75,7 @@ let arr = [ 'a', 'b', 'c', 'd', 'e' ];
 
 console.log(arr.slice(2));
 console.log(arr.slice(2, 4));
-console.log(arr.slice(-2));
+console.log(arr.slice(-2)); //last two value
 console.log(arr.slice(-1));
 console.log(arr.slice(1, -2));
 console.log(arr.slice());
@@ -158,6 +158,9 @@ console.log(depositsFor);
 const withdrawal = movements.filter(mov => mov < 0);
 console.log(withdrawal);
 
+const words = [ 'spray', null, 'elite', undefined, 'destruction', 0, false ];
+const filterTruthyVal = words.filter(Boolean);
+console.log(filterTruthyVal); //['spray', 'elite', 'destruction']
 
 // TOPIC: The reduce Method
 
@@ -174,6 +177,11 @@ const max = movements.reduce((acc, mov) => {
   else return mov;
 }, movements[ 0 ]);
 console.log(max);
+
+const reduceArray = [ 1, 2, 3, 4, 5, 6 ];
+// => 100 is initial acc value and it not provided will take first element on array
+const val = reduceArray.reduce((acc, cur) => acc + cur, 100);
+console.log(val);
 
 // TOPIC: The Magic of Chaining Methods
 const eurToUsd = 1.1;
@@ -197,6 +205,11 @@ console.log(anyDeposits);
 
 // TOPIC: EVERY
 console.log(movements.every(mov => mov > 0));
+const isBelowThreshold = (currentValue) => currentValue < 40;
+
+const array1 = [ 1, 30, 39, 29, 10, 13 ];
+
+console.log(array1.every(isBelowThreshold));
 
 // TOPIC: Separate callback
 const deposit2 = mov => mov > 0;

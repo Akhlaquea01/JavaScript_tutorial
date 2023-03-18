@@ -14,3 +14,10 @@ setInterval(function () {
   const now = new Date();
   console.log(now);
 }, 1000);
+
+// TOPIC: Perfornmance
+const t0 = performance.now();
+setTimeout(() => {
+  const t1 = performance.now();
+  console.log(`Call to doSomething took ${t1 - t0} milliseconds.`);
+}, 200);
