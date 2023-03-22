@@ -32,5 +32,14 @@ console.table(people);
 console.table(people, [ 'hobby' ]); //INFO: will print hobby in table
 
 // => 
-var c = console.log.bind(document);
-c("Message to print");
+// var c = console.log.bind(document);
+// c("Message to print");
+
+// TOPIC: Style
+console.log('%c Success', 'color:green;font-size:1.5rem');
+console.log('%c Warning', 'color:orange;font-size:1.5rem');
+console.log('%c Error', 'color:red;font-size:1.5rem');
+
+// TOPIC: Variables wrapping
+const myNumber = 234;
+console.log({ myNumber });

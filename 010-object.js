@@ -90,6 +90,17 @@ for (const [ day, { open, close } ] of entries) {
     console.log(`On ${day} we open at ${open} and close at ${close}`);
 }
 
+// Que:
+const foodMap = {
+    Burger: 200,
+    pizza: 500,
+    juice: 200
+};
+function getPrice(item) {
+    return foodMap[ item ];
+}
+console.log(getPrice("Burger"));
+
 // => Use OBJECTS instead of switch/if
 const handlePayment = () => { console.log("Handle Payment"); };
 const handleFailure = () => { console.log("Handle Failure"); };
@@ -102,3 +113,4 @@ const statusToHandle = 'failed';
 const handler = handlers[ statusToHandle ];
 if (!handler) throw Error("Status not recognized!");
 return (handler()); // Handle Failure Logged
+
