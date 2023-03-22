@@ -43,3 +43,10 @@ console.log('%c Error', 'color:red;font-size:1.5rem');
 // TOPIC: Variables wrapping
 const myNumber = 234;
 console.log({ myNumber });
+
+
+console.log("Log");
+console.debug("Debug");
+console.info("Info");
+console.warn("Warn");
+console.error("Error");
