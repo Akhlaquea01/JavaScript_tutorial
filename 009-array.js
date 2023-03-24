@@ -306,3 +306,11 @@ function mergeSortedArrays(array1, array2) {
 }
 
 console.log(mergeSortedArrays([ 0, 3, 4 ], [ 4, 6, 30 ]));
+
+// TOPIC: Object Destructuring on Array
+
+const countries = [ 'India', 'Pakistan', 'Nepal', 'China' ];
+
+const [ind,,nep]=countries//,skipping,
+console.log(ind);
+console.log(nep);

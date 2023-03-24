@@ -34,6 +34,7 @@ console.table(people, [ 'hobby' ]); //INFO: will print hobby in table
 // => 
 // var c = console.log.bind(document);
 // c("Message to print");
+// console.trace("Log with stack trace");
 
 // TOPIC: Style
 console.log('%c Success', 'color:green;font-size:1.5rem');
@@ -50,3 +51,40 @@ console.debug("Debug");
 console.info("Info");
 console.warn("Warn");
 console.error("Error");
+console.clear();
+
+// TOPIC: Console.count()
+function greet() {
+    console.count(user2);
+    return `hi ${user2}`;
+}
+
+let user2 = "bob";
+greet();
+user2 = "alice";
+greet();
+greet();
+console.count("alice");
+console.countReset("alice");
+
+// TOPIC: Group
+console.group('user');
+console.log('Atts');
+console.log('Ahmad');
+console.log("Hello world!");
+console.groupCollapsed();
+console.log("Hello again, this time inside a collapsed group!");
+console.groupEnd();
+
+// TOPIC: Time
+console.time('timer-1');
+setTimeout(() => {
+    console.timeEnd('timer-1');
+}, 1000);
+console.timeLog('timer-1');
+console.timeStamp('timer-1');
+
+// TOPIC: console.dir()
+const object = { name: "Akhlaque", age: 34 };
+console.dir(object)
+
