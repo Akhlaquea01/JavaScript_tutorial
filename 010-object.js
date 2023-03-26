@@ -28,7 +28,7 @@ atts[ 'twitter' ] = '@iam_atts_';
 console.log(atts);
 
 console.log(`${atts.firstName} has ${atts.friends.length} friends, and his best friend is called ${atts.friends[ 0 ]}`);
-
+console.log(Object.values(['banana', 'apple', 'peach', 'mango']))
 
 // TOPIC: Object Methods
 

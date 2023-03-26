@@ -52,6 +52,22 @@ console.log(friendsArray);
 console.log(friendsArray.indexOf('Steven'));
 console.log(friendsArray.indexOf('Bob'));
 
+// => LastIndexOf
+const animals = [ 'Dodo', 'Tiger', 'Penguin', 'Dodo' ];
+
+console.log(animals.lastIndexOf('Dodo'));
+const arrayLike = {
+  length: 3,
+  0: 2,
+  1: 3,
+  2: 2,
+};
+console.log(Array.prototype.lastIndexOf.call(arrayLike, 2));
+// 2
+console.log(Array.prototype.lastIndexOf.call(arrayLike, 5));
+// -1
+
+
 // => Includes
 friendsArray.push(23);
 console.log(friendsArray.includes('Steven'));
@@ -311,6 +327,107 @@ console.log(mergeSortedArrays([ 0, 3, 4 ], [ 4, 6, 30 ]));
 
 const countries = [ 'India', 'Pakistan', 'Nepal', 'China' ];
 
-const [ind,,nep]=countries//,skipping,
+const [ ind, , nep ] = countries;//,skipping,
 console.log(ind);
 console.log(nep);
+
+
+// TOPIC: copyWithin
+const array2 = [ 'a', 'b', 'c', 'd', 'e' ];
+// Copy to index 0 the element at index 3
+console.log(array2.copyWithin(0, 3, 4));
+// Expected output: Array ["d", "b", "c", "d", "e"]
+
+// Copy to index 1 all elements from index 3 to the end
+console.log(array2.copyWithin(1, 3));
+// Expected output: Array ["d", "d", "e", "d", "e"]
+
+console.log([ 1, 2, 3, 4, 5 ].copyWithin(-2));
+// [1, 2, 3, 1, 2]
+
+console.log([ 1, , 3 ].copyWithin(2, 1, 2)); // [1, empty, empty]
+
+
+// TOPIC: reduceRight()
+const array3 = [[0, 1], [2, 3], [4, 5]];
+
+const result = array3.reduceRight((accumulator, currentValue) => accumulator.concat(currentValue));
+
+console.log(result);
+// Expected output: Array [4, 5, 2, 3, 0, 1]
+
+// TOPIC: Entries()
+const a = ["a", "b", "c"];
+
+for (const [index, element] of a.entries()) {
+  console.log(index, element);
+}
+
+// 0 'a'
+// 1 'b'
+// 2 'c'
+
+const array = ["a", "b", "c"];
+const arrayEntries = array.entries();
+
+for (const element of arrayEntries) {
+  console.log(element);
+}
+
+// [0, 'a']
+// [1, 'b']
+// [2, 'c']
+
+
+// TOPIC: findIndex()
+const array4 = [5, 12, 8, 130, 44];
+
+const isLargeNumber = (element) => element > 13;
+
+console.log(array4.findIndex(isLargeNumber));
+// TOPIC: findLast
+const array5 = [5, 12, 50, 130, 44];
+
+const found = array5.findLast((element) => element > 45);
+
+console.log(found);
+// Expected output: 130
+
+// TOPIC: Form
+
+console.log(Array.from('foo'));
+// Expected output: Array ["f", "o", "o"]
+
+console.log(Array.from([1, 2, 3], x => x + x));
+// Expected output: Array [2, 4, 6]
+
+const set = new Set(["foo", "bar", "baz", "foo"]);
+Array.from(set);
+// [ "foo", "bar", "baz" ]
+
+// TOPIC: Group
+// Not supported yet in browsers
+const inventory = [
+  { name: "asparagus", type: "vegetables", quantity: 5 },
+  { name: "bananas", type: "fruit", quantity: 0 },
+  { name: "goat", type: "meat", quantity: 23 },
+  { name: "cherries", type: "fruit", quantity: 5 },
+  { name: "fish", type: "meat", quantity: 22 },
+];
+// const result2 = inventory.group(({ type }) => type);
+// console.log(result2);
+/* Result is:
+{
+  vegetables: [
+    { name: 'asparagus', type: 'vegetables', quantity: 5 },
+  ],
+  fruit: [
+    { name: "bananas", type: "fruit", quantity: 0 },
+    { name: "cherries", type: "fruit", quantity: 5 }
+  ],
+  meat: [
+    { name: "goat", type: "meat", quantity: 23 },
+    { name: "fish", type: "meat", quantity: 22 }
+  ]
+}
+*/
