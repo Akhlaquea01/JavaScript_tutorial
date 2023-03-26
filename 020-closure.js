@@ -1,3 +1,5 @@
+// A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). In other words, a closure gives you access to an outer function's scope from an inner function. 
+
 // TOPIC: Closures
 const secureBooking = function () {
   let passengerCount = 0;
@@ -58,3 +60,15 @@ const boardPassengers = function (n, wait) {
 
 const perGroup = 1000;
 boardPassengers(180, 3);
+
+
+// Closure Akshay saini
+// A function bind together with is lexcical environment is closure
+function x() {
+  var a = 7;
+  function y() {
+    console.log(a);
+  }
+  y();
+}
+x();

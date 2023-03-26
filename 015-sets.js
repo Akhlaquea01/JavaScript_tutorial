@@ -39,3 +39,15 @@ console.log(currenciesUnique);
 currenciesUnique.forEach(function (value, _, map) {
   console.log(`${value}: ${value}`);
 });
+
+// Set with string
+const myString = "hello";
+const mySet = new Set(myString);
+console.log(mySet); // outputs Set {"h", "e", "l", "o"}
+console.log(mySet.size); 
+const myArray = Array.from(mySet);
+console.log(myArray); // outputs [1, 2, 3]
+for (let item of mySet) {
+  console.log(item);
+}
+mySet.clear();

@@ -38,6 +38,21 @@ const swiss = {
     bookings: [],
 };
 
+// 
+function Product(name, price) {
+    this.name = name;
+    this.price = price;
+  }
+  
+  function Food(name, price) {
+    Product.call(this, name, price);
+    this.category = 'food';
+  }
+  
+  console.log(new Food('cheese', 5).name);
+  // Expected output: "cheese"
+  
+
 book.call(swiss, 583, 'Mary Cooper');
 
 // TOPIC: Apply method
@@ -46,6 +61,23 @@ book.apply(swiss, flightData);
 console.log(swiss);
 
 book.call(swiss, ...flightData);
+
+
+// apply(thisArg, argsArray)
+/*
+thisArg
+The value of this provided for the call to func. If the function is not in strict mode, null and undefined will be replaced with the global object, and primitive values will be converted to objects.
+
+argsArray (Optional)
+An array-like object, specifying the arguments with which func should be called, or null or undefined if no arguments should be provided to the function.
+*/
+const numbers = [ 5, 6, 2, 3, 7 ];
+const max = Math.max.apply(null, numbers);
+console.log(max);
+// Expected output: 7
+const min = Math.min.apply(null, numbers);
+console.log(min);
+// Expected output: 2
 
 // TOPIC: Bind Method
 
@@ -58,6 +90,22 @@ bookEW(23, 'Steven Williams');
 const bookEW23 = book.bind(eurowings, 23);
 bookEW23('Jonas Schmedtmann');
 bookEW23('Martha Cooper');
+
+// bind(thisArg, arg1, arg2, /* …, */ argN)
+const module = {
+    x: 42,
+    getX: function () {
+        return this.x;
+    }
+};
+
+const unboundGetX = module.getX;
+console.log(unboundGetX()); // The function gets invoked at the global scope
+// Expected output: undefined
+
+const boundGetX = unboundGetX.bind(module);
+console.log(boundGetX());
+// Expected output: 42
 
 // =>With Event Listeners
 lufthansa.planes = 300;
