@@ -1,3 +1,25 @@
+// TOPIC: Regex Theory
+// =>Anchors: The caret (^) matches the beginning of a string or the beginning of a line if the m flag is used.
+// =>         The dollar sign ($) matches the end of a string or the end of a line if the m flag is used.
+
+// =>Quantifiers:The asterisk (*) matches zero or more occurrences of the preceding character or group.
+// =>         The plus sign (+) matches one or more occurrences of the preceding character or group.
+// =>         The question mark (?) matches zero or one occurrence of the preceding character or group.
+
+// =>Character classes:`[abc]`: matches any character that is either "a", "b", or "c".
+//=>                   `[^abc]`: matches any character that is not "a", "b", or "c".
+//=>                   `[a-z]`: matches any lowercase letter.
+//=>                   `[A-Z]`: matches any uppercase letter.
+//=>                   `[0-9]`: matches any digit.
+
+// => Lookahead and lookbehind:(?=pattern)
+// =>Flags: `i`: makes the pattern case-insensitive.
+//=>        `g`: makes the pattern global, meaning it matches all occurrences in the input string.
+//=>        `m`: makes the pattern match multiple lines.
+
+
+// TOPIC: Regex Examples
+
 const regex1 = /[aeiou]/; // character class
 console.log(regex1.test("hello")); // true
 console.log(regex1.test("wrld")); // false
