@@ -1,33 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-    <body>
-        <div id="user" data-name="Akhlaque" data-age="25" data-something="Some-Data">
-            Akhlaque
-        </div>
-        <input type="password" id="password">
+<body>
+    <div id="user" data-name="Akhlaque" data-age="25" data-something="Some-Data">
+        Akhlaque
+    </div>
+    <input placeholder="password" type="password" id="password">
 
-        <button onclick="history.back()">Go Back</button>
+    <button onclick="history.back()">Go Back</button>
 
-        <a href="style.css" download loading="lazy">
-            Download
-        </a>
+    <a href="style.css" download loading="lazy">
+        Download
+    </a>
 
-        <div class="h">
-            <h1>GeeksforGeeks</h1>
-            <p>Click Below</p>
-            <button onclick="get()">Click</button>
-        </div>
+    <div class="h">
+        <h1>GeeksforGeeks</h1>
+        <p>Click Below</p>
+        <button onclick="get()">Click</button>
+    </div>
 
-        <script src="index.js"></script>
-    </body>
+    <!--  -->
+    <h1>DOM Manipulation and Events Example</h1>
+
+    <!-- Section 1: Getting Started -->
+    <h2>Section 1: Getting Started</h2>
+    <p>Understanding the Document Object Model in JavaScript</p>
+
+    <!-- Section 2: Selecting elements -->
+    <h2>Section 2: Selecting Elements</h2>
+    <p id="elementById">getElementById Example</p>
+    <p name="elementByName">getElementsByName Example</p>
+    <p>Paragraph 1</p>
+    <p>Paragraph 2</p>
+    <p class="example-class">Paragraph with class</p>
+
+    <!-- Section 3: Traversing elements -->
+    <h2>Section 3: Traversing Elements</h2>
+    <div id="parentElement">
+        <p>Child 1</p>
+        <p>Child 2</p>
+    </div>
+
+    <!-- Section 4: Manipulating elements -->
+    <h2>Section 4: Manipulating Elements</h2>
+    <button id="createElementButton">Create Element</button>
+    <div id="appendChildExample">
+        <p>Child 1</p>
+    </div>
+    <p id="textContentExample">This text will change</p>
+    <p id="innerHTMLExample">This HTML will change</p>
+    <div id="documentFragmentExample"></div>
+
+    <!-- Section 5: Working with Attributes -->
+    <h2>Section 5: Working with Attributes</h2>
+    <p id="attributeExample" data-custom-attribute="123">Element with a custom attribute</p>
+
+    <!-- Section 6: Manipulating Element's Styles -->
+    <h2>Section 6: Manipulating Element's Styles</h2>
+    <p id="styleExample" style="color: blue;">Styled Element</p>
+
+    <!-- Section 7: Working with Events -->
+    <h2>Section 7: Working with Events</h2>
+    <button id="eventButton">Click me</button>
+    <p id="eventLog"></p>
+
+    <!-- Section 8: Scripting Web Forms -->
+    <h2>Section 8: Scripting Web Forms</h2>
+    <form id="exampleForm">
+        <input type="text" id="textInput" placeholder="Type something">
+        <input title="a" type="radio" name="radioExample" value="option1"> Option 1
+        <input title="a" type="radio" name="radioExample" value="option2"> Option 2
+        <input title="a" type="checkbox" id="checkboxExample"> Check this
+        <select title="b" id="selectBox">
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+        </select>
+    </form>
+    <script src="index.js"></script>
+</body>
 
 </html>
