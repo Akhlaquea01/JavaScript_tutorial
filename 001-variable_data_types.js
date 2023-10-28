@@ -1,64 +1,49 @@
-// TOPIC: Values, Variable & Variable name conventions
-
-console.log("Jonas");
-console.log(23);
-let js = "amazing";
-console.log(js);
-
-
-let akhlaque_ahmad = "AA";
-let $function = 27;
-let PI = 3.1415;
-
-
-////////////////////////////////////
-// TOPIC: Data Types
-/*
+/* TOPIC: Data Types
 Type	               typeof return value	             Object wrapper
-Null	                "object"	                           N/A
+Null	                "object"	                         N/A
 Undefined	            "undefined"	                         N/A
 Boolean	              "boolean"	                           Boolean
 Number	              "number"	                           Number
 BigInt	              "bigint"	                           BigInt
 String	              "string"	                           String
 Symbol	              "symbol"	                           Symbol
+=> NaN ("Not a Number") is a special kind of number value that's typically encountered when the result of an arithmetic operation cannot be expressed as a number. It is also the only value in JavaScript that is not equal to itself.
+=> All primitive types, except null, can be tested by the typeof operator. typeof null returns "object", so one has to use === null to test for null.
+
 */
-// => NaN ("Not a Number") is a special kind of number value that's typically encountered when the result of an arithmetic operation cannot be expressed as a number. It is also the only value in JavaScript that is not equal to itself.
-// => All primitive types, except null, can be tested by the typeof operator. typeof null returns "object", so one has to use === null to test for null.
 
 // Boolean
 let javascriptIsFun = true;
-console.log(javascriptIsFun);
-console.log(typeof true);
 console.log(typeof javascriptIsFun);
 const booleanValue = new Boolean(1 < 0);//false
 
-// Number
-console.log(typeof 23);
-
 // String
-console.log(typeof 'Jonas');
-javascriptIsFun = 'YES!';
+console.log(typeof 'Jonas'); //string
 const string4 = new String("A String object");
-console.log(string4);
-console.log("cat".charAt(1)); // gives value "a"
+console.log(string4); //"A String object"
+console.log(string4.charAt(2)); // gives value "S"
 
 // undefined
 let year;
-console.log(year);
-console.log(typeof year);
-
-year = 1991;
-console.log(typeof year);
+console.log(year); //undefined
+console.log(typeof year); //undefined
 
 // Null
-console.log(typeof null);
+console.log(typeof null); //object
 
 // BigInt
 const bigIntVal = BigInt(Number.MAX_SAFE_INTEGER); // 9007199254740991n
 console.log(bigIntVal + 1n === bigIntVal + 2n); // false because 9007199254740992n and 9007199254740993n are unequal
 
+// Number
+Number.MAX_SAFE_INTEGER + 1 === Number.MAX_SAFE_INTEGER + 2; // true because both are 9007199254740992
+
+console.log(typeof 23);
+
 //Symbol
+/*
+A Symbol is a unique and immutable primitive value and may be used as the key of an Object property. In some programming languages, Symbols are called "atoms". The purpose of symbols is to create unique property keys that are guaranteed not to clash with keys from other code.
+*/
 const sym2 = Symbol("foo");
 Symbol("foo") === Symbol("foo"); // false
 
