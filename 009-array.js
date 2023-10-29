@@ -33,44 +33,26 @@ const friendsArray = [ 'Michael', 'Steven', 'Peter' ];
 
 // => Add elements
 const newLength = friendsArray.push('Jay'); //INFO: will return new length after pushing
-console.log(friendsArray);
 console.log(newLength);
 
 friendsArray.unshift('John');
-console.log(friendsArray);
 
 // => Remove elements
 friendsArray.pop(); // Last
-const popped = friendsArray.pop();
+const popped = friendsArray.pop();//Peter
 console.log(popped);
-console.log(friendsArray);
 
 friendsArray.shift(); // First
-console.log(friendsArray);
 
 // => IndexOf
 console.log(friendsArray.indexOf('Steven'));
-console.log(friendsArray.indexOf('Bob'));
 
 // => LastIndexOf
-const animals = [ 'Dodo', 'Tiger', 'Penguin', 'Dodo' ];
-
-console.log(animals.lastIndexOf('Dodo'));
-const arrayLike = {
-  length: 3,
-  0: 2,
-  1: 3,
-  2: 2,
-};
-console.log(Array.prototype.lastIndexOf.call(arrayLike, 2));
-// 2
-console.log(Array.prototype.lastIndexOf.call(arrayLike, 5));
-// -1
+console.log(friendsArray.lastIndexOf('Michael'));
 
 
 // => Includes
 friendsArray.push(23);
-console.log(friendsArray.includes('Steven'));
 console.log(friendsArray.includes('Bob'));
 console.log(friendsArray.includes(23));
 
@@ -299,35 +281,13 @@ console.log(Array.from('foo')); // Expected output: Array ["f", "o", "o"]
 
 console.log(Array.from([ 1, 2, 3 ], x => x + x)); // Expected output: Array [2, 4, 6]
 
-// Que: Merge Sorted Array
-function mergeSortedArrays(array1, array2) {
-  const mergedArray = [];
-  let arra1Item = array1[ 0 ];
-  let array2Item = array2[ 0 ];
-  let j = 1; i = 1;
-  if (array1.length === 0) return array2;
-  if (array2.length === 0) return array1;
-  while (typeof arra1Item == 'number' || typeof array2Item == 'number') {
-    if (!array2Item || arra1Item <= array2Item) {
-      mergedArray.push(arra1Item);
-      arra1Item = array1[ i ];
-      i++;
-    } else {
-      mergedArray.push(array2Item);
-      array2Item = array2[ j ];
-      j++;
-    }
-  }
-  return mergedArray;
-}
 
-console.log(mergeSortedArrays([ 0, 3, 4 ], [ 4, 6, 30 ]));
 
 // TOPIC: Object Destructuring on Array
 
 const countries = [ 'India', 'Pakistan', 'Nepal', 'China' ];
 
-const [ ind, , nep ] = countries;//,skipping,
+const [ ind, , nep ] = countries;//,skipping by empty space,
 console.log(ind);
 console.log(nep);
 
