@@ -1,3 +1,37 @@
+function getEmailGlobal(domain, greet) {
+    console.log(greet);
+    return (`${this.firstName}.${this.lastName}@${domain}.com`);
+}
+
+let student1 = {
+    firstName: 'Adam',
+    lastName: 'Smith',
+    age: 25,
+
+    getEmail: getEmailGlobal
+};
+
+
+// Call method
+// <function_to_be_invoked>.call(<value_of_this_that_we_want_to_use>)
+console.log(student1.getEmail.call(student1))
+console.log(getEmailGlobal.call(student1))
+
+// Call method with arguments
+console.log(getEmailGlobal.call(student1, 'gmail', "hi"))
+
+// Apply method
+let args = ['gmail', "hi"];
+console.log(getEmailGlobal.apply(student1, args))
+console.log(getEmailGlobal.apply(student1, ['yahoo', 'hello']))
+// Bind Method
+let callLater = getEmailGlobal.bind(student1, "gmail", "hi");
+console.log(callLater);
+// ...later in code
+console.log(callLater());
+
+
+
 // TOPIC: The call and apply Methods
 const lufthansa = {
     airline: 'Lufthansa',
@@ -42,21 +76,21 @@ const swiss = {
 function Product(name, price) {
     this.name = name;
     this.price = price;
-  }
-  
-  function Food(name, price) {
+}
+
+function Food(name, price) {
     Product.call(this, name, price);
     this.category = 'food';
-  }
-  
-  console.log(new Food('cheese', 5).name);
-  // Expected output: "cheese"
-  
+}
+
+console.log(new Food('cheese', 5).name);
+// Expected output: "cheese"
+
 
 book.call(swiss, 583, 'Mary Cooper');
 
 // TOPIC: Apply method
-const flightData = [ 583, 'George Cooper' ];
+const flightData = [583, 'George Cooper'];
 book.apply(swiss, flightData);
 console.log(swiss);
 
@@ -71,7 +105,7 @@ The value of this provided for the call to func. If the function is not in stric
 argsArray (Optional)
 An array-like object, specifying the arguments with which func should be called, or null or undefined if no arguments should be provided to the function.
 */
-const numbers = [ 5, 6, 2, 3, 7 ];
+const numbers = [5, 6, 2, 3, 7];
 const max = Math.max.apply(null, numbers);
 console.log(max);
 // Expected output: 7
