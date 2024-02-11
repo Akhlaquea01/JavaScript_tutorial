@@ -73,3 +73,21 @@ if (BMIMark > BMIJohn) {
 age >= 18 ? console.log('I like to drink wine 🍷') : console.log('I like to drink water 💧');
 console.log(`I like to drink ${age >= 18 ? 'wine 🍷' : 'water 💧'}`);
 
+
+
+/*No break/continue to the right side of ‘?’
+Please note that syntax constructs that are not expressions cannot be used with the ternary operator ?. In particular, directives such as break/continue aren’t allowed there.
+
+For example, if we take this code:*/
+
+if (i > 5) {
+  alert(i);
+} else {
+  // continue;
+}
+// …and rewrite it using a question mark:
+
+(i > 5) ? alert(i) :''; //continue; 
+/* continue isn't allowed here
+…it stops working: there’s a syntax error.
+This is just another reason not to use the question mark operator ? instead of if.*/

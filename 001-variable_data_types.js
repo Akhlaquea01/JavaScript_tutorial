@@ -59,3 +59,25 @@ var job = 'programmer';
 console.log(job);
 job = 'teacher';
 console.log(job);
+
+
+/*Variable naming
+There are two limitations on variable names in JavaScript:
+
+The name must contain only letters, digits, or the symbols $ and _.
+The first character must not be a digit.*/
+
+
+// We can also declare multiple variables in one line:
+
+let user = 'John', agee = 25, message = 'Hello';
+let $ = 1; // declared a variable with the name "$"
+let _ = 2; // and now a variable with the name "_"
+
+// Case matters
+// Variables named apple and APPLE are two different variables.
+
+// Non-Latin letters are allowed, but not recommended
+
+let имя = '...';
+let 我 = '...';

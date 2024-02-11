@@ -77,6 +77,11 @@ if ([ 'or', 'and', 'xor' ].includes(orVal)) {
 rest1.numGuests ??= 10;
 rest2.numGuests ??= 10;
 
+let height = 0;
+
+alert(height || 100); // 100
+alert(height ?? 100); // 0
+
 // TOPIC: AND assignment operator
 rest1.owner = rest1.owner && '<ANONYMOUS>';
 rest2.owner = rest2.owner && '<ANONYMOUS>';
@@ -191,3 +196,14 @@ if (scoreDolphins > scoreKoalas && scoreDolphins >= 100) {
 } else {
   console.log('No one wins the trophy 😭');
 }
+
+/*Comma
+The comma operator , is one of the rarest and most unusual operators. Sometimes, it’s used to write shorter code, so we need to know it in order to understand what’s going on.
+
+The comma operator allows us to evaluate several expressions, dividing them with a comma ,. Each of them is evaluated but only the result of the last one is returned.
+
+For example:*/
+
+let a = (1 + 2, 3 + 4);
+
+alert( a ); // 7 (the result of 3 + 4)

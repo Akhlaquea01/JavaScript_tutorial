@@ -2,6 +2,23 @@
 =>A Set is an ordered collection of unique values, which means that it doesn't allow duplicate values.
 =>You can use methods like add() to add elements, has() to check if an element exists, delete() to remove an element, and clear() to remove all elements.
 =>Unlike arrays, Set does not provide direct access to elements by index, and it doesn't have key-value pairs. It's mainly used to store a list of unique values.
+
+A Set is a special type collection – “set of values” (without keys), where each value may occur only once.
+
+Its main methods are:
+
+new Set([iterable]) – creates the set, and if an iterable object is provided (usually an array), copies values from it into the set.
+set.add(value) – adds a value, returns the set itself.
+set.delete(value) – removes the value, returns true if value existed at the moment of the call, otherwise false.
+set.has(value) – returns true if the value exists in the set, otherwise false.
+set.clear() – removes everything from the set.
+set.size – is the elements count.
+
+The same methods Map has for iterators are also supported:
+
+set.keys() – returns an iterable object for values,
+set.values() – same as set.keys(), for compatibility with Map,
+set.entries() – returns an iterable object for entries [value, value], exists for compatibility with Map.
 */
 // TOPIC: Sets
 const ordersSet = new Set([
