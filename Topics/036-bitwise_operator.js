@@ -12,3 +12,9 @@ NOT ( ~ )
 LEFT SHIFT ( << )
 RIGHT SHIFT ( >> )
 ZERO-FILL RIGHT SHIFT ( >>> )*/
+
+
+// bitwise double tilde;
+let num = Math.random() * 100;
+num = ~~num;
+console.log(num);
