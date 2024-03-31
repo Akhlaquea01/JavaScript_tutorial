@@ -90,3 +90,12 @@ console.timeStamp('timer-1');
 const object = { name: "Akhlaque", age: 34 };
 console.dir(object)
 
+
+//console in a variable
+let c = console.log.bind(this);
+c("log");
+
+
+// Style
+const message = "Hello, this is a styled message!";
+console.log("%c" + message, "color: blue; font-size: 20px; font-weight: bold;");

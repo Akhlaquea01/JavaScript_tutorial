@@ -101,6 +101,56 @@ function getPrice(item) {
 }
 console.log(getPrice("Burger"));
 
+
+
+const someObj = {
+    name: 'Simon',
+    age: 30,
+    city: 'Hamburg'
+};
+
+// Traditional way using for...in loop
+for (const key in someObj) {
+    console.log(key, someObj[key]);
+}
+
+// Using Object.entries()
+Object.entries(someObj).forEach(([key, value]) => {
+    console.log(key, value);
+});
+
+
+
+// Define a function to create a person object with frozen properties
+function createPerson(name, age, favoriteFood, address, street, hobbies) {
+    return Object.freeze({
+        name, // Use shorthand property assignment
+        age,
+        favoriteFood,
+        address: Object.freeze(address),
+        street,
+        hobbies: Object.freeze([...hobbies]), // Freeze a copy of hobbies array
+    });
+}
+
+// Create a person object
+const person = createPerson("Kyle", 25, "Rice", {}, "1234", ["Weight Lifting", "Bowling"]);
+
+console.log(person); // Output: { name: "Kyle", age: 25, favoriteFood: "Rice", address: {}, street: "1234", hobbies: ["Weight Lifting", "Bowling"] }
+
+// Attempt to modify a frozen property (will result in a TypeError)
+// person.age = 30; // Uncomment to see the error
+
+// Create a copy of hobbies to add a new element
+const newHobbies = [...person.hobbies, "sdfsdf"];
+
+// Modify the copy (doesn't affect the original frozen object)
+newHobbies.push("Another Hobby");
+
+console.log(person); // Output remains unchanged (frozen)
+console.log(newHobbies); // Output: ["Weight Lifting", "Bowling", "sdfsdf", "Another Hobby"]
+
+
 // => Use OBJECTS instead of switch/if
 const handlePayment = () => { console.log("Handle Payment"); };
 const handleFailure = () => { console.log("Handle Failure"); };
@@ -113,4 +163,5 @@ const statusToHandle = 'failed';
 const handler = handlers[ statusToHandle ];
 if (!handler) throw Error("Status not recognized!");
 return (handler()); // Handle Failure Logged
+
 
