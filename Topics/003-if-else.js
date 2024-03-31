@@ -80,14 +80,28 @@ Please note that syntax constructs that are not expressions cannot be used with 
 
 For example, if we take this code:*/
 
-if (i > 5) {
-  alert(i);
+if (11 > 5) {
+  console.log(11);
 } else {
   // continue;
 }
 // …and rewrite it using a question mark:
 
-(i > 5) ? alert(i) :''; //continue; 
+(11 > 5) ? console.log(11) : ''; //continue;
 /* continue isn't allowed here
 …it stops working: there’s a syntax error.
 This is just another reason not to use the question mark operator ? instead of if.*/
+
+
+
+// If you have to execute a function only if condition is true:
+if (1 == 1) {
+  doSomething();
+}
+
+// You can use short-circuit:
+1 == 1 && doSomething();
+
+function doSomething() {
+  console.log("doSomething");
+};

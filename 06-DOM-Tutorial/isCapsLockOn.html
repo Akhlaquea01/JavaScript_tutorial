@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <h1>Enter your password:</h1>
+        <input type="password" id="password">
+        <p id="caps-lock-status"></p>
+
+        <script>
+            const passwordInput = document.getElementById('password');
+            passwordInput.addEventListener('keyup', function (event) {
+                const capsLockOn = event.getModifierState('CapsLock');
+                if (capsLockOn) {
+                    console.log('Caps Lock is on.');
+                } else {
+                    console.log('Caps Lock is off.');
+                }
+            });
+        </script>
+    </body>
+
+</html>
