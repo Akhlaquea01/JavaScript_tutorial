@@ -13,38 +13,38 @@ Symbol	              "symbol"	                           Symbol
 */
 
 // Boolean
-let javascriptIsFun = true;
-console.log(typeof javascriptIsFun);
-const booleanValue = new Boolean(1 < 0);//false
+let isJavaScriptFun = true;
+console.log(typeof isJavaScriptFun);
+const booleanObject = new Boolean(1 < 0); // false
 
 // String
-console.log(typeof 'Jonas'); //string
-const string4 = new String("A String object");
-console.log(string4); //"A String object"
-console.log(string4.charAt(2)); // gives value "S"
+console.log(typeof 'Jonas'); // string
+const stringObject = new String("A String object");
+console.log(stringObject); // "A String object"
+console.log(stringObject.charAt(2)); // gives value "S"
 
-// undefined
-let year;
-console.log(year); //undefined
-console.log(typeof year); //undefined
+// Undefined
+let currentYear;
+console.log(currentYear); // undefined
+console.log(typeof currentYear); // undefined
 
 // Null
-console.log(typeof null); //object
+console.log(typeof nullValue); // object
 
 // BigInt
-const bigIntVal = BigInt(Number.MAX_SAFE_INTEGER); // 9007199254740991n
-console.log(bigIntVal + 1n === bigIntVal + 2n); // false because 9007199254740992n and 9007199254740993n are unequal
+const bigIntValue = BigInt(Number.MAX_SAFE_INTEGER); // 9007199254740991n
+console.log(bigIntValue + 1n === bigIntValue + 2n); // false because 9007199254740992n and 9007199254740993n are unequal
 
 // Number
 Number.MAX_SAFE_INTEGER + 1 === Number.MAX_SAFE_INTEGER + 2; // true because both are 9007199254740992
 
 console.log(typeof 23);
 
-//Symbol
+// Symbol
 /*
 A Symbol is a unique and immutable primitive value and may be used as the key of an Object property. In some programming languages, Symbols are called "atoms". The purpose of symbols is to create unique property keys that are guaranteed not to clash with keys from other code.
 */
-const sym2 = Symbol("foo");
+const symbolValue = Symbol("foo");
 Symbol("foo") === Symbol("foo"); // false
 
 ////////////////////////////////////
@@ -55,24 +55,26 @@ age = 31;
 const birthYear = 1991;
 // birthYear = 1990; // ERROR: we can't update a value to a constant
 
-var job = 'programmer';
-console.log(job);
-job = 'teacher';
-console.log(job);
+var jobTitle = 'programmer';
+console.log(jobTitle);
+jobTitle = 'teacher';
+console.log(jobTitle);
 
 
-/*Variable naming
+/* Variable naming
 There are two limitations on variable names in JavaScript:
 
 The name must contain only letters, digits, or the symbols $ and _.
-The first character must not be a digit.*/
+The first character must not be a digit.
+*/
 
 
 // We can also declare multiple variables in one line:
 
-let user = 'John', agee = 25, message = 'Hello';
-let $ = 1; // declared a variable with the name "$"
-let _ = 2; // and now a variable with the name "_"
+let userName = 'John', userAge = 25, userMessage = 'Hello';
+let $dollars = 1; // declared a variable with the name "$dollars"
+let _underscore = 2; // and now a variable with the name "_underscore"
+
 
 // Case matters
 // Variables named apple and APPLE are two different variables.
