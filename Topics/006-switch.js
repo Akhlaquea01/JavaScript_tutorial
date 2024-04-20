@@ -1,26 +1,26 @@
-//TOPIC: The switch Statement
-const day = 'friday';
+// TOPIC: The switch Statement
 
-switch (day) {
-  case 'monday':
-    console.log('Plan course structure');
-    console.log('Go to coding meetup');
+// The switch statement evaluates an expression, matching the expression's value to a case clause, and executes statements associated with that case.
+// If no case matches the expression, the default clause is executed.
+
+const dayOfWeek = 'Monday';
+
+switch (dayOfWeek) {
+  case 'Monday':
+    console.log('Start of the workweek!');
     break;
-  case 'tuesday':
-    console.log('Prepare theory videos');
+  case 'Tuesday':
+  case 'Wednesday':
+  case 'Thursday':
+    console.log('Midweek hustle!');
     break;
-  case 'wednesday':
-  case 'thursday':
-    console.log('Write code examples');
+  case 'Friday':
+    console.log('TGIF - Time to unwind!');
     break;
-  case 'friday':
-    console.log('Record videos');
-    break;
-  case 'saturday':
-  case 'sunday':
-    console.log('Enjoy the weekend :D');
+  case 'Saturday':
+  case 'Sunday':
+    console.log('Weekend vibes!');
     break;
   default:
-    console.log('Not a valid day!');
+    console.log('Invalid day!');
 }
-
