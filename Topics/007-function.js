@@ -132,6 +132,7 @@ function outerFunction() {
 }
 
 // Closures
+// A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). In other words, a closure gives you access to an outer function's scope from an inner function. 
 function createCounter() {
   let count = 0;
 
@@ -189,6 +190,8 @@ console.log(factorial(5)); // 120
   console.log(message);
 })();
 
+(() => console.log('This will ALSO never run again'))();
+
 // Generator Functions
 
 // Define a generator function to generate an infinite sequence of numbers
@@ -236,3 +239,14 @@ async function asyncFunction() {
 }
 
 asyncFunction();
+
+// constructor function
+function Laptop(_name, _ram, _price, _storage) {
+  this.name = _name;
+  this.ram = _ram;
+  this.price = _price;
+  this.storage = _storage;
+}
+
+let acerLaptop = new Laptop('acer', '8', '50000', '1024');
+console.log(acerLaptop);

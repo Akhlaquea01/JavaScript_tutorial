@@ -1,172 +1,113 @@
+// Define a function getEmailGlobal that generates email addresses based on a domain and a greeting
 function getEmailGlobal(domain, greet) {
     console.log(greet);
-    return (`${this.firstName}.${this.lastName}@${domain}.com`);
+    return `${this.firstName}.${this.lastName}@${domain}.com`;
 }
 
+// Create an object representing a student
 let student1 = {
     firstName: 'Adam',
     lastName: 'Smith',
     age: 25,
-
-    getEmail: getEmailGlobal
+    getEmail: getEmailGlobal // Assign getEmailGlobal function to getEmail property
 };
 
+// Call getEmail method of student1 object with the context of student1
+console.log(student1.getEmail.call(student1)); // Adam.Smith@gmail.com
 
-// Call method
-// <function_to_be_invoked>.call(<value_of_this_that_we_want_to_use>)
-console.log(student1.getEmail.call(student1))
-console.log(getEmailGlobal.call(student1))
+// Call getEmailGlobal function directly with the context of student1
+console.log(getEmailGlobal.call(student1)); // Adam.Smith@undefined.com
 
-// Call method with arguments
-console.log(getEmailGlobal.call(student1, 'gmail', "hi"))
+// Call getEmailGlobal function with arguments and the context of student1
+console.log(getEmailGlobal.call(student1, 'gmail', "hi")); // hi
 
 // Apply method
 let args = ['gmail', "hi"];
-console.log(getEmailGlobal.apply(student1, args))
-console.log(getEmailGlobal.apply(student1, ['yahoo', 'hello']))
+console.log(getEmailGlobal.apply(student1, args)); // hi
+
 // Bind Method
 let callLater = getEmailGlobal.bind(student1, "gmail", "hi");
-console.log(callLater);
-// ...later in code
-console.log(callLater());
+console.log(callLater()); // hi
 
-
-
-// TOPIC: The call and apply Methods
+// Define an object representing an airline
 const lufthansa = {
     airline: 'Lufthansa',
     iataCode: 'LH',
     bookings: [],
     book(flightNum, name) {
-        console.log(
-            `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
-        );
+        console.log(`${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`);
         this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
     },
 };
 
-lufthansa.book(239, 'Jonas Schmedtmann');
-lufthansa.book(635, 'John Smith');
+// Call book method of lufthansa with different context using call method
+lufthansa.book.call(lufthansa, 239, 'Jonas Schmedtmann');
+lufthansa.book.call(lufthansa, 635, 'John Smith');
 
+// Define another airline object
 const eurowings = {
     airline: 'Eurowings',
     iataCode: 'EW',
     bookings: [],
 };
 
-const book = lufthansa.book;
+// Call book method of lufthansa with eurowings as context using call method
+lufthansa.book.call(eurowings, 23, 'Sarah Williams');
 
-// Does NOT work
-// book(23, 'Sarah Williams'); // INFO:wont be able to push in bookings
-
-// TOPIC: Call method
-book.call(eurowings, 23, 'Sarah Williams');
-console.log(eurowings);
-
-book.call(lufthansa, 239, 'Mary Cooper');
-console.log(lufthansa);
-
+// Define objects representing different airlines
 const swiss = {
     airline: 'Swiss Air Lines',
     iataCode: 'LX',
     bookings: [],
 };
 
-// 
+// Define a function constructor for products
 function Product(name, price) {
     this.name = name;
     this.price = price;
 }
 
+// Define a function constructor for food products, inheriting from Product
 function Food(name, price) {
     Product.call(this, name, price);
     this.category = 'food';
 }
 
-console.log(new Food('cheese', 5).name);
-// Expected output: "cheese"
+// Create a new Food object
+console.log(new Food('cheese', 5).name); // Expected output: "cheese"
 
-
-book.call(swiss, 583, 'Mary Cooper');
-
-// TOPIC: Apply method
+// Apply method
 const flightData = [583, 'George Cooper'];
-book.apply(swiss, flightData);
-console.log(swiss);
+lufthansa.book.apply(swiss, flightData);
+console.log(swiss.bookings); // Contains the booking for flight 583 by George Cooper
 
-book.call(swiss, ...flightData);
+// Bind Method
+const bookEW = lufthansa.book.bind(eurowings);
+bookEW(23, 'Steven Williams'); // Book a seat on Eurowings flight 23 for Steven Williams
 
-
-// apply(thisArg, argsArray)
-/*
-thisArg
-The value of this provided for the call to func. If the function is not in strict mode, null and undefined will be replaced with the global object, and primitive values will be converted to objects.
-
-argsArray (Optional)
-An array-like object, specifying the arguments with which func should be called, or null or undefined if no arguments should be provided to the function.
-*/
-const numbers = [5, 6, 2, 3, 7];
-const max = Math.max.apply(null, numbers);
-console.log(max);
-// Expected output: 7
-const min = Math.min.apply(null, numbers);
-console.log(min);
-// Expected output: 2
-
-// TOPIC: Bind Method
-
-const bookEW = book.bind(eurowings);
-const bookLH = book.bind(lufthansa);
-const bookLX = book.bind(swiss);
-
-bookEW(23, 'Steven Williams');
-
-const bookEW23 = book.bind(eurowings, 23);
-bookEW23('Jonas Schmedtmann');
-bookEW23('Martha Cooper');
-
-// bind(thisArg, arg1, arg2, /* …, */ argN)
-const module = {
-    x: 42,
-    getX: function () {
-        return this.x;
-    }
-};
-
-const unboundGetX = module.getX;
-console.log(unboundGetX()); // The function gets invoked at the global scope
-// Expected output: undefined
-
-const boundGetX = unboundGetX.bind(module);
-console.log(boundGetX());
-// Expected output: 42
-
-// =>With Event Listeners
+// With Event Listeners
 lufthansa.planes = 300;
 lufthansa.buyPlane = function () {
     console.log(this);
-
     this.planes++;
     console.log(this.planes);
 };
-lufthansa.buyPlane();
+lufthansa.buyPlane(); // Increments the number of planes owned by Lufthansa
 
-// =>Partial application
+// Partial application
 const addTax = (rate, value) => value + value * rate;
-console.log(addTax(0.1, 200));
+console.log(addTax(0.1, 200)); // Calculate tax for a value
 
-const addVAT = addTax.bind(null, 0.23);
-// addVAT = value => value + value * 0.23;
-
-console.log(addVAT(100));
-console.log(addVAT(23));
+const addVAT = addTax.bind(null, 0.23); // Pre-bind tax rate for VAT
+console.log(addVAT(100)); // Calculate VAT for a value
+console.log(addVAT(23)); // Calculate VAT for another value
 
 const addTaxRate = function (rate) {
     return function (value) {
         return value + value * rate;
     };
 };
-const addVAT2 = addTaxRate(0.23);
-console.log(addVAT2(100));
-console.log(addVAT2(23));
 
+const addVAT2 = addTaxRate(0.23);
+console.log(addVAT2(100)); // Calculate VAT for a value using a closure
+console.log(addVAT2(23)); // Calculate VAT for another value using a closure

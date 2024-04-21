@@ -20,7 +20,7 @@ set.keys() – returns an iterable object for values,
 set.values() – same as set.keys(), for compatibility with Map,
 set.entries() – returns an iterable object for entries [value, value], exists for compatibility with Map.
 */
-// TOPIC: Sets
+// Creating a Set
 const ordersSet = new Set([
   'Pasta',
   'Pizza',
@@ -29,47 +29,52 @@ const ordersSet = new Set([
   'Pasta',
   'Pizza',
 ]);
-console.log(ordersSet);
+console.log(ordersSet); // Output: Set(3) { 'Pasta', 'Pizza', 'Risotto' }
 
-console.log(new Set('Jonas'));
+// Creating a Set from a string
+console.log(new Set('Jonas')); // Output: Set(5) { 'J', 'o', 'n', 'a', 's' }
 
-console.log(ordersSet.size);
-console.log(ordersSet.has('Pizza'));
-console.log(ordersSet.has('Bread'));
+// Set operations
+console.log(ordersSet.size); // Output: 3
+console.log(ordersSet.has('Pizza')); // Output: true
+console.log(ordersSet.has('Bread')); // Output: false
 ordersSet.add('Garlic Bread');
-ordersSet.add('Garlic Bread');
-ordersSet.delete('Risotto');
-// ordersSet.clear();
-console.log(ordersSet);
+ordersSet.add('Garlic Bread'); // Adding duplicate element (ignored)
+ordersSet.delete('Risotto'); // Deleting an element
+console.log(ordersSet); // Output: Set(3) { 'Pasta', 'Pizza', 'Garlic Bread' }
 
-for (const order of ordersSet) console.log(order);
+// Iterating over a Set
+for (const order of ordersSet) {
+  console.log(order);
+}
 
-// => Example
+// Example: Removing duplicates from an array using Set
 const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
-const staffUnique = [...new Set(staff)];
-console.log(staffUnique);
+const staffUnique = [...new Set(staff)]; // Converting array to Set and back to array
+console.log(staffUnique); // Output: [ 'Waiter', 'Chef', 'Manager' ]
 
+// Set size and uniqueness
 console.log(
   new Set(['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter']).size
-);
+); // Output: 3 (unique elements)
 
-console.log(new Set('jonasschmedtmann').size);
+console.log(new Set('jonasschmedtmann').size); // Output: 11 (unique characters)
 
-// => forEach With  Sets
+// forEach with Sets
 const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
 console.log(currenciesUnique);
-currenciesUnique.forEach(function (value, _, map) {
+currenciesUnique.forEach(function (value, _, set) {
   console.log(`${value}: ${value}`);
 });
 
-// Set with string
-const myString = "hello";
+// Converting a string to a Set
+const myString = 'hello';
 const mySet = new Set(myString);
-console.log(mySet); // outputs Set {"h", "e", "l", "o"}
-console.log(mySet.size);
+console.log(mySet); // Output: Set { 'h', 'e', 'l', 'o' }
+console.log(mySet.size); // Output: 4
 const myArray = Array.from(mySet);
-console.log(myArray); // outputs [1, 2, 3]
+console.log(myArray); // Output: [ 'h', 'e', 'l', 'o' ]
 for (let item of mySet) {
   console.log(item);
 }
-mySet.clear();
+mySet.clear(); // Clearing the set

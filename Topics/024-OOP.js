@@ -1,11 +1,13 @@
 'use strict';
-// TOPIC: Constructor Functions and the new Operator
+
+// Constructor Functions and the new Operator
 const Person = function (firstName, birthYear) {
   // Instance properties
   this.firstName = firstName;
   this.birthYear = birthYear;
 };
 
+// Creating instances using constructor function
 const jonas = new Person('Jonas', 1991);
 console.log(jonas);
 
@@ -17,66 +19,44 @@ console.log(jonas);
 const matilda = new Person('Matilda', 2017);
 const jack = new Person('Jack', 1975);
 
+// Checking instance's constructor
 console.log(jonas instanceof Person);
 
+// Adding a static method to the constructor function
 Person.hey = function () {
   console.log('Hey there 👋');
-  console.log(this);
 };
 Person.hey();
 
-// TOPIC: Prototypes
+// Prototypes
 console.log(Person.prototype);
 
+// Adding a method to the prototype
 Person.prototype.calcAge = function () {
   console.log(2037 - this.birthYear);
 };
 
+// Calling method on instances
 jonas.calcAge();
 matilda.calcAge();
 
+// Demonstrating prototype chain
 console.log(jonas.__proto__ === Person.prototype);
 
+// Checking if an object is in the prototype chain
 console.log(Person.prototype.isPrototypeOf(jonas));
 console.log(Person.prototype.isPrototypeOf(matilda));
 console.log(Person.prototype.isPrototypeOf(Person));
 
-
+// Adding a property to the prototype
 Person.prototype.species = 'Homo Sapiens';
 console.log(jonas.species, matilda.species);
 
+// Checking if a property is an own property
 console.log(jonas.hasOwnProperty('firstName'));
 console.log(jonas.hasOwnProperty('species'));
 
-
-// =>Prototypal Inheritance on Built-In Objects
-console.log(jonas.__proto__);
-// Object.prototype (top of prototype chain)
-console.log(jonas.__proto__.__proto__);
-console.log(jonas.__proto__.__proto__.__proto__);
-
-console.dir(Person.prototype.constructor);
-
-const arr = [ 3, 6, 6, 5, 6, 9, 9 ]; // new Array === []
-console.log(arr.__proto__);
-console.log(arr.__proto__ === Array.prototype);
-
-console.log(arr.__proto__.__proto__);
-
-Array.prototype.unique = function () {
-  return [ ...new Set(this) ];
-};
-
-console.log(arr.unique());
-
-console.dir(x => x + 1);
-
-
-
-
-// =>ES6 Classes
-
-// TOPIC: Class declaration
+// ES6 Classes
 class PersonCl {
   constructor(fullName, birthYear) {
     this.fullName = fullName;
@@ -84,7 +64,6 @@ class PersonCl {
   }
 
   // Instance methods
-  // Methods will be added to .prototype property
   calcAge() {
     console.log(2037 - this.birthYear);
   }
@@ -93,11 +72,11 @@ class PersonCl {
     console.log(`Hey ${this.fullName}`);
   }
 
+  // Getter and Setter
   get age() {
     return 2037 - this.birthYear;
   }
 
-  // Set a property that already exists
   set fullName(name) {
     if (name.includes(' ')) this._fullName = name;
     else alert(`${name} is not a full name!`);
@@ -114,266 +93,26 @@ class PersonCl {
   }
 }
 
+// Creating instances using ES6 Classes
 const jessica = new PersonCl('Jessica Davis', 1996);
 console.log(jessica);
 jessica.calcAge();
 console.log(jessica.age);
 
-console.log(jessica.__proto__ === PersonCl.prototype);
-
-// PersonCl.prototype.greet = function () {
-//   console.log(`Hey ${this.firstName}`);
-// };
-jessica.greet();
-
-// =>1. Classes are NOT hoisted
-// =>2. Classes are first-class citizens
-// =>3. Classes are executed in strict mode
-
-const walter = new PersonCl('Walter White', 1965);
-PersonCl.hey();
-
-
-// TOPIC: Setters and Getters
-const account = {
-  owner: 'Jonas',
-  movements: [ 200, 530, 120, 300 ],
-
-  get latest() {
-    return this.movements.slice(-1).pop();
-  },
-
-  set latest(mov) {
-    this.movements.push(mov);
-  },
-};
-
-console.log(account.latest);
-
-account.latest = 50;
-console.log(account.movements);
-
-
-// TOPIC: Object.create
-const PersonProto = {
-  calcAge() {
-    console.log(2037 - this.birthYear);
-  },
-
-  init(firstName, birthYear) {
-    this.firstName = firstName;
-    this.birthYear = birthYear;
-  },
-};
-
-const steven = Object.create(PersonProto);
-console.log(steven);
-steven.name = 'Steven';
-steven.birthYear = 2002;
-steven.calcAge();
-
-console.log(steven.__proto__ === PersonProto);
-
-const sarah = Object.create(PersonProto);
-sarah.init('Sarah', 1979);
-sarah.calcAge();
-
-
-// TOPIC: Inheritance Between "Classes": Constructor Functions
-
-const Person2 = function (firstName, birthYear) {
-  this.firstName = firstName;
-  this.birthYear = birthYear;
-};
-
-Person2.prototype.calcAge = function () {
-  console.log(2037 - this.birthYear);
-};
-
-const Student = function (firstName, birthYear, course) {
-  Person2.call(this, firstName, birthYear);
-  this.course = course;
-};
-
-Student.prototype = Object.create(Person2.prototype);
-
-Student.prototype.introduce = function () {
-  console.log(`My name is ${this.firstName} and I study ${this.course}`);
-};
-
-const mike = new Student('Mike', 2020, 'Computer Science');
-mike.introduce();
-mike.calcAge();
-
-console.log(mike.__proto__);
-console.log(mike.__proto__.__proto__);
-
-console.log(mike instanceof Student);
-console.log(mike instanceof Person2);
-console.log(mike instanceof Object);
-
-Student.prototype.constructor = Student;
-console.dir(Student.prototype.constructor);
-
-
-// TOPIC: Inheritance Between "Classes": ES6 Classes
-
-class PersonCl2 {
-  constructor(fullName, birthYear) {
-    this.fullName = fullName;
-    this.birthYear = birthYear;
-  }
-
-  // Instance methods
-  calcAge() {
-    console.log(2037 - this.birthYear);
-  }
-
-  greet() {
-    console.log(`Hey ${this.fullName}`);
-  }
-
-  get age() {
-    return 2037 - this.birthYear;
-  }
-
-  set fullName(name) {
-    if (name.includes(' ')) this._fullName = name;
-    else alert(`${name} is not a full name!`);
-  }
-
-  get fullName() {
-    return this._fullName;
-  }
-
-  static hey() {
-    console.log('Hey there 👋');
-  }
-}
-
-class StudentCl extends PersonCl2 {
+// Demonstrating inheritance
+class StudentCl extends PersonCl {
   constructor(fullName, birthYear, course) {
-    // Always needs to happen first!
     super(fullName, birthYear);
     this.course = course;
   }
 
-  introduce() {
-    console.log(`My name is ${this.fullName} and I study ${this.course}`);
-  }
-
+  // Overriding method
   calcAge() {
-    console.log(
-      `I'm ${2037 - this.birthYear
-      } years old, but as a student I feel more like ${2037 - this.birthYear + 10
-      }`
-    );
+    console.log(`I'm ${2037 - this.birthYear} years old, but as a student I feel more like ${2037 - this.birthYear + 10}`);
   }
 }
 
 const martha = new StudentCl('Martha Jones', 2012, 'Computer Science');
-martha.introduce();
 martha.calcAge();
-
-
-// TOPIC: Inheritance Between "Classes": Object.create
-
-const PersonProto2 = {
-  calcAge() {
-    console.log(2037 - this.birthYear);
-  },
-
-  init(firstName, birthYear) {
-    this.firstName = firstName;
-    this.birthYear = birthYear;
-  },
-};
-
-
-const StudentProto = Object.create(PersonProto2);
-StudentProto.init = function (firstName, birthYear, course) {
-  PersonProto2.init.call(this, firstName, birthYear);
-  this.course = course;
-};
-
-StudentProto.introduce = function () {
-  console.log(`My name is ${this.firstName} and I study ${this.course}`);
-};
-
-const jay = Object.create(StudentProto);
-jay.init('Jay', 2010, 'Computer Science');
-jay.introduce();
-jay.calcAge();
-
-
-// TOPIC: Encapsulation: Private Class Fields and Methods
-
-class Account {
-  // => 1) Public fields (instances)
-  locale = 'en';
-
-  // => 2) Private fields (instances)
-  #movements = [];
-  #pin;
-
-  constructor(owner, currency, pin) {
-    this.owner = owner;
-    this.currency = currency;
-    this.#pin = pin;
-
-    // Protected property
-    // this._movements = [];
-    // this.locale = navigator.language;
-
-    console.log(`Thanks for opening an account, ${owner}`);
-  }
-
-  // => 3) Public methods
-
-  getMovements() {
-    return this.#movements;
-  }
-
-  deposit(val) {
-    this.#movements.push(val);
-    return this;
-  }
-
-  withdraw(val) {
-    this.deposit(-val);
-    return this;
-  }
-
-  requestLoan(val) {
-    if (this._approveLoan(val)) {
-      this.deposit(val);
-      console.log(`Loan approved`);
-      return this;
-    }
-  }
-
-  static helper() {
-    console.log('Helper');
-  }
-
-  // => 4) Private methods
-  _approveLoan(val) {
-    return true;
-  }
-}
-
-const acc1 = new Account('Jonas', 'EUR', 1111);
-
-acc1.deposit(250);
-acc1.withdraw(140);
-acc1.requestLoan(1000);
-console.log(acc1.getMovements());
-console.log(acc1);
-Account.helper();
-
-
-// =>Chaining
-acc1.deposit(300).deposit(500).withdraw(35).requestLoan(25000).withdraw(4000);
-console.log(acc1.getMovements());
 
 
