@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Encryption and Decryption</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1,
+        h2 {
+            font-size: 1.5em;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        textarea,
+        input[type="text"],
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 20px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 48%;
+        }
+
+        .output {
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Text Encryption and Decryption</h1>
+
+    <div class="container">
+        <!-- Encryption Section -->
+        <div class="box">
+            <h2>Text Encryption</h2>
+            <label for="plainText">Enter any text to be Encrypted</label>
+            <textarea id="plainText" rows="4" placeholder="Enter plain text to be Encrypted"></textarea>
+
+            <label for="secretKey">Enter Secret Key</label>
+            <input type="text" id="secretKey" placeholder="Enter secret key">
+
+            <button id="encrypt">Encrypt</button>
+
+            <label for="encryptedText">Encrypted Output</label>
+            <textarea id="encryptedText" class="output" rows="4" placeholder="Result goes here" readonly></textarea>
+        </div>
+
+        <!-- Decryption Section -->
+        <div class="box">
+            <h2>Text Decryption</h2>
+            <label for="encryptedTextToDecrypt">Enter Encrypted Text to Decrypt</label>
+            <textarea id="encryptedTextToDecrypt" rows="4" placeholder="Enter text to be Decrypted"></textarea>
+
+            <label for="decryptSecretKey">Enter Secret Key</label>
+            <input type="text" id="decryptSecretKey" placeholder="Enter secret key">
+
+            <button id="decrypt">Decrypt</button>
+
+            <label for="decryptedText">Decrypted Text</label>
+            <textarea id="decryptedText" class="output" rows="4" placeholder="Decrypted Text" readonly></textarea>
+        </div>
+    </div>
+
+    <script>
+        // Convert text to an ArrayBuffer
+        function strToBuffer(str) {
+            const encoder = new TextEncoder();
+            return encoder.encode(str);
+        }
+
+        // Convert ArrayBuffer back to string
+        function bufferToStr(buffer) {
+            const decoder = new TextDecoder();
+            return decoder.decode(buffer);
+        }
+
+        // Generate a CryptoKey from a secret key string
+        async function getKey(secretKey) {
+            const keyMaterial = await window.crypto.subtle.importKey(
+                "raw",
+                strToBuffer(secretKey),
+                { name: "PBKDF2" },
+                false,
+                ["deriveKey"]
+            );
+            return window.crypto.subtle.deriveKey(
+                {
+                    name: "PBKDF2",
+                    salt: strToBuffer("unique-salt"),
+                    iterations: 100000,
+                    hash: "SHA-256"
+                },
+                keyMaterial,
+                {
+                    name: "AES-GCM",
+                    length: 256
+                },
+                false,
+                ["encrypt", "decrypt"]
+            );
+        }
+
+        // Encrypt function
+        async function encryptText(plainText, secretKey) {
+            const iv = window.crypto.getRandomValues(new Uint8Array(12)); // Initialization vector
+            const key = await getKey(secretKey);
+            const encryptedData = await window.crypto.subtle.encrypt(
+                {
+                    name: "AES-GCM",
+                    iv: iv
+                },
+                key,
+                strToBuffer(plainText)
+            );
+
+            // Convert the IV and encrypted data to Base64 for easy handling
+            return {
+                iv: btoa(String.fromCharCode(...new Uint8Array(iv))),
+                encryptedText: btoa(String.fromCharCode(...new Uint8Array(encryptedData)))
+            };
+        }
+
+        // Decrypt function
+        async function decryptText(encryptedText, ivBase64, secretKey) {
+            const iv = new Uint8Array(atob(ivBase64).split("").map(char => char.charCodeAt(0)));
+            const encryptedBuffer = new Uint8Array(atob(encryptedText).split("").map(char => char.charCodeAt(0))).buffer;
+            const key = await getKey(secretKey);
+
+            const decryptedData = await window.crypto.subtle.decrypt(
+                {
+                    name: "AES-GCM",
+                    iv: iv
+                },
+                key,
+                encryptedBuffer
+            );
+
+            return bufferToStr(decryptedData);
+        }
+
+        // Attach to your UI logic
+        document.getElementById('encrypt').addEventListener('click', async () => {
+            const plainText = document.getElementById('plainText').value;
+            const secretKey = document.getElementById('secretKey').value;
+
+            if (plainText && secretKey) {
+                const { iv, encryptedText } = await encryptText(plainText, secretKey);
+                document.getElementById('encryptedText').value = `${iv}:${encryptedText}`; // Store IV and Encrypted data
+            } else {
+                alert('Please provide both text and secret key.');
+            }
+        });
+
+        document.getElementById('decrypt').addEventListener('click', async () => {
+            const encryptedTextWithIv = document.getElementById('encryptedTextToDecrypt').value;
+            const secretKey = document.getElementById('decryptSecretKey').value;
+
+            if (encryptedTextWithIv && secretKey) {
+                const [iv, encryptedText] = encryptedTextWithIv.split(':');
+                const decryptedText = await decryptText(encryptedText, iv, secretKey);
+                document.getElementById('decryptedText').value = decryptedText;
+            } else {
+                alert('Please provide both encrypted text and secret key.');
+            }
+        });
+    </script>
+</body>
+
+</html>
