@@ -1,0 +1,30 @@
+/* Grid container and box styles */
+#grid-container {
+    display: grid;
+    grid-gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+}
+
+.box {
+    width: 50px;
+    height: 50px;
+    background-color: lightgray;
+    cursor: pointer;
+    border: 1px solid #ccc;
+}
+
+.box.selected {
+    background-color: #0bcc59;
+    /* Green for selected boxes */
+}
+
+.box.disabled {
+    pointer-events: none;
+    /* Disable box interaction */
+    opacity: 0.5;
+}
