@@ -13,9 +13,39 @@
             background-color: #f4f4f4;
         }
 
-        h1,
-        h2 {
-            font-size: 1.5em;
+        h1 {
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .tab.active {
+            background-color: #555;
+        }
+
+        .tab:hover {
+            background-color: #555;
+        }
+
+        .box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         label {
@@ -44,22 +74,36 @@
             background-color: #555;
         }
 
-        .container {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
+        .copy-button {
+            float: right;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 1.2em;
         }
 
-        .box {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 48%;
-        }
+        /* Media queries for mobile responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
 
-        .output {
-            font-family: monospace;
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .tab {
+                flex: 1;
+                text-align: center;
+                font-size: 1em;
+            }
+
+            .box {
+                padding: 15px;
+            }
+
+            button {
+                font-size: 0.9em;
+            }
         }
     </style>
 </head>
@@ -67,39 +111,80 @@
 <body>
     <h1>Text Encryption and Decryption</h1>
 
-    <div class="container">
-        <!-- Encryption Section -->
-        <div class="box">
-            <h2>Text Encryption</h2>
-            <label for="plainText">Enter any text to be Encrypted</label>
-            <textarea id="plainText" rows="4" placeholder="Enter plain text to be Encrypted"></textarea>
+    <div class="tabs">
+        <div class="tab active" id="tab-encrypt">Encrypt</div>
+        <div class="tab" id="tab-decrypt">Decrypt</div>
+    </div>
 
-            <label for="secretKey">Enter Secret Key</label>
-            <input type="text" id="secretKey" placeholder="Enter secret key">
+    <!-- Encryption Section -->
+    <div class="box" id="encrypt-section">
+        <h2>Text Encryption</h2>
+        <label for="plainText">Enter any text to be Encrypted</label>
+        <textarea id="plainText" rows="4" placeholder="Enter plain text to be Encrypted"></textarea>
 
-            <button id="encrypt">Encrypt</button>
+        <label for="secretKey">Enter Secret Key</label>
+        <input type="text" id="secretKey" placeholder="Enter secret key">
 
-            <label for="encryptedText">Encrypted Output</label>
-            <textarea id="encryptedText" class="output" rows="4" placeholder="Result goes here" readonly></textarea>
-        </div>
+        <button id="encrypt">Encrypt</button>
 
-        <!-- Decryption Section -->
-        <div class="box">
-            <h2>Text Decryption</h2>
-            <label for="encryptedTextToDecrypt">Enter Encrypted Text to Decrypt</label>
-            <textarea id="encryptedTextToDecrypt" rows="4" placeholder="Enter text to be Decrypted"></textarea>
+        <label for="encryptedText">Encrypted Output <span class="copy-button"
+                id="copyEncryptedText">&#x1F4CB;</span></label>
+        <textarea id="encryptedText" class="output" rows="4" placeholder="Result goes here" readonly></textarea>
+    </div>
 
-            <label for="decryptSecretKey">Enter Secret Key</label>
-            <input type="text" id="decryptSecretKey" placeholder="Enter secret key">
+    <!-- Decryption Section -->
+    <div class="box" id="decrypt-section" style="display: none;">
+        <h2>Text Decryption</h2>
+        <label for="encryptedTextToDecrypt">Enter Encrypted Text to Decrypt</label>
+        <textarea id="encryptedTextToDecrypt" rows="4" placeholder="Enter text to be Decrypted"></textarea>
 
-            <button id="decrypt">Decrypt</button>
+        <label for="decryptSecretKey">Enter Secret Key</label>
+        <input type="text" id="decryptSecretKey" placeholder="Enter secret key">
 
-            <label for="decryptedText">Decrypted Text</label>
-            <textarea id="decryptedText" class="output" rows="4" placeholder="Decrypted Text" readonly></textarea>
-        </div>
+        <button id="decrypt">Decrypt</button>
+
+        <label for="decryptedText">Decrypted Text <span class="copy-button"
+                id="copyDecryptedText">&#x1F4CB;</span></label>
+        <textarea id="decryptedText" class="output" rows="4" placeholder="Decrypted Text" readonly></textarea>
     </div>
 
     <script>
+        // Tab switching logic
+        const encryptTab = document.getElementById('tab-encrypt');
+        const decryptTab = document.getElementById('tab-decrypt');
+        const encryptSection = document.getElementById('encrypt-section');
+        const decryptSection = document.getElementById('decrypt-section');
+
+        encryptTab.addEventListener('click', () => {
+            encryptTab.classList.add('active');
+            decryptTab.classList.remove('active');
+            encryptSection.style.display = 'block';
+            decryptSection.style.display = 'none';
+        });
+
+        decryptTab.addEventListener('click', () => {
+            decryptTab.classList.add('active');
+            encryptTab.classList.remove('active');
+            encryptSection.style.display = 'none';
+            decryptSection.style.display = 'block';
+        });
+
+        // Copy text function
+        function copyToClipboard(elementId) {
+            const copyText = document.getElementById(elementId);
+            copyText.select();
+            document.execCommand("copy");
+            alert('Copied to clipboard');
+        }
+
+        document.getElementById('copyEncryptedText').addEventListener('click', () => {
+            copyToClipboard('encryptedText');
+        });
+
+        document.getElementById('copyDecryptedText').addEventListener('click', () => {
+            copyToClipboard('decryptedText');
+        });
+
         // Convert text to an ArrayBuffer
         function strToBuffer(str) {
             const encoder = new TextEncoder();
@@ -151,7 +236,6 @@
                 strToBuffer(plainText)
             );
 
-            // Convert the IV and encrypted data to Base64 for easy handling
             return {
                 iv: btoa(String.fromCharCode(...new Uint8Array(iv))),
                 encryptedText: btoa(String.fromCharCode(...new Uint8Array(encryptedData)))
