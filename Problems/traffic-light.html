@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Light System</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .light {
+            width: 80px;
+            height: 80px;
+            margin: 10px auto;
+            border-radius: 50%;
+            background-color: gray;
+            opacity: 0.3;
+        }
+
+        #red {
+            background-color: red;
+        }
+
+        #yellow {
+            background-color: yellow;
+        }
+
+        #green {
+            background-color: green;
+        }
+
+        .active {
+            opacity: 1;
+        }
+
+        .timer {
+            font-size: 1.5rem;
+            margin: 10px;
+        }
+
+        button,
+        input {
+            margin: 5px;
+            padding: 8px 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Traffic Light System</h1>
+
+    <div id="traffic-light">
+        <div id="red" class="light"></div>
+        <div id="yellow" class="light"></div>
+        <div id="green" class="light"></div>
+    </div>
+
+    <div class="timer" id="timerDisplay">Remaining Time: 15s</div>
+
+    <button onclick="manualActivate('red')">Activate Red</button>
+    <button onclick="manualActivate('yellow')">Activate Yellow</button>
+    <button onclick="manualActivate('green')">Activate Green</button>
+
+    <input type="number" id="timerIncrease" placeholder="Increase time by seconds" />
+    <button onclick="increaseActiveLightTimer()">Increase Current Light Timer</button>
+
+    <script>
+        let durations = { red: 10000, yellow: 5000, green: 15000 }; // Durations in ms
+        let currentLight = 'red'; // Initial light
+        let remainingTime = durations[currentLight] / 1000; // Initial time in seconds
+        let intervalId;
+
+        // Switch to the given light
+        function switchLight(light) {
+            document.querySelectorAll('.light').forEach(div => div.classList.remove('active'));
+            document.getElementById(light).classList.add('active');
+        }
+
+        // Update the timer display
+        function updateTimerDisplay() {
+            document.getElementById('timerDisplay').innerText = `Remaining Time: ${remainingTime}s`;
+        }
+
+        // Start cycling lights
+        function cycleLights() {
+            switchLight(currentLight);
+            remainingTime = durations[currentLight] / 1000; // Reset timer
+            updateTimerDisplay();
+
+            intervalId = setInterval(() => {
+                remainingTime--;
+                updateTimerDisplay();
+
+                if (remainingTime <= 0) {
+                    clearInterval(intervalId);
+                    currentLight = nextLight(currentLight); // Get next light
+                    cycleLights(); // Continue with the next light
+                }
+            }, 1000);
+        }
+
+        // Get the next light in sequence
+        function nextLight(light) {
+            return light === 'red' ? 'yellow' :
+                light === 'yellow' ? 'green' : 'red';
+        }
+
+        // Manually activate a light and restart the cycle
+        function manualActivate(light) {
+            clearInterval(intervalId); // Stop current cycle
+            currentLight = light;
+            cycleLights(); // Start with the new light
+        }
+
+        // Increase the timer only for the currently active light
+        function increaseActiveLightTimer() {
+            const increaseBy = parseInt(document.getElementById('timerIncrease').value);
+            if (!isNaN(increaseBy) && increaseBy > 0) {
+                durations[currentLight] += increaseBy * 1000; // Increase duration
+                remainingTime += increaseBy; // Increase the running time directly
+
+                updateTimerDisplay(); // Reflect the new remaining time
+
+                // No need to restart the cycle, the current timer will continue
+            }
+        }
+
+        // Start the traffic light system
+        cycleLights();
+    </script>
+
+</body>
+
+</html>
