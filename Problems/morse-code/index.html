@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morse Code Converter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Morse Code Converter</h1>
+        <div class="converter">
+            <label for="textInput">Enter Text:</label>
+            <textarea id="textInput" placeholder="Type text here..." rows="5"></textarea>
+            <button onclick="textToMorse()">Convert to Morse Code</button>
+            <div class="output-container">
+                <p id="morseOutput"></p>
+                <button onclick="copyToClipboard('morseOutput')">Copy Morse Code</button>
+            </div>
+        </div>
+        <div class="converter">
+            <label for="morseInput">Enter Morse Code:</label>
+            <textarea id="morseInput" placeholder="Type Morse code here..." rows="5"></textarea>
+            <button onclick="morseToText()">Convert to Text</button>
+            <div class="output-container">
+                <p id="textOutput"></p>
+                <button onclick="copyToClipboard('textOutput')">Copy Text</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
