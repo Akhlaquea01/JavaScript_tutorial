@@ -16,7 +16,8 @@ const removeDuplicates = function (nums) {
             nums[k] = nums[i]; // Place the next unique element
         }
     }
-
+    nums.length = k + 1;
+    console.log(nums);
     return k + 1; // Return the count of unique elements
 };
-console.log(removeDuplicates([1, 1, 2]))
+console.log(removeDuplicates([1, 1, 2, 3, 4]))
