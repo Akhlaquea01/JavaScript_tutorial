@@ -18,3 +18,16 @@ function isPrime(n) {
 
 console.log("Is 7 prime?", isPrime(7)); // Output: true
 console.log("Is 12 prime?", isPrime(12)); // Output: false
+
+function isPrime2(p) {
+    if (p <= 1) return false;
+
+    for (let i = 2; i < p; i++) {
+        if (p % i === 0) {
+            return false;
+        }
+    }
+
+    return true;
+}
+console.log("Is 7 prime?", isPrime(7)); // Output: true
