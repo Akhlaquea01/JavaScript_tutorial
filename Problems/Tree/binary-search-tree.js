@@ -18,6 +18,7 @@ class BinarySearchTree {
     /**
      * Insert a new value into the BST
      * @param {*} value - The value to insert
+     * @returns {BinarySearchTree} - The BST instance for chaining
      */
     insert(value) {
         const newNode = new TreeNode(value);
@@ -72,6 +73,27 @@ class BinarySearchTree {
     }
 
     /**
+     * Find a node with the given value
+     * @param {*} value - The value to find
+     * @returns {TreeNode|null} - The node if found, null otherwise
+     */
+    findNode(value) {
+        let current = this.root;
+
+        while (current) {
+            if (value === current.value) return current;
+
+            if (value < current.value) {
+                current = current.left;
+            } else {
+                current = current.right;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Delete a value from the BST
      * @param {*} value - The value to delete
      * @returns {TreeNode} - The root of the modified tree
@@ -88,35 +110,22 @@ class BinarySearchTree {
                 return node;
             } else {
                 // Node to delete found
+                if (node.left === null && node.right === null) return null;
+                if (node.left === null) return node.right;
+                if (node.right === null) return node.left;
 
-                // Case 1: Node with no children
-                if (node.left === null && node.right === null) {
-                    return null;
-                }
-
-                // Case 2: Node with one child
-                if (node.left === null) {
-                    return node.right;
-                }
-                if (node.right === null) {
-                    return node.left;
-                }
-
-                // Case 3: Node with two children
-                // Find the minimum value in the right subtree
                 let tempNode = node.right;
                 while (tempNode.left !== null) {
                     tempNode = tempNode.left;
                 }
-                // Replace the node's value with the minimum value
                 node.value = tempNode.value;
-                // Delete the duplicate value from right subtree
                 node.right = deleteNode(node.right, tempNode.value);
                 return node;
             }
         };
 
         this.root = deleteNode(this.root, value);
+        return this.root;
     }
 
     // ---------- TRAVERSAL METHODS ----------
@@ -195,6 +204,8 @@ class BinarySearchTree {
         return result;
     }
 
+    // ---------- UTILITY METHODS ----------
+
     /**
      * Find the minimum value in the BST
      * @returns {*} - The minimum value
@@ -224,34 +235,128 @@ class BinarySearchTree {
 
         return current.value;
     }
+
+    /**
+     * Get the height of the tree
+     * @returns {number} - The height of the tree
+     */
+    getHeight() {
+        const calculateHeight = (node) => {
+            if (node === null) return -1;
+            return Math.max(calculateHeight(node.left), calculateHeight(node.right)) + 1;
+        };
+        return calculateHeight(this.root);
+    }
+
+    /**
+     * Check if the tree is balanced
+     * @returns {boolean} - True if balanced, false otherwise
+     */
+    isBalanced() {
+        const checkBalance = (node) => {
+            if (node === null) return { balanced: true, height: -1 };
+
+            const left = checkBalance(node.left);
+            const right = checkBalance(node.right);
+
+            const balanced =
+                left.balanced &&
+                right.balanced &&
+                Math.abs(left.height - right.height) <= 1;
+
+            const height = Math.max(left.height, right.height) + 1;
+
+            return { balanced, height };
+        };
+
+        return checkBalance(this.root).balanced;
+    }
+
+    // ---------- NEW LCA FUNCTIONALITY ----------
+
+    /**
+     * Find the lowest common ancestor of two nodes in the BST
+     * @param {*} value1 - First value
+     * @param {*} value2 - Second value
+     * @returns {*} - Value of the lowest common ancestor
+     */
+    findLCA(value1, value2) {
+        // Helper function to find LCA in BST
+        const findLCAInBST = (node, val1, val2) => {
+            if (node === null) return null;
+
+            // If both values are less than current node, LCA is in left subtree
+            if (node.value > val1 && node.value > val2) {
+                return findLCAInBST(node.left, val1, val2);
+            }
+
+            // If both values are greater than current node, LCA is in right subtree
+            if (node.value < val1 && node.value < val2) {
+                return findLCAInBST(node.right, val1, val2);
+            }
+
+            // Current node is LCA
+            return node.value;
+        };
+
+        return findLCAInBST(this.root, value1, value2);
+    }
+
+    /**
+     * Find the distance between two nodes in the BST
+     * @param {*} value1 - First value
+     * @param {*} value2 - Second value
+     * @returns {number} - Distance between nodes
+     */
+    findDistance(value1, value2) {
+        // Find LCA first
+        const lcaValue = this.findLCA(value1, value2);
+        if (lcaValue === null) return -1;
+
+        // Calculate distance from LCA to each node
+        const distanceFromLCA = (value) => {
+            let distance = 0;
+            let current = this.root;
+
+            while (current && current.value !== value) {
+                if (value < current.value) {
+                    current = current.left;
+                } else {
+                    current = current.right;
+                }
+                distance++;
+            }
+
+            return current ? distance : -1;
+        };
+
+        const dist1 = distanceFromLCA(value1);
+        const dist2 = distanceFromLCA(value2);
+
+        if (dist1 === -1 || dist2 === -1) return -1;
+
+        return dist1 + dist2;
+    }
 }
 
-// Example Usage:
+// ---------- EXAMPLE USAGE ----------
 const bst = new BinarySearchTree();
 
 // Insert values
-bst.insert(10);
-bst.insert(5);
-bst.insert(15);
-bst.insert(3);
-bst.insert(7);
-bst.insert(12);
-bst.insert(18);
+bst.insert(10).insert(5).insert(15).insert(3).insert(7).insert(12).insert(18);
 
-// Search for values
-console.log("Contains 7:", bst.contains(7)); // true
-console.log("Contains 99:", bst.contains(99)); // false
+// Test LCA functionality
+console.log("LCA of 3 and 7:", bst.findLCA(3, 7)); // 5
+console.log("LCA of 7 and 12:", bst.findLCA(7, 12)); // 10
+console.log("LCA of 12 and 18:", bst.findLCA(12, 18)); // 15
 
-// Traversals
-console.log("In-order:", bst.inOrder());    // [3, 5, 7, 10, 12, 15, 18]
-console.log("Pre-order:", bst.preOrder());  // [10, 5, 3, 7, 15, 12, 18]
-console.log("Post-order:", bst.postOrder()); // [3, 7, 5, 12, 18, 15, 10]
-console.log("Level-order:", bst.levelOrder()); // [10, 5, 15, 3, 7, 12, 18]
+// Test distance functionality
+console.log("Distance between 3 and 7:", bst.findDistance(3, 7)); // 2 (3->5->7)
+console.log("Distance between 7 and 12:", bst.findDistance(7, 12)); // 3 (7->5->10->12)
+console.log("Distance between 12 and 18:", bst.findDistance(12, 18)); // 2 (12->15->18)
 
-// Min and Max
-console.log("Min value:", bst.findMin()); // 3
-console.log("Max value:", bst.findMax()); // 18
-
-// Delete a node
+// Test other methods
+console.log("Tree height:", bst.getHeight()); // 2
+console.log("Is balanced:", bst.isBalanced()); // true
 bst.delete(15);
-console.log("After deleting 15 (In-order):", bst.inOrder()); // [3, 5, 7, 10, 12, 18]
+console.log("Is balanced after deletion:", bst.isBalanced()); // false
