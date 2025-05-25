@@ -1,4 +1,3 @@
-// DisplayBoard.js
 // Shows the availability of slots on each floor
 export class DisplayBoard {
     constructor() {

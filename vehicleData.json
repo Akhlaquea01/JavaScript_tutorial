@@ -5,6 +5,24 @@
       "licensePlate": "BIKE123",
       "entryTime": "2025-05-25T14:01:48.544Z",
       "slotId": 1
+    },
+    {
+      "ticketId": "1-1748182135925",
+      "licensePlate": "BIKE123",
+      "entryTime": "2025-05-25T14:08:55.925Z",
+      "slotId": 1
+    },
+    {
+      "ticketId": "1-1748182376303",
+      "licensePlate": "BIKE123",
+      "entryTime": "2025-05-25T14:12:56.303Z",
+      "slotId": 1
+    },
+    {
+      "ticketId": "1-1748182421348",
+      "licensePlate": "BIKE123",
+      "entryTime": "2025-05-25T14:13:41.348Z",
+      "slotId": 1
     }
   ],
   "historyLogs": [
@@ -24,6 +42,54 @@
       "event": "exit",
       "licensePlate": "CAR456",
       "time": "2025-05-25T14:01:50.566Z",
+      "slotId": 2
+    },
+    {
+      "event": "entry",
+      "licensePlate": "BIKE123",
+      "time": "2025-05-25T14:08:55.925Z",
+      "slotId": 1
+    },
+    {
+      "event": "entry",
+      "licensePlate": "CAR456",
+      "time": "2025-05-25T14:08:55.928Z",
+      "slotId": 2
+    },
+    {
+      "event": "exit",
+      "licensePlate": "CAR456",
+      "time": "2025-05-25T14:08:57.937Z",
+      "slotId": 2
+    },
+    {
+      "event": "entry",
+      "licensePlate": "BIKE123",
+      "time": "2025-05-25T14:12:56.303Z",
+      "slotId": 1
+    },
+    {
+      "event": "entry",
+      "licensePlate": "CAR456",
+      "time": "2025-05-25T14:13:17.845Z",
+      "slotId": 2
+    },
+    {
+      "event": "entry",
+      "licensePlate": "BIKE123",
+      "time": "2025-05-25T14:13:41.348Z",
+      "slotId": 1
+    },
+    {
+      "event": "entry",
+      "licensePlate": "CAR456",
+      "time": "2025-05-25T14:13:41.351Z",
+      "slotId": 2
+    },
+    {
+      "event": "exit",
+      "licensePlate": "CAR456",
+      "time": "2025-05-25T14:13:43.369Z",
       "slotId": 2
     }
   ]
