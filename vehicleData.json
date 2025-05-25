@@ -1,0 +1,30 @@
+{
+  "parkedVehicles": [
+    {
+      "ticketId": "1-1748181708544",
+      "licensePlate": "BIKE123",
+      "entryTime": "2025-05-25T14:01:48.544Z",
+      "slotId": 1
+    }
+  ],
+  "historyLogs": [
+    {
+      "event": "entry",
+      "licensePlate": "BIKE123",
+      "time": "2025-05-25T14:01:48.544Z",
+      "slotId": 1
+    },
+    {
+      "event": "entry",
+      "licensePlate": "CAR456",
+      "time": "2025-05-25T14:01:48.547Z",
+      "slotId": 2
+    },
+    {
+      "event": "exit",
+      "licensePlate": "CAR456",
+      "time": "2025-05-25T14:01:50.566Z",
+      "slotId": 2
+    }
+  ]
+}
