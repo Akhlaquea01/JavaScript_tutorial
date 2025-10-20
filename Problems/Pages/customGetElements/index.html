@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom DOM Methods</title>
+</head>
+<body>
+
+  <h1>Custom DOM Methods Test</h1>
+
+  <div id="container-one" class="test-container">
+    <p class="test-class">This is the first paragraph in the first container.</p>
+    <div class="test-class">
+      <p>This is a nested paragraph.</p>
+    </div>
+  </div>
+
+  <div id="container-two">
+    <p class="test-class">This is a paragraph in the second container.</p>
+    <span>This is a span element.</span>
+    <p>Another paragraph.</p>
+  </div>
+
+  <section class="test-class another-class">
+    <h2>This is a section heading.</h2>
+    <p>This paragraph is inside the section.</p>
+  </section>
+
+  <!-- Link the custom JavaScript files -->
+  <script src="customGetElementsByTagName.js"></script>
+  <script src="customGetElementsByClassName.js"></script>
+  
+  <script>
+    // Assuming your custom functions are named as in the previous examples
+    // and are globally available after the scripts are loaded.
+
+    // Test customGetElementsByTagName
+    const allParagraphs = customGetElementsByTagName('p');
+    console.log('Found paragraphs using customGetElementsByTagName:', allParagraphs);
+    console.log('Number of paragraphs:', allParagraphs.length);
+
+    // Test customGetElementsByClassName
+    const testClassElements = customGetElementsByClassName('test-class');
+    console.log('Found elements with "test-class" using customGetElementsByClassName:', testClassElements);
+    console.log('Number of elements with "test-class":', testClassElements.length);
+    
+    // Test customGetElementsByClassName with multiple classes
+    const multipleClassElements = customGetElementsByClassName('test-class another-class');
+    console.log('Found elements with "test-class another-class":', multipleClassElements);
+    console.log('Number of elements with both classes:', multipleClassElements.length);
+
+    // Test customGetElementsByTagName within a specific root element
+    const containerOne = document.getElementById('container-one');
+    const paragraphsInContainerOne = customGetElementsByTagName('p', containerOne);
+    console.log('Paragraphs inside container-one:', paragraphsInContainerOne);
+    console.log('Number of paragraphs in container-one:', paragraphsInContainerOne.length);
+  </script>
+
+</body>
+</html>
