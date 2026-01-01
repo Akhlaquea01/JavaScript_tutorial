@@ -1,4 +1,4 @@
-Okay, here are the system design topics discussed in the video, broken down into High-Level Design (HLD) and Low-Level Design (LLD) as presented:
+Here are the system design topics discussed in the video, broken down into High-Level Design (HLD) and Low-Level Design (LLD) as presented:
 
 **General Concepts:**
 

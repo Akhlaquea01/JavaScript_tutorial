@@ -29,6 +29,7 @@ console.log(currentYear); // undefined
 console.log(typeof currentYear); // undefined
 
 // Null
+let nullValue = null;
 console.log(typeof nullValue); // object
 
 // BigInt
