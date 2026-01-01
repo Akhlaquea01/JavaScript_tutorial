@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workbox Offline Example</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="offline-indicator" class="offline-indicator hidden">
+        You are currently offline. Content may be outdated.
+    </div>
+    <header>
+        <h1>Workbox Offline Demo</h1>
+    </header>
+    <main>
+        <section class="card">
+            <h2>About this App</h2>
+            <p>This application demonstrates how to use Workbox for offline caching.</p>
+            <p>Try refreshing the page or going offline to see it in action.</p>
+        </section>
+
+        <section class="card">
+            <h2>Cached Image</h2>
+            <img src="https://picsum.photos/400/200" alt="Random Nature Image" class="demo-image">
+            <p>This image is cached using CacheFirst strategy.</p>
+        </section>
+
+        <section class="card">
+            <h2>Dynamic Content</h2>
+            <div id="api-data">Loading mock API data...</div>
+        </section>
+    </main>
+    <footer>
+        <p>Built with Workbox</p>
+    </footer>
+    <script src="app.js"></script>
+</body>
+
+</html>

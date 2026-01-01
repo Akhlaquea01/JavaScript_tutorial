@@ -1,0 +1,76 @@
+:root {
+    --primary-color: #3f51b5;
+    --text-color: #333;
+    --bg-color: #f4f4f9;
+    --card-bg: #fff;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+main {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: grid;
+    gap: 1.5rem;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.demo-image {
+    max-width: 100%;
+    border-radius: 4px;
+    margin-top: 1rem;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    color: #777;
+    margin-top: 2rem;
+}
+
+h1,
+h2 {
+    margin-top: 0;
+}
+
+/* Offline Indicator Styles */
+.offline-indicator {
+    background-color: #d32f2f;
+    color: white;
+    text-align: center;
+    padding: 0.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.offline-indicator.hidden {
+    transform: translateY(-100%);
+    position: absolute;
+    /* Take out of flow when hidden */
+}
