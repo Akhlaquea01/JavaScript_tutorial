@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DSA Quick Revision Notes</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { darkMode: 'class' };
+</script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-700 dark:text-slate-300 font-sans transition-colors duration-300">
+
+<header class="sticky top-0 z-50 flex items-center gap-3 md:gap-4 px-4 md:px-6 py-3 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+  <button id="hamburger" class="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300">☰</button>
+  <div class="flex items-center gap-2 font-bold text-slate-900 dark:text-white whitespace-nowrap">
+    <span>📘</span><span class="hidden sm:inline">DSA Notes</span><span class="text-cyan-500 dark:text-cyan-400">•</span>
+  </div>
+  <div class="flex-1 max-w-md relative">
+    <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs opacity-60">🔍</span>
+    <input id="searchInput" type="text" placeholder="Search topics... (e.g. binary search, hashmap)"
+      class="w-full pl-8 pr-3 py-2 rounded-lg text-sm bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500">
+  </div>
+  <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 w-16 sm:w-auto sm:min-w-[160px]">
+    <span id="progressLabel" class="whitespace-nowrap">0/0</span>
+    <div class="flex-1 h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+      <div id="progressFill" class="h-full w-0 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-500"></div>
+    </div>
+  </div>
+  <button id="themeToggle" class="w-9 h-9 inline-flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm">🌙</button>
+</header>
+
+<div class="flex max-w-[1400px] mx-auto items-start relative">
+  <nav id="sidebar" class="fixed md:sticky top-[57px] left-0 -translate-x-full md:translate-x-0 transition-transform duration-300 z-40 w-72 flex-shrink-0 h-[calc(100vh-57px)] overflow-y-auto p-3 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 shadow-xl md:shadow-none"></nav>
+
+  <main class="flex-1 min-w-0 px-4 md:px-8 py-6 pb-32">
+    <div class="mb-7">
+      <h1 class="text-2xl font-bold text-slate-900 dark:text-white mb-1">📘 DSA Quick Revision Notes</h1>
+      <p class="text-sm text-slate-500 dark:text-slate-400">Easy Hinglish revision notes — click a topic in the sidebar, check it off once revised, and search anytime. New topics get added here as prep progresses.</p>
+    </div>
+    <div id="sections"></div>
+    <div id="noResults" class="hidden text-center py-16 text-slate-500 dark:text-slate-400">😕 Koi topic match nahi hua. Try a different keyword.</div>
+    <footer class="text-center text-xs text-slate-400 dark:text-slate-500 pt-8 pb-16">Made for quick DSA revision — keep adding topics as you go 🚀</footer>
+  </main>
+</div>
+
+<script>
+/* =========================================================
+   REUSABLE TAILWIND CLASS BUNDLES (single source of truth —
+   no custom CSS, only Tailwind utility strings)
+   ========================================================= */
+const PROSE = `text-sm leading-7 text-slate-600 dark:text-slate-300
+  [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5
+  [&_strong]:text-slate-900 [&_strong]:dark:text-white [&_strong]:font-semibold
+  [&_table]:w-full [&_table]:text-sm [&_table]:my-1 [&_table]:border-collapse
+  [&_th]:border [&_th]:border-slate-200 [&_th]:dark:border-slate-700 [&_th]:bg-slate-50 [&_th]:dark:bg-slate-800 [&_th]:text-slate-900 [&_th]:dark:text-white [&_th]:px-3 [&_th]:py-1.5 [&_th]:text-left
+  [&_td]:border [&_td]:border-slate-200 [&_td]:dark:border-slate-700 [&_td]:px-3 [&_td]:py-1.5`;
+
+const CODE_WRAP = "group relative bg-slate-950 border border-slate-800 rounded-lg p-3 pr-16 overflow-x-auto text-[13px] leading-relaxed my-2";
+const CODE_TEXT = "text-cyan-300 font-mono whitespace-pre";
+const COPY_BTN = "copy-btn absolute top-2 right-2 text-[11px] px-2 py-1 rounded bg-slate-800 border border-slate-700 text-slate-400 hover:text-slate-200 opacity-0 group-hover:opacity-100 transition-opacity";
+const NOTE = "mt-3 pl-3 py-2 border-l-2 border-violet-500 bg-violet-50 dark:bg-violet-500/10 rounded-r-lg text-[13px] text-slate-600 dark:text-slate-400";
+
+const NAV_BASE = "nav-item flex items-center gap-2 px-2.5 py-2 rounded-lg text-[13px] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-700 dark:hover:text-slate-200 mb-0.5 transition-colors";
+const NAV_ACTIVE = ["bg-slate-100","dark:bg-slate-800","text-blue-600","dark:text-blue-400","font-semibold","border-l-2","border-blue-500","dark:border-blue-400"];
+
+const SECTION_BASE = "section opacity-0 translate-y-6 transition-all duration-700 ease-out bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 md:p-6 mb-5 scroll-mt-20";
+const SECTION_VISIBLE = ["opacity-100","translate-y-0"];
+const SECTION_HIDDEN_INIT = ["opacity-0","translate-y-6"];
+
+/* =========================================================
+   DATA LAYER — add a new topic by pushing one object here.
+   ========================================================= */
+const topics = [
+{
+  id: "data-structures",
+  num: 1,
+  emoji: "🗂️",
+  title: "Data Structures (DS)",
+  summary: "Data ko efficiently store aur organize karne ka tareeka taaki operations fast ho.",
+  sections: [
+    { heading: "Linear DS", body: `
+      <ul>
+        <li><strong>Array</strong> — Fixed size, index se access (O(1) access). Contiguous memory me store hota hai. Insert/Delete beech me mehenga hai (shifting lagti hai) → O(n). Best for: fast access, worst for: frequent insert/delete.</li>
+        <li><strong>Linked List</strong> — Nodes connected by pointers (har node me data + next address). Memory contiguous nahi hoti, dynamically size badh/ghat sakta hai. Access O(n), Insert/Delete O(1) (agar pointer pata ho). Types: Singly, Doubly, Circular.</li>
+        <li><strong>Stack</strong> — LIFO (Last In First Out). Operations: push (insert top), pop (remove top), peek/top. Sab operations O(1). Use: Recursion (call stack), Undo, Balanced Parentheses, Backtracking.</li>
+        <li><strong>Queue</strong> — FIFO (First In First Out). Operations: enqueue (insert rear), dequeue (remove front). Sab operations O(1). Types: Simple, Circular, Deque, Priority Queue. Use: Scheduling, BFS, Order processing.</li>
+      </ul>` },
+    { heading: "Non-Linear DS", body: `
+      <ul>
+        <li><strong>Tree</strong> — Hierarchical structure, ek root node aur uske children. Cycle nahi hoti. Types: Binary Tree, BST, AVL, Heap. Use: File system, searching (BST → O(log n)).</li>
+        <li><strong>Graph</strong> — Nodes (vertices) + Edges se bana, cycle ho sakti hai. Directed/Undirected, Weighted/Unweighted. Representation: Adjacency Matrix, Adjacency List. Use: Networks, Maps, BFS/DFS.</li>
+        <li><strong>Heap</strong> — Complete Binary Tree based. Min-Heap → smallest root pe. Max-Heap → largest root pe. Insert/Delete O(log n), Get Min/Max O(1). Use: Priority Queue, Top-K problems.</li>
+        <li><strong>Trie</strong> — "Prefix Tree" for strings. Har node ek character represent karta hai. Insert/Search → O(length of word). Use: Autocomplete, Dictionary, Prefix Search.</li>
+      </ul>` },
+    { heading: "Common Operations", body: `<ul><li>Insert</li><li>Delete</li><li>Search</li><li>Update</li><li>Traverse</li></ul>`,
+      note: "Interview me mostly poocha jata hai kis operation ki complexity kitni hai." }
+  ]
+},
+{
+  id: "algorithms",
+  num: 2,
+  emoji: "⚙️",
+  title: "Algorithms",
+  summary: "Problem solve karne ke step-by-step instructions.",
+  sections: [
+    { heading: "Good Algorithm", body: `<ul><li>Correct</li><li>Fast</li><li>Less Memory</li><li>Easy to Understand</li></ul>` },
+    { heading: "Common Types", body: `<ul>
+        <li>Brute Force</li><li>Recursion</li><li>Divide &amp; Conquer</li><li>Greedy</li>
+        <li>Dynamic Programming (DP)</li><li>Backtracking</li><li>Sliding Window</li>
+        <li>Two Pointer</li><li>Binary Search</li><li>Prefix Sum</li>
+      </ul>`, note: "Pehle brute force socho, fir optimize karo." }
+  ]
+},
+{
+  id: "time-complexity",
+  num: 3,
+  emoji: "⏱️",
+  title: "Time Complexity",
+  summary: "Program kitna time lega input size (N) badhne par. Ignore constants &amp; small terms — focus highest order term.",
+  sections: [
+    { heading: "Complexity Table", body: `
+      <table>
+        <tr><th>Complexity</th><th>Meaning</th></tr>
+        <tr><td>O(1)</td><td>Constant</td></tr>
+        <tr><td>O(log n)</td><td>Binary Search</td></tr>
+        <tr><td>O(n)</td><td>Single Loop</td></tr>
+        <tr><td>O(n log n)</td><td>Merge/Quick Sort</td></tr>
+        <tr><td>O(n²)</td><td>Nested Loop</td></tr>
+        <tr><td>O(2ⁿ)</td><td>Recursion</td></tr>
+        <tr><td>O(n!)</td><td>Permutations</td></tr>
+      </table>` },
+    { heading: "Best → Worst", code: `O(1) → O(log n) → O(n) → O(n log n) → O(n²) → O(2ⁿ) → O(n!)` }
+  ]
+},
+{
+  id: "space-complexity",
+  num: 4,
+  emoji: "💾",
+  title: "Space Complexity",
+  summary: "Program extra memory kitni use karta hai. Include: Extra Arrays, HashMap, Stack, Recursion. Don't include input array.",
+  sections: [
+    { heading: "Examples", code: `Extra Variable    → O(1)
+Extra Array (N)   → O(n)
+Recursive Depth n → O(n)` }
+  ]
+},
+{
+  id: "prefix-sum",
+  num: 5,
+  emoji: "➕",
+  title: "Prefix Sum",
+  summary: "Running Sum store karna taaki range sum instantly nikal sake.",
+  sections: [
+    { heading: "Example", code: `Array  : [2,4,6,8]
+Prefix : [2,6,12,20]` },
+    { heading: "Formula", code: `prefix[i] = prefix[i-1] + arr[i]` },
+    { heading: "Range Sum", code: `Sum(L,R) = prefix[R] - prefix[L-1]
+
+If L == 0:
+    Answer = prefix[R]` },
+    { heading: "Complexity", body: `<ul><li>Build Prefix Array → <strong>O(n)</strong></li><li>Each Query → <strong>O(1)</strong></li></ul>` },
+    { heading: "Use Cases", body: `<ul><li>Range Sum Queries</li><li>Subarray Problems</li><li>Equal Sum Problems</li><li>2D Prefix Sum</li></ul>` }
+  ],
+  problems: [
+    { title: "Range Sum Query - Immutable", pseudocode: `build prefix[] where prefix[i] = prefix[i-1] + nums[i]
+
+function sumRange(L, R):
+    if L == 0: return prefix[R]
+    return prefix[R] - prefix[L-1]` },
+    { title: "Find Pivot Index", pseudocode: `total = sum(nums)
+leftSum = 0
+for i in range(n):
+    rightSum = total - leftSum - nums[i]
+    if leftSum == rightSum:
+        return i
+    leftSum += nums[i]
+return -1` }
+  ]
+},
+{
+  id: "hashmap",
+  num: 6,
+  emoji: "🗺️",
+  title: "HashMap",
+  summary: "Key-Value pair store karne ka structure, jisme key se value O(1) average time me mil jaati hai (hashing ki wajah se).",
+  sections: [
+    { heading: "Kaise Kaam Karta Hai", body: `
+      <ul>
+        <li>Key ko ek <strong>hash function</strong> se hash karke ek index nikalta hai.</li>
+        <li>Us index pe value store ho jaati hai (bucket me).</li>
+        <li>Collision (do keys ka same index) → Chaining ya Open Addressing se handle hota hai.</li>
+      </ul>` },
+    { heading: "Operations &amp; Complexity", body: `
+      <table>
+        <tr><th>Operation</th><th>Average</th><th>Worst Case</th></tr>
+        <tr><td>Insert</td><td>O(1)</td><td>O(n)</td></tr>
+        <tr><td>Search / Get</td><td>O(1)</td><td>O(n)</td></tr>
+        <tr><td>Delete</td><td>O(1)</td><td>O(n)</td></tr>
+      </table>`, note: "Worst case tab hota hai jab bahut saari collisions ho jaayein." },
+    { heading: "Use Cases", body: `<ul><li>Fast Lookup (duplicate/existence check)</li><li>Counting elements</li><li>Caching</li><li>Two Sum type problems (value → index store karke)</li></ul>` }
+  ],
+  problems: [
+    { title: "Two Sum", pseudocode: `map = {}
+for i, num in enumerate(nums):
+    need = target - num
+    if need in map:
+        return [map[need], i]
+    map[num] = i` }
+  ]
+},
+{
+  id: "frequency-map",
+  num: 7,
+  emoji: "🔢",
+  title: "Frequency Map",
+  summary: "HashMap ka hi ek use-case, jisme har element ki count/frequency store karte hain.",
+  sections: [
+    { heading: "Example", code: `Array : [1,2,2,3,1,1]
+Freq  : {1:3, 2:2, 3:1}` },
+    { heading: "Build Kaise Karein", code: `for element in array:
+    freq[element] = freq.get(element, 0) + 1` },
+    { heading: "Complexity", body: `<ul><li>Build Frequency Map → <strong>O(n)</strong></li><li>Har Query → <strong>O(1)</strong></li></ul>` },
+    { heading: "Use Cases", body: `<ul>
+        <li>Duplicate elements find karna</li>
+        <li>Anagram check (dono strings ki freq map compare)</li>
+        <li>Majority Element find karna</li>
+        <li>Most/Least frequent element</li>
+        <li>Sliding Window + Frequency Map combo (substring problems)</li>
+      </ul>` }
+  ],
+  problems: [
+    { title: "Valid Anagram", pseudocode: `if len(s) != len(t): return false
+freq = {}
+for ch in s: freq[ch] = freq.get(ch,0) + 1
+for ch in t:
+    if ch not in freq or freq[ch] == 0: return false
+    freq[ch] -= 1
+return true` },
+    { title: "Majority Element", pseudocode: `freq = {}
+for num in nums:
+    freq[num] = freq.get(num,0) + 1
+    if freq[num] > n/2: return num` }
+  ]
+},
+{
+  id: "hashset",
+  num: 8,
+  emoji: "🧮",
+  title: "HashSet",
+  summary: "HashMap jaisa hi hai, bas sirf keys store karta hai, koi value nahi. Sirf ye check karne ke liye ki element exist karta hai ya nahi.",
+  sections: [
+    { heading: "Operations &amp; Complexity", body: `
+      <table>
+        <tr><th>Operation</th><th>Average</th><th>Worst Case</th></tr>
+        <tr><td>Add</td><td>O(1)</td><td>O(n)</td></tr>
+        <tr><td>Contains</td><td>O(1)</td><td>O(n)</td></tr>
+        <tr><td>Remove</td><td>O(1)</td><td>O(n)</td></tr>
+      </table>` },
+    { heading: "Use Cases", body: `<ul>
+        <li>Duplicate check (contains-duplicate type)</li>
+        <li>Fast existence check (seen element ya nahi)</li>
+        <li>Longest Consecutive Sequence (set me daal ke O(1) me neighbours check)</li>
+        <li>Unique elements nikalna</li>
+      </ul>`, note: "HashMap vs HashSet: HashMap → Key-Value store karta hai (jaise frequency count). HashSet → Sirf Key store karta hai (jaise \"maine ye element dekha hai ya nahi\")." }
+  ],
+  problems: [
+    { title: "Longest Consecutive Sequence", pseudocode: `numSet = set(nums)
+best = 0
+for num in numSet:
+    if num - 1 not in numSet:   // start of a sequence
+        length = 1
+        while num + length in numSet:
+            length += 1
+        best = max(best, length)
+return best` }
+  ]
+},
+{
+  id: "prefix-product",
+  num: 9,
+  emoji: "✖️",
+  title: "Prefix Product",
+  summary: "Prefix Sum jaisa hi concept, bas sum ki jagah product store karte hain. Mostly do prefix arrays banaye jaate hain — left product aur right product.",
+  sections: [
+    { heading: "Example (Product of Array Except Self)", code: `Array  : [1, 2, 3, 4]
+Left   : [1, 1, 2,  6]   → left[i] = product of all before i
+Right  : [24,12, 4,  1]  → right[i] = product of all after i
+Answer : left[i] * right[i] → [24,12, 8, 6]` },
+    { heading: "Complexity", body: `<ul><li>Build Left + Right Prefix Product → <strong>O(n)</strong></li><li>Space → <strong>O(n)</strong> (ya <strong>O(1)</strong> agar answer array reuse karein)</li></ul>` },
+    { heading: "Use Cases", body: `<ul>
+        <li>Product of Array Except Self</li>
+        <li>Division use kiye bina product/sum range nikalna</li>
+        <li>Zero handling: ek zero ho to sirf uss index ka answer non-zero hoga, do zero hone par sab 0.</li>
+      </ul>` }
+  ],
+  problems: [
+    { title: "Product of Array Except Self", pseudocode: `left = [1]*n
+right = [1]*n
+for i in 1..n-1: left[i] = left[i-1] * nums[i-1]
+for i in n-2..0: right[i] = right[i+1] * nums[i+1]
+answer[i] = left[i] * right[i]` }
+  ]
+},
+{
+  id: "two-pointer",
+  num: 10,
+  emoji: "👉",
+  title: "Two Pointer Approach",
+  summary: "Do pointers (index) use karke array/string traverse karna, taaki nested loop O(n²) ki jagah single pass O(n) me solution mil jaaye.",
+  sections: [
+    { heading: "Types", body: `
+      <ul>
+        <li><strong>Opposite Direction (Converging)</strong> — Ek pointer start (left=0) se, ek end (right=n-1) se shuru hota hai, dono ek doosre ki taraf move karte hain jab tak left &lt; right. Use: Valid Palindrome, Two Sum II, Reverse Array/String.</li>
+        <li><strong>Same Direction (Fast &amp; Slow)</strong> — Dono pointers start se chalte hain, alag speed/condition se aage badhte hain. Use: Remove Duplicates, Linked List Cycle Detection, Sliding Window ka base bhi yahi hai.</li>
+      </ul>` },
+    { heading: "General Steps", code: `left = 0
+right = n - 1
+
+while left < right:
+    check condition using arr[left], arr[right]
+    move left++ or right-- (or both) based on condition` },
+    { heading: "Complexity", body: `<ul><li>Time → <strong>O(n)</strong> (single pass)</li><li>Space → <strong>O(1)</strong></li></ul>` },
+    { heading: "Use Cases", body: `<ul>
+        <li>Valid Palindrome (skip non-alphanumeric, compare from both ends)</li>
+        <li>Two Sum II - Input Array Is Sorted</li>
+        <li>Trapping Rain Water (leftMax, rightMax track karte hain)</li>
+        <li>Reverse String, Container With Most Water</li>
+      </ul>` }
+  ],
+  problems: [
+    { title: "Two Sum II - Input Array Is Sorted", pseudocode: `left, right = 0, n-1
+while left < right:
+    s = arr[left] + arr[right]
+    if s == target: return [left+1, right+1]
+    elif s < target: left += 1
+    else: right -= 1` },
+    { title: "Valid Palindrome", pseudocode: `left, right = 0, n-1
+while left < right:
+    skip non-alphanumeric from left and right
+    if lower(s[left]) != lower(s[right]): return false
+    left += 1; right -= 1
+return true` }
+  ]
+},
+{
+  id: "three-pointer",
+  num: 11,
+  emoji: "🤟",
+  title: "Three Pointer Approach",
+  summary: "Two Pointer ka extended version — jab problem me teeno groups/conditions ko ek hi pass me sort ya arrange karna ho, to teen pointers use karte hain.",
+  sections: [
+    { heading: "Example: Sort Colors (Dutch National Flag)", code: `low  = 0            // 0's ke liye boundary
+mid  = 0            // traversal pointer
+high = n - 1        // 2's ke liye boundary
+
+while mid <= high:
+    if arr[mid] == 0:
+        swap(arr[low], arr[mid]); low++; mid++
+    elif arr[mid] == 1:
+        mid++
+    else:  // arr[mid] == 2
+        swap(arr[mid], arr[high]); high--
+        // mid same rehta hai, kyunki swap se aaya element check nahi hua` },
+    { heading: "Complexity", body: `<ul><li>Time → <strong>O(n)</strong> (single pass, 3 pointers)</li><li>Space → <strong>O(1)</strong> (in-place)</li></ul>` },
+    { heading: "Use Cases", body: `<ul>
+        <li>Sort Colors (0,1,2 ko in-place sort karna)</li>
+        <li>3Sum type problems (ek pointer fix + do pointer opposite direction se)</li>
+        <li>Partitioning problems (3 categories me divide karna)</li>
+      </ul>` }
+  ],
+  problems: [
+    { title: "Sort Colors (Dutch National Flag)", pseudocode: `low, mid, high = 0, 0, n-1
+while mid <= high:
+    if arr[mid] == 0: swap(low, mid); low++; mid++
+    elif arr[mid] == 1: mid++
+    else: swap(mid, high); high--` },
+    { title: "3Sum", pseudocode: `sort(nums)
+for i in range(n):
+    if i > 0 and nums[i] == nums[i-1]: continue
+    left, right = i+1, n-1
+    while left < right:
+        s = nums[i] + nums[left] + nums[right]
+        if s == 0: record triplet; move both, skip dups
+        elif s < 0: left += 1
+        else: right -= 1` }
+  ]
+},
+{
+  id: "sliding-window",
+  num: 12,
+  emoji: "🪟",
+  title: "Sliding Window",
+  summary: "Ek \"window\" (subarray/substring range) ko array/string ke upar slide karte hain, taaki har baar naye sirey se sum/count calculate na karna pade — purana element nikaalo, naya element daalo.",
+  sections: [
+    { heading: "Types", body: `
+      <ul>
+        <li><strong>Fixed Size Window</strong> — Window size (k) fixed rehta hai. Pehle k elements se window banao, fir ek-ek karke slide karo (right++ aur left++ saath). Use: Max Sum Subarray of size K.</li>
+        <li><strong>Variable Size Window</strong> — Window size condition ke hisaab se badhti-ghatti hai. right pointer se window badhao, jab condition break ho to left pointer se window chhoti karo. Use: Longest Substring Without Repeating Characters, Smallest Subarray with Sum &gt;= Target.</li>
+      </ul>` },
+    { heading: "General Steps (Variable Window)", code: `left = 0
+for right in range(n):
+    add arr[right] to window
+    while window condition invalid:
+        remove arr[left] from window
+        left++
+    update answer using current window` },
+    { heading: "Complexity", body: `<ul><li>Time → <strong>O(n)</strong> (har element max 2 baar visit hota hai)</li><li>Space → <strong>O(1)</strong> ya <strong>O(k)</strong> (agar HashMap/HashSet use ho)</li></ul>` },
+    { heading: "Use Cases", body: `<ul>
+        <li>Maximum Sum Subarray of size K</li>
+        <li>Longest Substring Without Repeating Characters</li>
+        <li>Minimum Size Subarray Sum</li>
+        <li>Longest Substring with K Distinct Characters</li>
+        <li>Sliding Window + Frequency Map combo (anagram/permutation in string)</li>
+      </ul>`, note: "Two Pointer vs Sliding Window: Sliding Window ek tarah ka Two Pointer hi hai, bas \"window\" (continuous range) maintain karta hai jisme kuch condition (sum, count, distinct chars) track hoti hai." }
+  ],
+  problems: [
+    { title: "Maximum Sum Subarray of Size K", pseudocode: `windowSum = sum(arr[0..k-1])
+best = windowSum
+for i in range(k, n):
+    windowSum += arr[i] - arr[i-k]
+    best = max(best, windowSum)
+return best` },
+    { title: "Longest Substring Without Repeating Characters", pseudocode: `left = 0
+seen = set()
+best = 0
+for right in range(n):
+    while s[right] in seen:
+        seen.remove(s[left]); left++
+    seen.add(s[right])
+    best = max(best, right - left + 1)` }
+  ]
+},
+{
+  id: "searching",
+  num: 13,
+  emoji: "🔎",
+  title: "Searching",
+  summary: "Ek given element (target) ko data structure (mostly array) me dhundna.",
+  sections: [
+    { heading: "Types", body: `
+      <ul>
+        <li><strong>Linear Search</strong> → Ek-ek element check karo, unsorted/sorted dono pe chalta hai.</li>
+        <li><strong>Binary Search</strong> → Sorted array pe baar-baar search space aadha karte jao.</li>
+      </ul>`, note: "Sorted data ho to Binary Search prefer karo (bahut fast), warna Linear Search hi option hota hai." }
+  ]
+},
+{
+  id: "linear-search",
+  num: 14,
+  emoji: "➡️",
+  title: "Linear Search",
+  summary: "Array ke start se end tak ek-ek element check karke target dhundna.",
+  sections: [
+    { heading: "Steps", code: `for i in range(n):
+    if arr[i] == target:
+        return i
+return -1` },
+    { heading: "Complexity", body: `<ul><li>Time → <strong>O(n)</strong> (worst case: element last me ya absent)</li><li>Space → <strong>O(1)</strong></li></ul>` },
+    { heading: "Use Cases", body: `<ul>
+        <li>Unsorted array me search</li>
+        <li>Small array (overhead of sorting/binary search worth nahi)</li>
+        <li>Linked List me search (index se direct access nahi hota)</li>
+      </ul>` }
+  ],
+  problems: [
+    { title: "Find Target in Unsorted Array", pseudocode: `for i in range(n):
+    if arr[i] == target: return i
+return -1` }
+  ]
+},
+{
+  id: "binary-search",
+  num: 15,
+  emoji: "🎯",
+  title: "Binary Search",
+  summary: "Sorted array pe kaam karta hai. Har step pe search space aadha (half) kar dete hain — middle element check karo, target chhota hai to left half me jao, bada hai to right half me.",
+  sections: [
+    { heading: "Steps", code: `left = 0
+right = n - 1
+
+while left <= right:
+    mid = left + (right - left) // 2
+    if arr[mid] == target:
+        return mid
+    elif arr[mid] < target:
+        left = mid + 1
+    else:
+        right = mid - 1
+return -1` },
+    { heading: "Complexity", body: `<ul><li>Time → <strong>O(log n)</strong> (har step search space aadha hota hai)</li><li>Space → <strong>O(1)</strong> iterative, <strong>O(log n)</strong> recursive (call stack)</li></ul>` },
+    { heading: "Use Cases", body: `<ul>
+        <li>Sorted array me element dhundna</li>
+        <li>Search in Rotated Sorted Array (modified binary search)</li>
+        <li>Find First/Last Occurrence, Lower Bound / Upper Bound</li>
+        <li>Binary Search on Answer (min/max value dhundna jo condition satisfy kare)</li>
+        <li>Peak Element, Square Root, Koko Eating Bananas type problems</li>
+      </ul>`, note: "Golden Rule: Jaha bhi \"sorted\" dikhe ya \"minimize/maximize kuch value jo monotonic condition satisfy kare\" dikhe, wahan Binary Search try karo." }
+  ],
+  problems: [
+    { title: "Search in Rotated Sorted Array", pseudocode: `left, right = 0, n-1
+while left <= right:
+    mid = (left+right)//2
+    if arr[mid] == target: return mid
+    if arr[left] <= arr[mid]:        // left half sorted
+        if arr[left] <= target < arr[mid]: right = mid-1
+        else: left = mid+1
+    else:                            // right half sorted
+        if arr[mid] < target <= arr[right]: left = mid+1
+        else: right = mid-1
+return -1` },
+    { title: "Binary Search on Answer (template)", pseudocode: `left, right = minPossible, maxPossible
+answer = -1
+while left <= right:
+    mid = (left+right)//2
+    if isValid(mid):
+        answer = mid
+        right = mid - 1     // ya left = mid+1, direction pe depend karta hai
+    else:
+        left = mid + 1
+return answer` }
+  ]
+}
+];
+
+/* =========================================================
+   RENDERER
+   ========================================================= */
+function escAttr(str){ return String(str).replace(/"/g,"&quot;"); }
+
+function renderSidebar() {
+  const nav = document.getElementById('sidebar');
+  const progress = getProgress();
+  nav.innerHTML = topics.map(t => `
+    <a href="#${t.id}" class="${NAV_BASE}" data-id="${t.id}" data-search="${escAttr((t.title + ' ' + t.summary).toLowerCase())}">
+      <input type="checkbox" autocomplete="off" class="check w-4 h-4 accent-emerald-500 cursor-pointer flex-shrink-0" data-id="${t.id}" title="Mark as revised">
+      <span class="opacity-50 text-[11px] min-w-[18px]">${String(t.num).padStart(2,'0')}</span>
+      <span class="flex-1">${t.emoji} ${t.title}</span>
+    </a>`).join('');
+  // set the .checked property explicitly (not just the HTML attribute) so
+  // browser form-autofill/restore can't leave stale ticks after a reload
+  nav.querySelectorAll('.check').forEach(cb => {
+    cb.checked = progress.has(cb.dataset.id);
+  });
+}
+
+function renderSection(t) {
+  const subs = t.sections.map(s => {
+    const bodyHtml = s.body ? `<div class="${PROSE}">${s.body}</div>` : '';
+    const codeHtml = s.code ? `<pre class="${CODE_WRAP}"><button class="${COPY_BTN}">Copy</button><code class="${CODE_TEXT}">${s.code.replace(/</g,'&lt;')}</code></pre>` : '';
+    const noteHtml = s.note ? `<div class="${NOTE}"><strong class="text-violet-600 dark:text-violet-400">Note:</strong> ${s.note}</div>` : '';
+    return `<div class="mt-4">
+      <h3 class="text-sm font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400 mb-2">${s.heading}</h3>
+      ${bodyHtml}${codeHtml}${noteHtml}
+    </div>`;
+  }).join('');
+
+  const problemsHtml = (t.problems && t.problems.length) ? `
+    <div class="mt-5 pt-4 border-t border-dashed border-slate-200 dark:border-slate-700">
+      <div class="text-xs font-bold uppercase tracking-wide text-orange-600 dark:text-orange-400 mb-2.5">🧠 Practice Problems</div>
+      ${t.problems.map(p => `
+        <div class="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg p-3.5 mb-3">
+          <div class="text-sm font-semibold text-slate-900 dark:text-white mb-1.5 flex items-center gap-1.5"><span class="text-xs">🧩</span>${p.title}</div>
+          <pre class="${CODE_WRAP} !my-0"><button class="${COPY_BTN}">Copy</button><code class="${CODE_TEXT}">${p.pseudocode.replace(/</g,'&lt;')}</code></pre>
+        </div>`).join('')}
+    </div>` : '';
+
+  return `
+    <section id="${t.id}" class="${SECTION_BASE}" data-search="${escAttr((t.title + ' ' + t.summary + ' ' + t.sections.map(s=>s.heading).join(' ')).toLowerCase())}">
+      <h2 class="flex items-center gap-2.5 text-lg font-bold text-slate-900 dark:text-white mb-1">
+        <span class="text-[11px] border border-cyan-500 dark:border-cyan-400 text-cyan-600 dark:text-cyan-400 rounded px-1.5 py-0.5">${String(t.num).padStart(2,'0')}</span>
+        <span>${t.emoji} ${t.title}</span>
+      </h2>
+      <p class="text-slate-500 dark:text-slate-400 text-sm mb-1 leading-relaxed">📌 ${t.summary}</p>
+      ${subs}
+      ${problemsHtml}
+    </section>`;
+}
+
+function renderContent() {
+  document.getElementById('sections').innerHTML = topics.map(renderSection).join('');
+}
+
+/* =========================================================
+   PROGRESS TRACKER (localStorage)
+   ========================================================= */
+const PROGRESS_KEY = 'dsa-progress';
+function getProgress() {
+  try { return new Set(JSON.parse(localStorage.getItem(PROGRESS_KEY)) || []); }
+  catch (e) { return new Set(); }
+}
+function saveProgress(set) {
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify([...set]));
+}
+function updateProgressBar() {
+  const done = getProgress().size;
+  const total = topics.length;
+  document.getElementById('progressLabel').textContent = `${done}/${total}`;
+  document.getElementById('progressFill').style.width = total ? `${(done/total)*100}%` : '0%';
+}
+function setupProgressHandlers() {
+  const sidebar = document.getElementById('sidebar');
+  sidebar.addEventListener('click', (e) => {
+    if (e.target.classList.contains('check')) e.stopPropagation();
+  });
+  sidebar.addEventListener('change', (e) => {
+    if (!e.target.classList.contains('check')) return;
+    const id = e.target.dataset.id;
+    const set = getProgress();
+    if (e.target.checked) set.add(id); else set.delete(id);
+    saveProgress(set);
+    updateProgressBar();
+  });
+}
+
+/* =========================================================
+   THEME TOGGLE (Tailwind class strategy)
+   ========================================================= */
+const THEME_KEY = 'dsa-theme';
+function applyTheme(theme) {
+  document.documentElement.classList.toggle('dark', theme === 'dark');
+  document.getElementById('themeToggle').textContent = theme === 'dark' ? '🌙' : '☀️';
+}
+function setupTheme() {
+  const saved = localStorage.getItem(THEME_KEY) || 'dark';
+  applyTheme(saved);
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    const current = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    const next = current === 'dark' ? 'light' : 'dark';
+    localStorage.setItem(THEME_KEY, next);
+    applyTheme(next);
+  });
+}
+
+/* =========================================================
+   SCROLL ANIMATIONS + ACTIVE NAV HIGHLIGHT
+   ========================================================= */
+function setupScrollObservers() {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const sections = document.querySelectorAll('.section');
+
+  if (reduced) {
+    sections.forEach(s => { s.classList.remove(...SECTION_HIDDEN_INIT); s.classList.add(...SECTION_VISIBLE); });
+  } else {
+    const animObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove(...SECTION_HIDDEN_INIT);
+          entry.target.classList.add(...SECTION_VISIBLE);
+          animObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+    sections.forEach(s => animObserver.observe(s));
+  }
+
+  const navLinks = document.querySelectorAll('.nav-item');
+  const activeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const link = document.querySelector(`.nav-item[data-id="${entry.target.id}"]`);
+      if (!link) return;
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove(...NAV_ACTIVE));
+        link.classList.add(...NAV_ACTIVE);
+      }
+    });
+  }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+  sections.forEach(s => activeObserver.observe(s));
+}
+
+/* =========================================================
+   SEARCH / FILTER
+   ========================================================= */
+function setupSearch() {
+  const input = document.getElementById('searchInput');
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    let anyVisible = false;
+    document.querySelectorAll('.section').forEach(sec => {
+      const match = !q || sec.dataset.search.includes(q);
+      sec.classList.toggle('hidden', !match);
+      if (match) anyVisible = true;
+    });
+    document.querySelectorAll('.nav-item').forEach(link => {
+      const match = !q || link.dataset.search.includes(q);
+      link.classList.toggle('hidden', !match);
+    });
+    document.getElementById('noResults').classList.toggle('hidden', anyVisible);
+  });
+}
+
+/* =========================================================
+   COPY-CODE BUTTONS
+   ========================================================= */
+function setupCopyButtons() {
+  document.getElementById('sections').addEventListener('click', (e) => {
+    if (!e.target.classList.contains('copy-btn')) return;
+    const code = e.target.nextElementSibling.textContent;
+    navigator.clipboard.writeText(code).then(() => {
+      e.target.textContent = 'Copied!';
+      e.target.classList.add('!opacity-100','!text-emerald-400','!border-emerald-500');
+      setTimeout(() => { e.target.textContent = 'Copy'; e.target.classList.remove('!opacity-100','!text-emerald-400','!border-emerald-500'); }, 1500);
+    });
+  });
+}
+
+/* =========================================================
+   MOBILE SIDEBAR
+   ========================================================= */
+function setupHamburger() {
+  const sidebar = document.getElementById('sidebar');
+  document.getElementById('hamburger').addEventListener('click', () => {
+    sidebar.classList.toggle('-translate-x-full');
+    sidebar.classList.toggle('translate-x-0');
+  });
+  sidebar.addEventListener('click', (e) => {
+    if (e.target.closest('a.nav-item') && window.innerWidth < 768) {
+      sidebar.classList.add('-translate-x-full');
+      sidebar.classList.remove('translate-x-0');
+    }
+  });
+}
+
+/* =========================================================
+   INIT
+   ========================================================= */
+function init() {
+  renderSidebar();
+  renderContent();
+  setupProgressHandlers();
+  updateProgressBar();
+  setupTheme();
+  setupScrollObservers();
+  setupSearch();
+  setupCopyButtons();
+  setupHamburger();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
