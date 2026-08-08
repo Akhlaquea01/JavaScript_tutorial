@@ -194,7 +194,7 @@ loadLocale("hi");
 
 // In Node.js (ESM):
 // console.log(import.meta.url);
-// // file:///d:/Scaler/JavaScript_tutorial/Topics/037-modules_esm.js
+// // file:///E:/JavaScript_tutorial/JS-Topics/057-modules_esm.js
 
 // Convert to file path (Node.js ESM):
 // import { fileURLToPath } from "url";
