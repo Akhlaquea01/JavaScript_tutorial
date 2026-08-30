@@ -5,6 +5,7 @@
  * @param {number} start - Starting index of the current search range
  * @param {number} end - Ending index of the current search range
  * @returns {number} Index of the target if found, otherwise -1
+ * Time: O(log n)  Space: O(log n) recursion stack
  */
 function binarySearch(arr, target, start = 0, end = arr.length - 1) {
     // Base Case: If the search range is invalid, the target is not in the array

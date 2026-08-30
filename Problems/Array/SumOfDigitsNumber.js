@@ -1,4 +1,7 @@
-// Sum of digits of a number i.e 12=3;
+/**
+ * Sums the digits of a non-negative number.
+ * Time: O(d)  Space: O(1)
+ */
 function sumOfDigits(num) {
     let sum = 0;
 

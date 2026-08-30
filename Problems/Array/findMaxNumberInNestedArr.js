@@ -1,5 +1,8 @@
+/**
+ * Finds the maximum number in an arbitrarily nested array.
+ * Time: O(n)  Space: O(d)
+ */
 function findMaxNumberInNestedArray(array) {
-    // SET max = negative infinity
     let max = -Infinity;
 
     const healper = function (subArr) {
@@ -12,8 +15,6 @@ function findMaxNumberInNestedArray(array) {
         }
     }
 
-    //     CALL helper(array)
-    //     RETURN max
     healper(array);
     return max;
 

@@ -1,4 +1,5 @@
 // Initialize variable
+const N = 10;
 let a = 0;
 
 // First loop - iterates N times

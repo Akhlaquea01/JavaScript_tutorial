@@ -1,17 +1,17 @@
-// Problem Statement: Write a function to check if a string is a palindrome.
-
+/**
+ * Checks if a string is a palindrome, ignoring case and non-alphanumeric characters.
+ * Time: O(n)  Space: O(n)
+ */
 function isPalindrome(str) {
-    // Remove non-alphanumeric characters and convert to lowercase
     const formattedStr = str.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
 
-    // Compare the formatted string with its reverse
     for (let i = 0; i < formattedStr.length / 2; i++) {
         if (formattedStr[i] !== formattedStr[formattedStr.length - 1 - i]) {
-            return false; // If characters don't match, it's not a palindrome
+            return false;
         }
     }
 
-    return true; // If all characters match, it's a palindrome
+    return true;
 }
 
 // Example 1: Palindrome string - "A man, a plan, a canal, Panama"

@@ -110,7 +110,7 @@ console.log(str.repeat(3)); // "hello worldhello worldhello world"
 console.log(str.padStart(15, "*")); // "****hello world"
 
 // 26. padEnd(): Pads the end of a string with a specified character, until the resulting string reaches a specified length
-console.log(str.padEnd(15, "")); // "hello world***"
+console.log(str.padEnd(15, "")); // "hello world" — empty pad string has nothing to repeat, so the string is returned unchanged
 
 // 27. toLocaleString(): Returns a string that represents the object in the current locale
 console.log(num.toLocaleString()); // "42"

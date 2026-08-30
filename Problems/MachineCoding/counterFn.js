@@ -1,3 +1,7 @@
+/**
+ * Creates a counter closure with increment/decrement/reset, each instance closing over its own state.
+ * Time: O(1) per call  Space: O(1)
+ */
 var createCounter = function (init) {
     let initial = init;
     let count = init;

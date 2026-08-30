@@ -220,10 +220,10 @@ const sequence = generateCompositeSequence();
 // Output the generated values
 console.log(sequence.next().value); // Start
 console.log(sequence.next().value); // 1
-console.log(sequence.next(42).value); // Received value: 42
-console.log(sequence.next().value); // 2
+console.log(sequence.next(42).value); // logs "Received value: 42" as a side effect first, then this .value is 2
+console.log(sequence.next().value); // 3
 // console.log(sequence.throw('Error!')); // Error in generator: Error!
-console.log(sequence.next().value); // End
+console.log(sequence.next().value); // 4 — 'End' is never reached: generateSequence() has while(true), so it never completes and yield* keeps delegating to it forever
 
 
 

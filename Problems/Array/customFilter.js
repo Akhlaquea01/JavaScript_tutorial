@@ -1,17 +1,16 @@
-// Extend the Array prototype with a custom filter method
+/**
+ * Polyfill for Array.prototype.filter: returns a new array of elements for which callback returns truthy.
+ * Time: O(n)  Space: O(n)
+ */
 Array.prototype.customFilter = function (callback) {
-    // Initialize an empty array to store the filtered results
     const filteredArray = [];
 
-    // Iterate over each element of the array
     for (let i = 0; i < this.length; i++) {
-        // If the callback function returns true for the current element, add it to the filtered array
         if (callback(this[i], i, this)) {
             filteredArray.push(this[i]);
         }
     }
 
-    // Return the filtered array
     return filteredArray;
 };
 

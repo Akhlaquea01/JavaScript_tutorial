@@ -1,8 +1,9 @@
-// Extend the Array prototype with a custom forEach method
+/**
+ * Polyfill for Array.prototype.forEach: invokes callback once for each array element.
+ * Time: O(n)  Space: O(1)
+ */
 Array.prototype.customForEach = function (callback) {
-    // Iterate over each element of the array
     for (let i = 0; i < this.length; i++) {
-        // Apply the callback function to the current element
         callback(this[i], i, this);
     }
 };

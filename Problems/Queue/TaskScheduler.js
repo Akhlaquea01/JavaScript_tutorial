@@ -1,5 +1,7 @@
 /**
- * The task is to build a task scheduler that can limit the number of tasks running concurrently. The scheduler should have a concurrency limit, and when the number of running tasks reaches this limit, any new tasks should be placed in a waiting queue until a running task finishes.
+ * Runs async tasks with a concurrency limit; once the limit is reached,
+ * new tasks wait in a FIFO queue until a running task finishes.
+ * Time: O(1) per addTask  Space: O(n) queued tasks
  */
 class TaskScheduler {
     constructor(concurrencyLimit) {

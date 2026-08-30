@@ -1,11 +1,14 @@
+/**
+ * Finds the longest common prefix string among an array of strings by shrinking a candidate prefix until it matches every string.
+ * Time: O(n * m)  Space: O(1)
+ */
 const longestCommonPrefix = function (strs) {
     if (strs.length === 0) return "";
-    let prefix = strs[0]; // Start with the first string as the initial prefix
+    let prefix = strs[0];
 
     for (let i = 1; i < strs.length; i++) {
-        // Check each string and trim the prefix until it matches
         while (strs[i].indexOf(prefix) !== 0) {
-            prefix = prefix.slice(0, -1); // Remove the last character
+            prefix = prefix.slice(0, -1);
             if (prefix === "") return "";
         }
     }

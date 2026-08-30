@@ -10,6 +10,7 @@ Output: 2
  * @param {number[]} nums
  * @param {number} k
  * @return {number}
+ * Time: O(n)  Space: O(n)
  */
 var subarraySum = function (nums, k) {
     const sumFrequency = new Map();

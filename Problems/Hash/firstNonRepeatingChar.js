@@ -15,53 +15,32 @@
 
 /**
  * Finds the first non-repeating character in a string using a Map.
+ * Time: O(n)  Space: O(n)
  *
  * @param {string} string - The input string to analyze.
  * @returns {string | null} The first non-repeating character, or null.
  */
 function firstNonRepeatingChar(string) {
-    // Handle the edge case of an empty string immediately.
     if (string.length === 0) {
         return null;
     }
 
-    // Step 1: Create a Map to store the frequency count of each character.
-    // Keys will be characters from the string, values will be their counts.
+    // First pass: count frequency of each character.
     const charCounts = new Map();
-
-    // Step 2: First pass - Populate the frequency counter Map.
-    // Iterate through the string to count how many times each character appears.
     for (let i = 0; i < string.length; i++) {
-        const char = string.charAt(i); // Get the character at the current index.
-
-        // Get the current count of the character from the map. If it's not in the map
-        // yet, get() returns undefined, so we default to 0 using '|| 0'.
+        const char = string.charAt(i);
         const currentCount = charCounts.get(char) || 0;
-
-        // Increment the count and update the map with the new count for the character.
         charCounts.set(char, currentCount + 1);
-
-        // Concise alternative for the above two lines:
-        // charCounts.set(char, (charCounts.get(char) || 0) + 1);
     }
 
-    // Step 3: Second pass - Iterate through the original string again to find the first
-    // character whose count in the map is exactly 1.
+    // Second pass: return the first character whose count is exactly 1.
     for (let i = 0; i < string.length; i++) {
-        const char = string.charAt(i); // Get the character at the current index.
-
-        // Look up the count of the current character in the frequency map.
-        // If the count is exactly 1, this is the first time we've seen a character
-        // that appears only once in the entire string.
+        const char = string.charAt(i);
         if (charCounts.get(char) === 1) {
-            // Return this character immediately as it is the first non-repeating one.
             return char;
         }
     }
 
-    // Step 4: If the second loop completes without finding any character with a count of 1,
-    // it means all characters either repeat or the string was empty (handled at the start).
-    // In this case, return null as specified.
     return null;
 }
 

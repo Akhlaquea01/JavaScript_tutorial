@@ -17,35 +17,21 @@
 
 /**
  * Checks if a string contains only unique characters using a Set.
+ * Time: O(n)  Space: O(n)
  *
  * @param {string} string - The input string to check.
  * @returns {boolean} True if all characters are unique, false otherwise.
  */
 function hasUniqueChars(string) {
-    // Step 1: Create a new Set.
-    // This Set will store the characters we encounter as we iterate through the string.
     const charSet = new Set();
 
-    // Step 2: Iterate through each character of the input string.
-    // We can use a for...of loop for easy iteration over string characters.
     for (const char of string) {
-        // Step 3: Check if the current character is already in the Set.
-        // Set.has(char) returns true if 'char' is already in the Set, false otherwise.
         if (charSet.has(char)) {
-            // If the character is already in the Set, it means we have found a duplicate.
-            // The string does NOT have unique characters. Return false immediately.
             return false;
         }
-
-        // If the character was NOT in the Set, it means this is the first time we've seen it.
-        // Add the character to the Set.
         charSet.add(char);
     }
 
-    // Step 4: If the loop completes without finding any duplicates (i.e., we never returned false),
-    // it means all characters encountered were unique.
-    // Return true. This also correctly handles the empty string case, as the loop won't run,
-    // and it will directly reach this return statement.
     return true;
 }
 

@@ -3,15 +3,14 @@ const Graph = require('./Graph');
 
 class BFS extends Graph {
     /**
-     * Standard BFS implementation using a queue
-     * @param {string} start - Starting vertex
-     * @returns {Array<string>} - Vertices in BFS order
+     * Breadth-first traversal using a queue.
+     * Time: O(V + E)  Space: O(V)
      */
     search(start) {
         const queue = [start];
         const result = [];
         const visited = {};
-        visited[start] = true;
+        visited[start] = true; // mark visited at enqueue time to avoid queuing duplicates
 
         while (queue.length) {
             const currentVertex = queue.shift();
@@ -29,10 +28,8 @@ class BFS extends Graph {
     }
 
     /**
-     * Finds the shortest path between two vertices (unweighted graph)
-     * @param {string} start - Starting vertex
-     * @param {string} end - Target vertex
-     * @returns {Array<string>|null} - Shortest path or null if no path exists
+     * Finds the shortest path between two vertices in an unweighted graph.
+     * Time: O(V + E)  Space: O(V)
      */
     shortestPath(start, end) {
         const queue = [[start]];

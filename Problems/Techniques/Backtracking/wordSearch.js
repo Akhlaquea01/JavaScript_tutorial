@@ -10,6 +10,7 @@
  * @param {character[][]} board - 2D grid of characters
  * @param {string} word - The word to search for
  * @return {boolean} - Returns true if the word exists in the grid
+ * Time: O(rows * cols * 4^L) where L is word length  Space: O(L) recursion stack
  */
 const wordExistsInGrid = (board, word) => {
     const totalRows = board.length;

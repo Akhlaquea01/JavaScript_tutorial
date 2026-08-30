@@ -1,3 +1,8 @@
+/**
+ * Polyfill for Promise.all: resolves with results in input order once every promise settles,
+ * or rejects as soon as any single promise rejects.
+ * Time: O(n)  Space: O(n)
+ */
 function myPromiseAll(promises) {
     return new Promise((resolve, reject) => {
         // Handle the edge case of an empty array immediately.

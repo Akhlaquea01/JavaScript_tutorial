@@ -1,3 +1,7 @@
+/**
+ * Finds the missing number in the range [0, n] using the expected-sum formula.
+ * Time: O(n)  Space: O(1)
+ */
 function missingNumber(nums) {
     const n = nums.length; // Total number of elements, including the missing one
     const expectedSum = (n * (n + 1)) / 2; // Sum of numbers from 0 to n
@@ -11,13 +15,16 @@ console.log(missingNumber([0, 1]));    // Output: 2
 console.log(missingNumber([9, 6, 4, 2, 3, 5, 7, 0, 1])); // Output: 8
 
 
+/**
+ * Finds the missing number in [0, n] by sorting and locating the first index/value mismatch.
+ * Time: O(n log n)  Space: O(1)
+ */
 function missingNumber2(nums) {
-    nums.sort((a, b) => a - b); // Sort the array
+    nums.sort((a, b) => a - b);
 
-    // Check for the missing number
     for (let i = 0; i < nums.length; i++) {
         if (nums[i] !== i) {
-            return i; // Return the missing index
+            return i;
         }
     }
 

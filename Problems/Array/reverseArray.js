@@ -1,17 +1,16 @@
-// Function to reverse an array in place without using built-in methods
+/**
+ * Reverses an array in place using the two-pointer swap technique.
+ * Time: O(n)  Space: O(1)
+ */
 function reverseArray(arr) {
-    // Initialize pointers for the start and end of the array
     let start = 0;
     let end = arr.length - 1;
 
-    // Swap elements from start and end until the pointers meet in the middle
     while (start < end) {
-        // Swap elements at start and end indices
         const temp = arr[start];
         arr[start] = arr[end];
         arr[end] = temp;
 
-        // Move pointers inward
         start++;
         end--;
     }

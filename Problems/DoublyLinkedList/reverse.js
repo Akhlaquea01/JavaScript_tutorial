@@ -72,7 +72,10 @@ class DoublyLinkedList {
         this.length = 0;
     }
 
-    /** 🛠️ reverse(): Reverses the node links of the doubly linked list */
+    /**
+     * Reverses the node links of the doubly linked list in-place.
+     * Time: O(n)  Space: O(1)
+     */
     reverse() {
         let current = this.head;
         let temp = null;

@@ -1,6 +1,8 @@
-// Extend the Array prototype with a custom reduce method
+/**
+ * Polyfill for Array.prototype.reduce: reduces the array to a single value via callback, skipping sparse slots.
+ * Time: O(n)  Space: O(1)
+ */
 Array.prototype.customReduce = function (callback, initialValue) {
-    // Initialize an accumulator variable
     let accumulator = initialValue;
     let startIndex = 0;
 
@@ -24,14 +26,11 @@ Array.prototype.customReduce = function (callback, initialValue) {
 
     // Iterate over each element of the array, skipping empty slots
     for (let i = startIndex; i < this.length; i++) {
-        // Check if the current index is present in the array
         if (Object.hasOwn(this, i)) {
-            // Update the accumulator by applying the callback function to it
             accumulator = callback(accumulator, this[i], i, this);
         }
     }
 
-    // Return the final accumulator value
     return accumulator;
 };
 // Test the custom filter, reduce, and some methods

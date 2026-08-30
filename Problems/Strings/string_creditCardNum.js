@@ -1,3 +1,7 @@
+/**
+ * Masks all but the last 4 digits of a credit card number with asterisks.
+ * Time: O(n)  Space: O(n)
+ */
 const maskCreditCard = function (number) {
     const str = number + '';
     const last = str.slice(-4);

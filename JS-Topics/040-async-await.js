@@ -1,3 +1,7 @@
+// TOPIC: ASYNC / AWAIT
+// Syntactic sugar over promises for writing asynchronous
+// code that reads like synchronous code.
+
 // Promisified function
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

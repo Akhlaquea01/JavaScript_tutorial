@@ -15,43 +15,27 @@
 
 /**
  * Finds duplicate numbers in an array using a Map to count frequencies.
+ * Time: O(n)  Space: O(n)
  *
  * @param {number[]} nums - The input array of numbers.
  * @returns {number[]} A new array containing the duplicate numbers.
  */
 function findDuplicates(nums) {
-    // Step 1: Create a Map to store the frequency of each number.
-    // Keys will be the numbers from the input array, values will be their counts.
     const numCounts = new Map();
 
-    // Step 2: Iterate through the input array 'nums'.
-    // For each number, update its count in the numCounts Map.
     for (let num of nums) {
-        // Get the current count of the number. If it's not in the map yet, get() returns undefined,
-        // so we use '|| 0' to default the count to 0.
         const currentCount = numCounts.get(num) || 0;
-        // Increment the count and set it back in the map for the current number.
         numCounts.set(num, currentCount + 1);
-
-        // Concise alternative for the above two lines:
-        // numCounts.set(num, (numCounts.get(num) || 0) + 1);
     }
 
-    // Step 3: Initialize an empty array to store the duplicate numbers found.
     const duplicates = [];
 
-    // Step 4: Iterate through the key-value pairs (entries) in the numCounts Map.
-    // Map.entries() returns an iterator yielding [key, value] pairs.
     for (let [key, value] of numCounts.entries()) {
-        // Step 5: Check if the value (count) for the current number (key) is greater than 1.
-        // If the count is greater than 1, it means the number is a duplicate.
         if (value > 1) {
-            // Step 6: Add the number (the key) to the duplicates array.
             duplicates.push(key);
         }
     }
 
-    // Step 7: Return the array containing all identified duplicate numbers.
     return duplicates;
 }
 

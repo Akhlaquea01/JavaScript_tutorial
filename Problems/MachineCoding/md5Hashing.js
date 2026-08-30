@@ -1,15 +1,20 @@
 const crypto = require('crypto');
 
+/**
+ * Produces a stable MD5 hash of an object/array by trimming whitespace from string keys and
+ * values first; non-string values are hashed as-is rather than coerced to strings.
+ * Time: O(n) over keys  Space: O(n)
+ */
 function generateMD5Hash(obj) {
-    // Trim spaces from keys and value
     const trimmedObj = {};
     for (const key in obj) {
         if (Object.prototype.hasOwnProperty.call(obj, key)) {
-            trimmedObj[key.trim()] = obj[key].trim();
+            const value = obj[key];
+            trimmedObj[key.trim()] = typeof value === 'string' ? value.trim() : value;
         }
     }
     const str = JSON.stringify(trimmedObj);
-    return crypto.createHash('md5').update(str).digest('hex'); // Generate MD5 hash
+    return crypto.createHash('md5').update(str).digest('hex');
 }
 
 // Example object/array

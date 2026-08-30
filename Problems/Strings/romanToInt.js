@@ -31,6 +31,7 @@ Output: 3
 Explanation: III = 3.
  * @param {string} s
  * @return {number}
+ * Time: O(n)  Space: O(1)
  */
 
 function romanToInt(s) {

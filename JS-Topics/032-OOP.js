@@ -1,3 +1,8 @@
+/*******************************************************
+ * TOPIC: OBJECT-ORIENTED PROGRAMMING (OOP) IN JS
+ * Constructor functions + `new`, prototypes, and ES6
+ * classes (including inheritance).
+ *******************************************************/
 'use strict';
 
 // Constructor Functions and the new Operator

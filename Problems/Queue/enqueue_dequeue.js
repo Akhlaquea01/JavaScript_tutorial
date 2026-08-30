@@ -37,7 +37,7 @@ class Queue {
      */
     constructor() {
         /** @private @type {Array<*>} items - The internal array to store queue elements. */
-        this.items = []; // Array to store the queue elements
+        this.items = [];
     }
 
     /**
@@ -45,7 +45,7 @@ class Queue {
      * @param {*} item - The item to be added to the queue.
      */
     enqueue(item) {
-        this.items.push(item); // Adds to the end of the array
+        this.items.push(item);
     }
 
     /**
@@ -56,7 +56,7 @@ class Queue {
      */
     dequeue() {
         if (!this.isEmpty()) {
-            return this.items.shift(); // Removes from the beginning of the array
+            return this.items.shift();
         } else {
             throw new Error("Queue is empty");
         }
@@ -86,7 +86,7 @@ class Queue {
      */
     peek() {
         if (!this.isEmpty()) {
-            return this.items[0]; // Accesses the first element
+            return this.items[0];
         } else {
             throw new Error("Queue is empty");
         }

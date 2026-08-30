@@ -16,7 +16,10 @@
   - You can change a character to any of the three allowed types: <, >, or [] in each attempt.
 */
 
-// Enhanced version: tracking replacements
+/**
+ * Determines whether a bracket string can be balanced within maxAttempts character replacements, using a stack to track mismatches.
+ * Time: O(n)  Space: O(n)
+ */
 function canBalanceString(str, maxAttempts) {
     const stack = [];
     const replacements = [];

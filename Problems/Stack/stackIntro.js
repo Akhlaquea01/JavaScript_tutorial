@@ -113,7 +113,7 @@ class Stack {
      */
     makeEmpty() {
         this.top = null;
-        this.length = 0; // Corrected from this.height to this.length
+        this.length = 0;
     }
 
     /**

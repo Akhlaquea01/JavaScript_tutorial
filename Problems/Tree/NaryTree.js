@@ -1,41 +1,53 @@
 class Node {
     constructor(val) {
-        this.val = val;        // Value of the node
-        this.children = [];    // Array to store children nodes
+        this.val = val;
+        this.children = [];
     }
 }
 
+/**
+ * N-ary tree: each node can have any number of children (stored in an array),
+ * as opposed to a binary tree's fixed left/right.
+ */
 class NaryTree {
     constructor(root = null) {
-        this.root = root;      // Root of the N-ary tree
+        this.root = root;
     }
 
-    // Insert a child node to a given parent node
+    /**
+     * Insert a child node under a given parent node.
+     * Time: O(1)  Space: O(1)
+     */
     insert(parent, val) {
-        const newNode = new Node(val); // Create a new node
-        parent.children.push(newNode); // Add the new node to the parent's children
-        return newNode;  // Return the new node to allow further operations
+        const newNode = new Node(val);
+        parent.children.push(newNode);
+        return newNode;  // Returned to allow chaining further inserts onto it
     }
 
-    // Depth First Search (DFS) Traversal
+    /**
+     * Depth First Search traversal, visiting each node before its children.
+     * Time: O(n)  Space: O(n) (recursion stack)
+     */
     dfs(node) {
         if (!node) return;
-        console.log(node.val);  // Visit the node (process it)
+        console.log(node.val);
         for (let child of node.children) {
-            this.dfs(child);  // Recursively visit each child
+            this.dfs(child);
         }
     }
 
-    // Breadth First Search (BFS) Traversal
+    /**
+     * Breadth First Search (level-order) traversal.
+     * Time: O(n)  Space: O(n) (queue)
+     */
     bfs(node) {
         if (!node) return;
-        let queue = [node];  // Start with the root node in the queue
+        let queue = [node];
 
         while (queue.length > 0) {
-            let currentNode = queue.shift();  // Get the first node in the queue
-            console.log(currentNode.val);      // Visit the node (process it)
+            let currentNode = queue.shift();
+            console.log(currentNode.val);
 
-            // Add all children of the current node to the queue
             for (let child of currentNode.children) {
                 queue.push(child);
             }

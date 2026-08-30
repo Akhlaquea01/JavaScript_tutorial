@@ -5,6 +5,10 @@ Lacs = 100,000
 Crores = 10,000,000
 Thousand = 1,000 
 */
+/**
+ * Builds a chainable Indian-currency converter (lacs/crore/thousand) that accumulates
+ * into a closure-scoped total; call .value() to read the sum.
+ */
 function computeAmount() {
     let total = 0;
 

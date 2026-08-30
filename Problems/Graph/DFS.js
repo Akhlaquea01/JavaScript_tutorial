@@ -3,9 +3,8 @@ const Graph = require('./Graph');
 
 class DFS extends Graph {
     /**
-     * Recursive DFS implementation
-     * @param {string} start - Starting vertex
-     * @returns {Array<string>} - Vertices in DFS order
+     * Depth-first traversal, recursive, visiting vertices in DFS order.
+     * Time: O(V + E)  Space: O(V) recursion stack + visited set
      */
     recursive(start) {
         const result = [];
@@ -28,9 +27,8 @@ class DFS extends Graph {
     }
 
     /**
-     * Iterative DFS implementation using a stack
-     * @param {string} start - Starting vertex
-     * @returns {Array<string>} - Vertices in DFS order
+     * Depth-first traversal, iterative, using an explicit stack.
+     * Time: O(V + E)  Space: O(V)
      */
     iterative(start) {
         const stack = [start];

@@ -1,14 +1,13 @@
-// Problem Statement: Write a function to count the number of vowels in a string.
-
+/**
+ * Counts the number of vowels in a string (case-insensitive).
+ * Time: O(n)  Space: O(1)
+ */
 function countVowels(str) {
-    // Define an array of vowels
     const vowels = ['a', 'e', 'i', 'o', 'u'];
     let count = 0;
 
-    // Convert the string to lowercase to handle case-insensitivity
     str = str.toLowerCase();
 
-    // Iterate through the string and count vowels
     for (let char of str) {
         if (vowels.includes(char)) {
             count++;

@@ -1,4 +1,5 @@
 // Initialize variables
+const N = 10, M = 15;
 let a = 0, b = 0;
 
 // Function to generate a random number between 0 and 99 (simulating rand())

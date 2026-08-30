@@ -12,6 +12,7 @@
  *
  * @param {number} n The size of the chessboard (N x N).
  * @returns {string[][]} A list of all distinct solutions to the N-Queens puzzle.
+ * Time: O(N!)  Space: O(N^2) for the board (plus O(N) recursion stack)
  */
 function solveNQueens(n) {
     /**

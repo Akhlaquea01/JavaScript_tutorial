@@ -43,15 +43,10 @@ class HashTable {
      */
     _hash(key) {
         let hash = 0;
-        // Iterate through each character of the key string
         for (let i = 0; i < key.length; i++) {
-            // Get the character code (ASCII value) and incorporate it into the hash.
-            // Multiply by a prime number (23) to help distribute hash values more evenly.
-            // Apply the modulo operator (%) with the array length to ensure the hash
-            // result is a valid index within the dataMap array.
+            // Multiply by a prime (23) to spread hash values before wrapping into bounds.
             hash = (hash + key.charCodeAt(i) * 23) % this.dataMap.length;
         }
-        // Return the final computed index.
         return hash;
     }
 
@@ -62,11 +57,7 @@ class HashTable {
      */
     printTable() {
         console.log("--- Hash Table Contents ---");
-        // Iterate through each index (bucket) of the dataMap array.
         for (let i = 0; i < this.dataMap.length; i++) {
-            // Log the index and the content of the bucket at that index.
-            // If a bucket is empty, it will show as 'undefined' or 'null'.
-            // If there's a collision, it will show an array of [key, value] pairs.
             console.log(i, ": ", this.dataMap[i]);
         }
         console.log("-------------------------");
@@ -80,24 +71,16 @@ class HashTable {
      * @returns {HashTable} Returns the HashTable instance to allow method chaining.
      */
     set(key, value) {
-        // Compute the index where this key-value pair should be stored using the hash function.
         let index = this._hash(key);
 
-        // If the bucket at this index is empty (doesn't exist yet), initialize it as an empty array.
-        // This array will store the [key, value] pairs that hash to this index (the chain).
         if (!this.dataMap[index]) {
             this.dataMap[index] = [];
         }
 
-        // Add the new [key, value] pair to the end of the array (the chain) at the computed index.
-        // For simplicity, this implementation doesn't explicitly check if the key already exists
-        // to update it; it just adds a new pair to the chain. A more robust 'set' would
-        // iterate through the chain first to check for an existing key and update its value.
-        // However, based on the likely intended complexity for this exercise, simple pushing is expected.
-        // Note: The test cases provided suggest that checking for existing keys is NOT required for 'set'.
+        // Note: doesn't check for an existing key, so re-setting a key appends
+        // a new pair to the chain rather than updating the old one.
         this.dataMap[index].push([key, value]);
 
-        // Return the instance to enable method chaining (e.g., myHashTable.set("a", 1).set("b", 2);)
         return this;
     }
 
@@ -109,24 +92,16 @@ class HashTable {
      * @returns {*} The value associated with the key, or undefined if the key is not found.
      */
     get(key) {
-        // Compute the index where the key should be located.
         let index = this._hash(key);
 
-        // Check if the bucket at the computed index actually exists and contains elements.
         if (this.dataMap[index]) {
-            // If the bucket exists, iterate through the array (the chain) at this index.
-            // Each element in this array is a [key, value] pair.
             for (let i = 0; i < this.dataMap[index].length; i++) {
-                // Check if the key of the current pair in the chain matches the key we are looking for.
                 if (this.dataMap[index][i][0] === key) {
-                    // If a match is found, return the corresponding value (the second element of the pair).
                     return this.dataMap[index][i][1];
                 }
             }
         }
 
-        // If the bucket doesn't exist or the key was not found after checking all items
-        // in the bucket's chain, return undefined to indicate the key is not in the hash table.
         return undefined;
     }
 
@@ -136,22 +111,15 @@ class HashTable {
      * @returns {string[]} An array of all keys.
      */
     keys() {
-        let allKeys = []; // Initialize an empty array to store the collected keys.
+        let allKeys = [];
 
-        // Iterate through each bucket (index) in the dataMap array.
         for (let i = 0; i < this.dataMap.length; i++) {
-            // Check if the current bucket is not empty (i.e., it contains a chain array).
             if (this.dataMap[i]) {
-                // If the bucket is not empty, iterate through each [key, value] pair
-                // within the chain array at this bucket's index.
                 for (let j = 0; j < this.dataMap[i].length; j++) {
-                    // The key is the first element ([0]) of the [key, value] pair.
-                    // Add this key to our allKeys array.
                     allKeys.push(this.dataMap[i][j][0]);
                 }
             }
         }
-        // Return the array containing all keys found in the hash table.
         return allKeys;
     }
 

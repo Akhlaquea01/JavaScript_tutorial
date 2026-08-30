@@ -1,3 +1,7 @@
+/**
+ * Truncates a string to a max length, appending "..." if it was shortened.
+ * Time: O(n)  Space: O(n)
+ */
 function truncate(str, length) {
     if (str.length > length && length > 0) {
         return str.slice(0, length) + "...";

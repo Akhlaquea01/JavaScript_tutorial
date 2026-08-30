@@ -1,6 +1,6 @@
 /**
- * @param {Function} fn The function to curry.
- * @returns {Function} Returns the new curried function.
+ * Returns a curried version of fn that collects arguments across multiple calls until fn's arity is met.
+ * Time: O(n)  Space: O(n)
  */
 function curry(fn) {
     // Get the arity (number of arguments) of the original function.

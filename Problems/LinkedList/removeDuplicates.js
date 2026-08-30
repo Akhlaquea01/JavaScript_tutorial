@@ -51,6 +51,10 @@ class LinkedList {
         this.length++;
     }
 
+    /**
+     * Removes duplicate values from the list, keeping only the first occurrence of each value.
+     * Time: O(n)  Space: O(n)
+     */
     removeDuplicates() {
         const values = new Set();
         let previous = null;

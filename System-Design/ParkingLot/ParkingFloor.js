@@ -1,5 +1,6 @@
-// ParkingFloor.js
-// Represents a floor in the parking lot, containing multiple slots
+/**
+ * Represents a floor in the parking lot, containing multiple slots.
+ */
 export class ParkingFloor {
     constructor(floorNumber) {
         this.floorNumber = floorNumber;
@@ -10,6 +11,7 @@ export class ParkingFloor {
         this.slots.push(slot);
     }
 
+    // O(n) scan over this floor's slots for free ones of the requested type
     getAvailableSlots(type) {
         return this.slots.filter(slot => slot.type === type && !slot.isOccupied);
     }

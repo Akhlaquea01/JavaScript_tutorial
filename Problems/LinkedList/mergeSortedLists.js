@@ -13,6 +13,7 @@ class Node {
  * @param {Node} list1 - Head node of the first sorted linked list.
  * @param {Node} list2 - Head node of the second sorted linked list.
  * @returns {Node} - Head node of the merged sorted linked list.
+ * Time: O(n + m)  Space: O(1) excluding the output list
  */
 var mergeTwoLists = function (list1, list2) {
     // Create a dummy node to simplify edge case handling

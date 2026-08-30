@@ -1,19 +1,7 @@
 /**
- * @param {number[]} nums
- * @return {number}
-
- Given an integer array nums, return the third distinct maximum number in this array. If the third maximum does not exist, return the maximum number.
-
- 
-
-Example 1:
-
-Input: nums = [3,2,1]
-Output: 1
-Explanation:
-The first distinct maximum is 3.
-The second distinct maximum is 2.
-The third distinct maximum is 1.
+ * Returns the third distinct maximum in nums, or the maximum if fewer than
+ * three distinct values exist.
+ * Time: O(n)  Space: O(1)
  */
 var thirdMax = function (nums) {
     let max1 = null;
@@ -25,8 +13,8 @@ var thirdMax = function (nums) {
         
         // Skip duplicate values
         if (num === max1 || num === max2 || num === max3) continue;
-        
-        // Fix 2: Check for null/undefined before comparing values
+
+        // Guard against null so a real number never loses to an unset slot
         if (max1 === null || num > max1) {
             max3 = max2;
             max2 = max1;
@@ -39,6 +27,7 @@ var thirdMax = function (nums) {
         }
     }
     
-    // Fix 3: Explicitly check if max3 is filled to handle 0 correctly
+    // max3 stays null when fewer than 3 distinct values exist; check
+    // explicitly (rather than truthiness) so a value of 0 is handled correctly
     return max3 !== null ? max3 : max1;
 };

@@ -10,6 +10,11 @@ class TreeNode {
     }
 }
 
+/**
+ * Binary Search Tree: for every node, left subtree values are smaller and
+ * right subtree values are larger. No self-balancing, so operations run in
+ * O(h) where h is the tree height (O(log n) balanced, O(n) worst case).
+ */
 class BinarySearchTree {
     constructor() {
         this.root = null;
@@ -19,6 +24,7 @@ class BinarySearchTree {
      * Insert a new value into the BST
      * @param {*} value - The value to insert
      * @returns {BinarySearchTree} - The BST instance for chaining
+     * Time: O(h)  Space: O(1)
      */
     insert(value) {
         const newNode = new TreeNode(value);
@@ -31,7 +37,7 @@ class BinarySearchTree {
         let current = this.root;
 
         while (true) {
-            if (value === current.value) return undefined; // Avoid duplicates
+            if (value === current.value) return this; // Avoid duplicates, keep chain intact
 
             if (value < current.value) {
                 if (current.left === null) {
@@ -53,6 +59,7 @@ class BinarySearchTree {
      * Search for a value in the BST
      * @param {*} value - The value to search for
      * @returns {boolean} - True if found, false otherwise
+     * Time: O(h)  Space: O(1)
      */
     contains(value) {
         if (this.root === null) return false;
@@ -76,6 +83,7 @@ class BinarySearchTree {
      * Find a node with the given value
      * @param {*} value - The value to find
      * @returns {TreeNode|null} - The node if found, null otherwise
+     * Time: O(h)  Space: O(1)
      */
     findNode(value) {
         let current = this.root;
@@ -97,6 +105,7 @@ class BinarySearchTree {
      * Delete a value from the BST
      * @param {*} value - The value to delete
      * @returns {TreeNode} - The root of the modified tree
+     * Time: O(h)  Space: O(h) (recursion stack)
      */
     delete(value) {
         const deleteNode = (node, value) => {
@@ -133,6 +142,7 @@ class BinarySearchTree {
     /**
      * In-order traversal (Left, Root, Right)
      * @returns {Array} - Array of values in traversal order
+     * Time: O(n)  Space: O(n)
      */
     inOrder() {
         const result = [];
@@ -150,6 +160,7 @@ class BinarySearchTree {
     /**
      * Pre-order traversal (Root, Left, Right)
      * @returns {Array} - Array of values in traversal order
+     * Time: O(n)  Space: O(n)
      */
     preOrder() {
         const result = [];
@@ -167,6 +178,7 @@ class BinarySearchTree {
     /**
      * Post-order traversal (Left, Right, Root)
      * @returns {Array} - Array of values in traversal order
+     * Time: O(n)  Space: O(n)
      */
     postOrder() {
         const result = [];
@@ -184,6 +196,7 @@ class BinarySearchTree {
     /**
      * Level-order traversal (Breadth-first)
      * @returns {Array} - Array of values in traversal order
+     * Time: O(n)  Space: O(n)
      */
     levelOrder() {
         const result = [];
@@ -209,6 +222,7 @@ class BinarySearchTree {
     /**
      * Find the minimum value in the BST
      * @returns {*} - The minimum value
+     * Time: O(h)  Space: O(1)
      */
     findMin() {
         if (this.root === null) return null;
@@ -224,6 +238,7 @@ class BinarySearchTree {
     /**
      * Find the maximum value in the BST
      * @returns {*} - The maximum value
+     * Time: O(h)  Space: O(1)
      */
     findMax() {
         if (this.root === null) return null;
@@ -239,6 +254,7 @@ class BinarySearchTree {
     /**
      * Get the height of the tree
      * @returns {number} - The height of the tree
+     * Time: O(n)  Space: O(h) (recursion stack)
      */
     getHeight() {
         const calculateHeight = (node) => {
@@ -251,6 +267,7 @@ class BinarySearchTree {
     /**
      * Check if the tree is balanced
      * @returns {boolean} - True if balanced, false otherwise
+     * Time: O(n)  Space: O(h) (recursion stack)
      */
     isBalanced() {
         const checkBalance = (node) => {
@@ -279,8 +296,12 @@ class BinarySearchTree {
      * @param {*} value1 - First value
      * @param {*} value2 - Second value
      * @returns {*} - Value of the lowest common ancestor
+     * Time: O(h)  Space: O(h) (recursion stack)
      */
     findLCA(value1, value2) {
+        // Both values must actually exist in the tree, otherwise there's no real LCA
+        if (!this.contains(value1) || !this.contains(value2)) return null;
+
         // Helper function to find LCA in BST
         const findLCAInBST = (node, val1, val2) => {
             if (node === null) return null;
@@ -307,6 +328,7 @@ class BinarySearchTree {
      * @param {*} value1 - First value
      * @param {*} value2 - Second value
      * @returns {number} - Distance between nodes
+     * Time: O(h)  Space: O(1)
      */
     findDistance(value1, value2) {
         // Find LCA first

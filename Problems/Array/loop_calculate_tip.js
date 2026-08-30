@@ -18,6 +18,10 @@ HINT: Call calcTip in the loop and use the push method to add values to the tips
 GOOD LUCK 😀
 */
 
+/**
+ * Calculates a tip: 15% for bills between 50 and 300 (inclusive), 20% otherwise.
+ * Time: O(1)  Space: O(1)
+ */
 const calcTip = function (bill) {
     return bill >= 50 && bill <= 300 ? bill * 0.15 : bill * 0.2;
 };
@@ -32,6 +36,10 @@ for (let i = 0; i < bills.length; i++) {
 }
 console.log(bills, tips, totals);
 
+/**
+ * Calculates the average of all numbers in an array.
+ * Time: O(n)  Space: O(1)
+ */
 const calcAverage = function (arr) {
     let sum = 0;
     for (let i = 0; i < arr.length; i++) {

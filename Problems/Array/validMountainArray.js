@@ -1,12 +1,6 @@
 /**
- *Given an array of integers arr, return true if and only if it is a valid mountain array.
-
-Recall that arr is a mountain array if and only if:
-
-arr.length >= 3
-There exists some i with 0 < i < arr.length - 1 such that:
-arr[0] < arr[1] < ... < arr[i - 1] < arr[i] 
-arr[i] > arr[i + 1] > ... > arr[arr.length - 1]
+ * Checks whether an array is a valid mountain (strictly increasing then strictly decreasing, peak not at either end).
+ * Time: O(n)  Space: O(1)
  */
 function validMountainArray(arr) {
     if (arr.length < 3) return false;
@@ -41,7 +35,10 @@ function validMountainArray(arr) {
 };
 
 
-// Method 2
+/**
+ * Alternative two-pointer approach: climbs up then down and checks the walk consumed the whole array.
+ * Time: O(n)  Space: O(1)
+ */
 function validMountainArray2(arr) {
     if (arr.length < 3) return false;
 

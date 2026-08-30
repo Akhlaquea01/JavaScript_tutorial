@@ -1,3 +1,7 @@
+/**
+ * Reverses a string by building a new string from the end.
+ * Time: O(n)  Space: O(n)
+ */
 const reverse = (str) => {
     const backwards = [];
     const totalItems = str.length - 1;

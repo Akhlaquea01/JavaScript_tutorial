@@ -1,35 +1,24 @@
 /**
- * Groups elements of a collection by keys generated from running each element 
- * through an iteratee function.
- * 
- * @param {Array} collection - The array to iterate over
- * @param {Function} iteratee - The function to generate grouping keys
- * @returns {Object} Returns the composed aggregate object
+ * Groups elements of a collection by keys generated from an iteratee function.
+ * Time: O(n)  Space: O(n)
  */
 function groupBy(collection, iteratee) {
-    // Initialize the result object
     const result = {};
 
-    // Handle edge case: empty collection
     if (!collection || collection.length === 0) {
         return result;
     }
 
-    // Iterate through each element in the collection
     for (const item of collection) {
-        // Get the grouping key by applying the iteratee to the current item
         const key = iteratee(item);
 
-        // Convert key to string to ensure consistent object property access
-        // (JavaScript object keys are always strings)
+        // Convert key to string since JavaScript object keys are always strings
         const stringKey = String(key);
 
-        // If the key doesn't exist in the result object, initialize it with an empty array
         if (!result[stringKey]) {
             result[stringKey] = [];
         }
 
-        // Push the current item to the array for this key
         result[stringKey].push(item);
     }
 

@@ -1,3 +1,7 @@
+/**
+ * Counts occurrences of each character in a string using reduce.
+ * Time: O(n)  Space: O(n)
+ */
 function countCharacters(str) {
     return str.split("").reduce((acc, char) => {
         acc[char] = (acc[char] || 0) + 1;
@@ -12,6 +16,10 @@ console.log(result);
 // Output: { h: 1, e: 1, l: 3, o: 2, ' ': 2, w: 1, r: 1, d: 1 }
 
 // Method 2
+/**
+ * Counts occurrences of each character in a string using a plain object.
+ * Time: O(n)  Space: O(n)
+ */
 function countCharacters2(str) {
     let charCount = {};
     for (let char of str) {
@@ -24,6 +32,10 @@ function countCharacters2(str) {
 console.log(countCharacters2(text));
 
 // Method 3
+/**
+ * Counts occurrences of each character in a string using a Map.
+ * Time: O(n)  Space: O(n)
+ */
 function countCharacters3(str) {
     let charMap = new Map();
     for (let char of str) {

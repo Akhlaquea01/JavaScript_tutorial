@@ -1,0 +1,11 @@
+node_modules/
+
+# Local Claude Code dev-server config (machine-specific)
+.claude/launch.json
+
+# Generated runtime state (recreated automatically by System-Design/ParkingLot scripts)
+vehicleData.json
+
+# OS cruft
+.DS_Store
+Thumbs.db

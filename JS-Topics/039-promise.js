@@ -1,3 +1,7 @@
+// TOPIC: PROMISES
+// Creating/chaining promises, the static helpers
+// (all/race/resolve/reject), and consuming them via async/await.
+
 // Promise creation and basic chaining
 function myDisplayer(some) {
     console.log(some);

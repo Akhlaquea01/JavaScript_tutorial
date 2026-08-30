@@ -5,9 +5,12 @@ import { ParkingLot } from './ParkingLot.js';
 import { ParkingFloor } from './ParkingFloor.js';
 import { DisplayBoard } from './DisplayBoard.js';
 import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 // Load or initialize vehicle data
-const dataPath = './vehicleData.json';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const dataPath = path.join(__dirname, 'vehicleData.json');
 function loadVehicleData() {
     if (!fs.existsSync(dataPath)) {
         fs.writeFileSync(dataPath, JSON.stringify({ parkedVehicles: [], historyLogs: [] }, null, 2));

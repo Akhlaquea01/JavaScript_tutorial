@@ -16,6 +16,8 @@
  *   values  = [1, 4, 5, 7]
  *   capacity = 7
  *   Output: 9 (take items with weight 3 and 4 → values 4 + 5)
+ *
+ * Time: O(itemCount * capacity)  Space: O(itemCount * capacity)
  */
 
 function knapsack(weights, values, capacity) {

@@ -18,66 +18,35 @@
 /**
  * Finds the indices of a contiguous subarray that sums up to a target value
  * using a Map and the concept of prefix sums.
+ * Time: O(n)  Space: O(n)
  *
  * @param {number[]} nums - The input array of integers.
  * @param {number} target - The target sum.
  * @returns {number[]} An array containing the starting and ending indices of the subarray, or an empty array if no solution is found.
  */
 function subarraySum(nums, target) {
-    // Step 1: Create a Map to store prefix sums and their corresponding indices.
-    // Keys will be the prefix sums, values will be the index where that sum was achieved.
     const sumIndex = new Map();
 
-    // Step 2: Initialize the map with a prefix sum of 0 at index -1.
-    // This handles cases where the subarray summing to the target starts from index 0.
-    // If currentSum - target === 0, it means currentSum === target, and the subarray
-    // from index 0 to the current index i sums to the target. The starting index would
-    // be map.get(0) + 1 = -1 + 1 = 0.
+    // Seed with prefix sum 0 at index -1, so a subarray starting at index 0
+    // (where currentSum already equals target) resolves to start index 0.
     sumIndex.set(0, -1);
 
-    // Initialize the variable to keep track of the current prefix sum as we iterate.
     let currentSum = 0;
 
-    // Step 3: Iterate through the input array 'nums' with their indices.
     for (let i = 0; i < nums.length; i++) {
-        // Step 4: Update the current prefix sum by adding the current number.
         currentSum += nums[i];
-
-        // Step 5: Calculate the 'requiredSum' - the prefix sum we need to find in the map.
-        // If a previous prefix sum (at index j-1) equals 'currentSum - target',
-        // then the subarray from index j to i sums to 'target'.
         const requiredSum = currentSum - target;
 
-        // Check if the 'requiredSum' exists as a key in our map.
         if (sumIndex.has(requiredSum)) {
-            // Step 6: If 'requiredSum' is found in the map, we have found the subarray.
-            // The starting index of the subarray is the index stored for 'requiredSum'
-            // in the map, plus 1 (because map stores the index *before* the subarray starts).
-            // The ending index is the current index 'i'.
             return [sumIndex.get(requiredSum) + 1, i];
         }
 
-        // Step 7: If 'requiredSum' was NOT found, store the current prefix sum
-        // and its index in the map. This makes the current sum available for
-        // future calculations as we continue iterating.
-        // We only store the *first* occurrence of a prefix sum's index. If a prefix
-        // sum repeats, we don't update its index in the map, as we are looking for
-        // the *earliest* possible start index for a subarray ending at 'i'.
+        // Only store the first occurrence of a sum, so the earliest valid start index wins.
         if (!sumIndex.has(currentSum)) {
             sumIndex.set(currentSum, i);
         }
-        // Note: The provided solution in the prompt simply uses sumIndex.set(currentSum, i)
-        // without the !sumIndex.has(currentSum) check. This works because if a sum
-        // is repeated, the *first* occurrence's index is the one that would provide
-        // the earliest start index for a target subarray ending *after* that first occurrence.
-        // Using the check `if (!sumIndex.has(currentSum))` is slightly more explicit
-        // about only storing the first index, but the simpler `set` works correctly
-        // for finding *a* valid subarray. Let's stick to the simpler `set` as in the prompt's solution.
-        // sumIndex.set(currentSum, i); // Reverting to the simpler set as in the prompt
     }
 
-    // Step 8: If the loop finishes without finding a subarray that sums to the target,
-    // return an empty array as no solution was found.
     return [];
 }
 

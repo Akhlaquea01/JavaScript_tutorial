@@ -34,6 +34,10 @@ let climbStairs = function (n) {
 
   return currentWays;
 };
+/**
+ * Naive recursive solution to the same climbing-stairs problem (no memoization).
+ * Time: O(2^n)  Space: O(n) recursion stack
+ */
 let climbStairs2 = function (n) {
   // Base case 1: If the number of stairs is negative, it's impossible.
   // There are 0 ways to climb a negative number of stairs.

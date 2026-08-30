@@ -1,15 +1,16 @@
+/**
+ * Deep clones an object or array, correctly handling circular references.
+ * Time: O(n)  Space: O(n)
+ */
 function cloneDeep(value, clonedObjects = new Map()) {
-    // 1. Input Check: Primitives and null
     if (value === null || typeof value !== 'object') {
         return value;
     }
 
-    // 4. Handle Circular References
     if (clonedObjects.has(value)) {
         return clonedObjects.get(value);
     }
 
-    // 2 & 3. Type Identification and Container Creation
     let clone;
     if (Array.isArray(value)) {
         clone = [];
@@ -17,17 +18,15 @@ function cloneDeep(value, clonedObjects = new Map()) {
         clone = {};
     }
 
-    // Add the original value and its new clone to the cache
+    // Cache the clone before recursing so a circular reference resolves to it instead of looping forever
     clonedObjects.set(value, clone);
 
-    // 5. Recursive Traversal
     for (const key in value) {
         if (Object.prototype.hasOwnProperty.call(value, key)) {
             clone[key] = cloneDeep(value[key], clonedObjects);
         }
     }
 
-    // 6. Return the new clone
     return clone;
 }
 

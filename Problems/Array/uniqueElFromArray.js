@@ -1,29 +1,26 @@
 /**
- * find unique elements from an array
- * @param {Array} arr - The input array from which to find unique elements.
+ * Finds unique objects in an array by comparing JSON.stringify'd keys (order-sensitive, so key order matters).
+ * Time: O(n)  Space: O(n)
  */
-
 function findUniqueObj(arr) {
-    const uniqueObj = {}; // Object to store unique elements
-    const result = []; // Array to store the result
+    const uniqueObj = {};
+    const result = [];
 
     for (const obj of arr) {
-        const key = JSON.stringify(obj); // Convert object to string for comparison
-        if (!uniqueObj[key]) { // If the object is not already in the uniqueObj
-            uniqueObj[key] = true; // Mark it as seen
-            result.push(obj); // Add it to the result array
+        const key = JSON.stringify(obj);
+        if (!uniqueObj[key]) {
+            uniqueObj[key] = true;
+            result.push(obj);
         }
     }
-    return result; // Return the array of unique objects
+    return result;
 }
+
 /**
- * 
-It’s order-sensitive: { a: 1, b: 2 } and { b: 2, a: 1 } are technically equal but JSON.stringify() will treat them as different.
-
-It won’t handle functions, undefined, symbols, or circular structures properly.
+ * Finds unique objects using a sorted-key signature (order-insensitive, unlike findUniqueObj); doesn't handle
+ * functions, undefined, symbols, or circular structures correctly.
+ * Time: O(n)  Space: O(n)
  */
-
-
 function findUniqueObj2(arr) {
     const seen = new Map();
     const result = [];

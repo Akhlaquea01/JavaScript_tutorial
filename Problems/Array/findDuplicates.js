@@ -1,3 +1,7 @@
+/**
+ * Finds values that appear more than once in the array (one entry per duplicate occurrence beyond the first).
+ * Time: O(n^2)  Space: O(n)
+ */
 function findDuplicates(arr) {
     return arr.filter((item, index) => arr.indexOf(item) !== index);
 }

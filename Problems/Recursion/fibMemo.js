@@ -1,5 +1,6 @@
 /**
- * Calculates nth Fibonacci number using memoization
+ * Calculates the nth Fibonacci number using memoization.
+ * Time: O(n)  Space: O(n)
  * @param {number} n - The Fibonacci number to compute
  * @param {Object} memo - Cache for storing computed results
  * @returns {number} - The nth Fibonacci number
@@ -10,7 +11,7 @@ function fibMemoVerbose(n, memo = {}) {
         console.log(`Cache hit for n = ${n}: ${memo[n]}`);
         return memo[n];
     }
-    console.log(`Computing fibMemo(${n})`); // Log when computation happens
+    console.log(`Computing fibMemo(${n})`);
     memo[n] = fibMemoVerbose(n - 1, memo) + fibMemoVerbose(n - 2, memo);
     return memo[n];
 }

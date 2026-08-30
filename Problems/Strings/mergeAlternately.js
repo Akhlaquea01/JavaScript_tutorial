@@ -7,6 +7,7 @@ Explanation: Notice that as word2 is longer, "rs" is appended to the end.
 word1:  a   b 
 word2:    p   q   r   s
 merged: a p b q   r   s
+ * Time: O(n)  Space: O(n)
  */
 const mergeAlternately = function (word1, word2) {
     const result = [];

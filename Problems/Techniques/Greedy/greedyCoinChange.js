@@ -1,3 +1,7 @@
+/**
+ * Makes change for `amount` by greedily taking the largest coin that still fits (correct only for canonical coin systems).
+ * Time: O(k log k + amount)  Space: O(amount) for the result
+ */
 function greedyCoinChange(coins, amount) {
     // Sort coins in descending order for greedy selection
     coins.sort((a, b) => b - a);

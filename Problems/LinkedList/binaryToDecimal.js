@@ -61,6 +61,10 @@ class LinkedList {
         this.length++;
     }
 
+    /**
+     * Converts a binary number represented as a linked list (most significant bit first) to its decimal value.
+     * Time: O(n)  Space: O(1)
+     */
     binaryToDecimal() {
         let num = 0;
         let current = this.head;

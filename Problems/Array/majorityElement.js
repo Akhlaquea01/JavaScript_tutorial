@@ -1,9 +1,6 @@
 /**
-The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
-Example 1:
-
-Input: nums = [3,2,3]
-Output: 3
+ * Finds the majority element (the value that appears more than n/2 times); assumes one always exists.
+ * Time: O(n)  Space: O(n)
  */
 const majorityElement = function (nums) {
     const countMap = new Map();

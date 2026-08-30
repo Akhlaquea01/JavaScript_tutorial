@@ -1,3 +1,7 @@
+/**
+ * Formats a number using K/M/B/T suffixes (e.g. 1500 -> "1.5K").
+ * Time: O(1)  Space: O(1)
+ */
 function formatNumber(num) {
     if (isNaN(num)) return 'Invalid';
 

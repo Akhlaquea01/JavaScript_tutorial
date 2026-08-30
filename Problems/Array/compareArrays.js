@@ -6,7 +6,7 @@ same([1, 2, 3], [1, 4, 9]);          // true
 same([1, 2, 3], [1, 9]);             // false (missing 4)
  */
 
-function same(arr1, arr2) { 
+function same(arr1, arr2) {
     if (arr1.length !== arr2.length) return false; // Check if lengths are equal
 
     const frequencyCounter1 = {}; // Object to store frequency of elements in arr1

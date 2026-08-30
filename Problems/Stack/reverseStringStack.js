@@ -27,130 +27,65 @@
  * The end of the array is considered the top of the stack.
  */
 class Stack {
-    /**
-     * Creates an instance of Stack.
-     * Initializes an empty array to store stack elements.
-     */
     constructor() {
-        this.stackList = []; // Array to hold the stack elements
+        this.stackList = [];
     }
 
-    /**
-     * Returns the internal array representing the stack.
-     * Primarily used for testing purposes to easily check stack contents.
-     * @returns {Array} The internal array.
-     */
+    /** Returns the internal array (mainly for tests). */
     getStackList() {
         return this.stackList;
     }
 
-    /**
-     * Prints the elements of the stack from top to bottom.
-     */
+    /** Prints the elements of the stack from top to bottom. */
     printStack() {
         console.log("--- Stack (Top to Bottom) ---");
-        // Iterate from the end of the array (top) to the beginning (bottom)
         for (let i = this.stackList.length - 1; i >= 0; i--) {
             console.log(this.stackList[i]);
         }
         console.log("---------------------------");
     }
 
-    /**
-     * Checks if the stack is empty.
-     * @returns {boolean} True if the stack has no elements, false otherwise.
-     */
     isEmpty() {
         return this.stackList.length === 0;
     }
 
-    /**
-     * Returns the value of the top element without removing it.
-     * @returns {*} The value of the top element, or null if the stack is empty.
-     */
     peek() {
-        if (this.isEmpty()) {
-            return null;
-        } else {
-            // The top element is the last element in the array
-            return this.stackList[this.stackList.length - 1];
-        }
+        return this.isEmpty() ? null : this.stackList[this.stackList.length - 1];
     }
 
-    /**
-     * Returns the number of elements in the stack.
-     * @returns {number} The current size of the stack.
-     */
     size() {
         return this.stackList.length;
     }
 
-    /**
-     * Adds an element to the top of the stack (push operation).
-     * @param {*} value - The value to push onto the stack.
-     */
     push(value) {
-        // Add the new element to the end of the array
         this.stackList.push(value);
     }
 
-    /**
-     * Removes and returns the top element from the stack (pop operation).
-     * @returns {*} The value of the top element, or null if the stack is empty.
-     */
     pop() {
-        if (this.isEmpty()) {
-            return null;
-        } else {
-            // Remove and return the last element of the array
-            return this.stackList.pop();
-        }
+        return this.isEmpty() ? null : this.stackList.pop();
     }
 }
 
 /**
- * Reverses a string using a stack.
- *
- * Algorithm:
- * 1. Initialize an empty stack.
- * 2. Iterate through the input string character by character.
- * 3. Push each character onto the stack.
- * 4. Initialize an empty string to build the reversed result.
- * 5. While the stack is not empty, pop characters off the stack
- * and append them to the result string.
- * 6. Return the result string.
- *
- * The Stack's LIFO (Last-In, First-Out) property is key here.
- * The last character pushed onto the stack (which was the last character
- * of the original string) will be the first character popped off, and so on.
+ * Reverses a string by pushing every character onto a stack, then popping
+ * them back off (LIFO order flips the sequence).
+ * Time: O(n)  Space: O(n)
  *
  * @param {string} string - The string to reverse.
  * @returns {string} A new string with the characters reversed.
  */
 function reverseString(string) {
-    // Create a new stack instance.
     const stack = new Stack();
-
-    // Initialize an empty string to store the reversed result.
     let reversedString = "";
 
-    // Step 1: Push each character of the input string onto the stack.
-    // Iterating through the string from beginning to end means the last
-    // character of the string will be the top element of the stack.
     for (const char of string) {
         stack.push(char);
     }
 
-    // Step 2: Pop characters from the stack and append them to the result string.
-    // Since the stack is LIFO, popping elements will retrieve them in
-    // the reverse order of how they were pushed. The last character of the
-    // original string is popped first, then the second-to-last, and so on,
-    // until the first character of the original string is popped last.
     while (!stack.isEmpty()) {
         reversedString += stack.pop();
     }
 
-    // Return the newly constructed reversed string.
     return reversedString;
 }
 

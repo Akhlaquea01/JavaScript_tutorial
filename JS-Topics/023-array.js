@@ -1,7 +1,5 @@
 // TOPIC: Introduction to Arrays
 
-// TOPIC: Introduction to Arrays
-
 // Definition: An array is a data structure that stores a collection of elements.
 
 // Define an array of friends
@@ -76,6 +74,7 @@ console.log(allFriends.join(' - '));
 console.log(friends.at(0));
 
 // Loop through array elements using forEach
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 movements.forEach((mov, i) => {
   console.log(`Movement ${i + 1}: ${mov > 0 ? 'Deposit' : 'Withdrawal'} ${Math.abs(mov)}`);
 });
@@ -111,6 +110,7 @@ const fromString = Array.from('hello');
 const fromIterable = Array.from(new Set([1, 2, 3]));
 
 // Destructure array elements
+const countries = ['India', 'Pakistan', 'Nepal', 'China'];
 const [first, , third] = countries;
 
 // Copy array elements within the same array
@@ -121,6 +121,7 @@ const copiedArray = arrayCopy.copyWithin(0, 3);
 const rightToLeft = [[0, 1], [2, 3], [4, 5]].reduceRight((acc, cur) => acc.concat(cur));
 
 // Iterate over array entries
+const array = ["a", "b", "c"];
 for (const [index, element] of array.entries()) {
   console.log(index, element);
 }
@@ -217,9 +218,7 @@ Array.from(set);
 
 // TOPIC: Object Destructuring on Array
 
-const countries = ['India', 'Pakistan', 'Nepal', 'China'];
-
-const [ind, , nep] = countries;//,skipping by empty space,
+const [ind, , nep] = countries; //,skipping by empty space,
 console.log(ind);
 console.log(nep);
 
@@ -251,7 +250,6 @@ for (const [index, element] of a.entries()) {
 // 1 'b'
 // 2 'c'
 
-const array = ["a", "b", "c"];
 const arrayEntries = array.entries();
 
 for (const element of arrayEntries) {

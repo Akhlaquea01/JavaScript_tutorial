@@ -42,14 +42,21 @@ class RBNode {
     }
 }
 
+/**
+ * Red-Black Tree: a self-balancing BST maintaining these invariants —
+ * (1) every node is RED or BLACK, (2) the root is BLACK, (3) a RED node
+ * never has a RED child, (4) every root-to-null path has the same number
+ * of BLACK nodes. These guarantee height stays O(log n).
+ */
 class RedBlackTree {
     constructor() {
         this.root = null;
     }
 
     /**
-     * Insert a value into the tree
+     * Insert a value into the tree, then rebalance via fixInsert.
      * @param {*} value - Value to insert
+     * Time: O(log n)  Space: O(1)
      */
     insert(value) {
         const newNode = new RBNode(value);
@@ -89,6 +96,7 @@ class RedBlackTree {
     /**
      * Fix the tree after insertion to maintain Red-Black properties
      * @param {RBNode} node - The newly inserted node
+     * Time: O(log n)  Space: O(1)
      */
     fixInsert(node) {
         while (node.parent?.color === RED) {
@@ -137,6 +145,7 @@ class RedBlackTree {
     /**
      * Left rotation
      * @param {RBNode} node - The node to rotate around
+     * Time: O(1)  Space: O(1)
      */
     rotateLeft(node) {
         const newParent = node.right;
@@ -163,6 +172,7 @@ class RedBlackTree {
     /**
      * Right rotation
      * @param {RBNode} node - The node to rotate around
+     * Time: O(1)  Space: O(1)
      */
     rotateRight(node) {
         const newParent = node.left;
@@ -190,6 +200,7 @@ class RedBlackTree {
      * Search for a value in the tree
      * @param {*} value - Value to search for
      * @returns {boolean} - True if found
+     * Time: O(log n)  Space: O(1)
      */
     contains(value) {
         let current = this.root;
@@ -205,6 +216,7 @@ class RedBlackTree {
     /**
      * In-order traversal (Left, Root, Right)
      * @returns {Array} - Array of values in traversal order
+     * Time: O(n)  Space: O(n)
      */
     inOrder() {
         const result = [];
@@ -221,6 +233,7 @@ class RedBlackTree {
     /**
      * Pre-order traversal (Root, Left, Right)
      * @returns {Array} - Array of values in traversal order
+     * Time: O(n)  Space: O(n)
      */
     preOrder() {
         const result = [];
@@ -237,6 +250,7 @@ class RedBlackTree {
     /**
      * Level-order traversal (Breadth-first)
      * @returns {Array} - Array of values in traversal order
+     * Time: O(n)  Space: O(n)
      */
     levelOrder() {
         const result = [];

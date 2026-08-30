@@ -18,45 +18,27 @@
 /**
  * Finds the indices of two numbers in an array that sum up to a target value
  * using a Map for efficient lookup.
+ * Time: O(n)  Space: O(n)
  *
  * @param {number[]} nums - The input array of integers.
  * @param {number} target - The target sum.
  * @returns {number[]} An array containing the indices of the two numbers, or an empty array if no solution is found.
  */
 function twoSum(nums, target) {
-    // Step 1: Create a Map to store numbers we have seen so far and their indices.
-    // Keys will be the numbers, values will be their indices in the 'nums' array.
     const numMap = new Map();
 
-    // Step 2: Iterate through the input array 'nums' with their indices.
     for (let i = 0; i < nums.length; i++) {
-        const num = nums[i]; // Get the current number
-        // Calculate the 'complement' - the number needed to add to 'num' to reach the 'target'.
+        const num = nums[i];
         const complement = target - num;
 
-        // Step 3: Check if the 'complement' already exists as a key in our map.
-        // If it does, it means we have previously encountered the number that,
-        // when added to the current number, equals the target.
         if (numMap.has(complement)) {
-            // We found the pair! The index of the complement is the value stored
-            // in the map for the 'complement' key (numMap.get(complement)).
-            // The index of the current number is 'i'.
-            // Return an array containing these two indices.
-            // Note: This returns the first solution found if multiple exist.
+            // Returns the first solution found if multiple exist.
             return [numMap.get(complement), i];
         }
 
-        // Step 4: If the 'complement' was NOT found in the map, it means the current
-        // number 'num' is not the complement of any number seen so far that would
-        // sum up to the target.
-        // Store the current number 'num' in the map with its index 'i'. This makes
-        // the current number available as a potential complement for numbers
-        // we will encounter later in the array.
         numMap.set(num, i);
     }
 
-    // Step 5: If the loop finishes without finding a pair that sums to the target,
-    // return an empty array as no solution was found.
     return [];
 }
 

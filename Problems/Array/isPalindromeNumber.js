@@ -1,4 +1,7 @@
-// Check if a number is palindrome
+/**
+ * Checks whether a number reads the same forwards and backwards.
+ * Time: O(d)  Space: O(1)
+ */
 function isPalindrome(num) {
     let reverseNum = 0;
     let copyOfNum = num;

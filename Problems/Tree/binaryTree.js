@@ -10,6 +10,10 @@ class TreeNode {
     }
 }
 
+/**
+ * Plain (unordered) Binary Tree: values are placed in level order rather
+ * than by comparison, so this is not a BST — search must check every node.
+ */
 class BinaryTree {
     constructor() {
         this.root = null;
@@ -18,6 +22,7 @@ class BinaryTree {
     /**
      * Insert a new node in level order (breadth-first) to maintain complete tree
      * @param {*} data - The value to insert
+     * Time: O(n)  Space: O(n) (queue)
      */
     insert(data) {
         const newNode = new TreeNode(data);
@@ -55,6 +60,7 @@ class BinaryTree {
      * Search for a value in the tree (breadth-first search)
      * @param {*} target - The value to search for
      * @returns {boolean} - True if found, false otherwise
+     * Time: O(n)  Space: O(n) (queue)
      */
     search(target) {
         if (this.root === null) return false;
@@ -86,6 +92,7 @@ class BinaryTree {
      * In-order traversal (Left, Root, Right)
      * @param {TreeNode} node - Starting node (defaults to root)
      * @returns {Array} - Array of values in traversal order
+     * Time: O(n)  Space: O(n)
      */
     inOrderTraversal(node = this.root) {
         if (node === null) return [];
@@ -101,6 +108,7 @@ class BinaryTree {
      * Pre-order traversal (Root, Left, Right)
      * @param {TreeNode} node - Starting node (defaults to root)
      * @returns {Array} - Array of values in traversal order
+     * Time: O(n)  Space: O(n)
      */
     preOrderTraversal(node = this.root) {
         if (node === null) return [];
@@ -116,6 +124,7 @@ class BinaryTree {
      * Post-order traversal (Left, Right, Root)
      * @param {TreeNode} node - Starting node (defaults to root)
      * @returns {Array} - Array of values in traversal order
+     * Time: O(n)  Space: O(n)
      */
     postOrderTraversal(node = this.root) {
         if (node === null) return [];
@@ -130,6 +139,7 @@ class BinaryTree {
     /**
      * Level-order traversal (Breadth-first)
      * @returns {Array} - Array of values in traversal order
+     * Time: O(n)  Space: O(n)
      */
     levelOrderTraversal() {
         if (this.root === null) return [];
@@ -156,6 +166,7 @@ class BinaryTree {
     /**
      * Reverse level-order traversal (from bottom to top)
      * @returns {Array} - Array of values in traversal order
+     * Time: O(n)  Space: O(n)
      */
     reverseLevelOrderTraversal() {
         if (this.root === null) return [];

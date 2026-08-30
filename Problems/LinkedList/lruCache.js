@@ -5,6 +5,7 @@ get(key): Retrieve the value associated with the given key.
 •
 put(key, value): Insert or update a key-value pair in the cache.
 The LRU cache has a limited capacity. When the cache is full, it should evict the least recently used item to make space for new items. When a key is accessed (either through put or get), it becomes the most recently used
+ * Time: O(1) per get/put  Space: O(capacity)
  */
 
 class ListNode {

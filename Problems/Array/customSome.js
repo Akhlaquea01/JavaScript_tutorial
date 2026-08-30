@@ -1,15 +1,14 @@
-
-// Extend the Array prototype with a custom some method
+/**
+ * Polyfill for Array.prototype.some: returns true if callback returns truthy for any element.
+ * Time: O(n)  Space: O(1)
+ */
 Array.prototype.customSome = function (callback) {
-    // Iterate over each element of the array
     for (let i = 0; i < this.length; i++) {
-        // If the callback function returns true for any element, return true
         if (callback(this[i], i, this)) {
             return true;
         }
     }
 
-    // Return false if no element satisfies the condition
     return false;
 };
 

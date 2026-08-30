@@ -80,6 +80,11 @@ class DoublyLinkedList {
     */
 
     // Helper methods
+    makeEmpty() {
+        this.head = null;
+        this.length = 0;
+    }
+
     push(value) {
         const newNode = new Node(value);
         if (this.length === 0) {
@@ -93,6 +98,7 @@ class DoublyLinkedList {
             newNode.prev = currentNode;
         }
         this.length++;
+        return this;
     }
 
     printList() {

@@ -1,3 +1,8 @@
+/**
+ * Fixed-capacity deque backed by a circular array (front/rear indices wrap
+ * via modulo instead of shifting elements).
+ * Time: O(1) insert/delete at either end  Space: O(k)
+ */
 class MyCircularDeque {
     /**
      * @param {number} k - The capacity of the deque

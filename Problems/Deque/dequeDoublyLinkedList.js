@@ -6,6 +6,10 @@ class Node {
     }
 }
 
+/**
+ * Doubly linked list backed deque — O(1) insert/remove at both ends.
+ * Time: O(1) per operation  Space: O(n)
+ */
 class DequeDLL {
     constructor() {
         this.head = null; // Front

@@ -1,7 +1,7 @@
 /**
- * Filter and return only even number in a array
+ * Filters and returns only the even numbers from an array.
+ * Time: O(n)  Space: O(n)
  */
-
 function filterEven(arr) {
     let result = [];
     for (let index = 0; index < arr.length; index++) {

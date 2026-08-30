@@ -3,6 +3,7 @@
  * @param {number[]} nums - Array of positive integers
  * @param {number} K - Target sum
  * @returns {number} - Length of the longest subarray
+ * Time: O(n)  Space: O(1)
  */
 function longestSubarrayWithSumK(nums, K) {
     let left = 0;

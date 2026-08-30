@@ -16,45 +16,32 @@
 /**
  * Groups anagrams from an array of strings using a Map.
  * Anagrams are grouped by using their sorted character string as a key in the map.
+ * Time: O(n*k log k)  Space: O(n*k), where k is the max string length
  *
  * @param {string[]} strings - The input array of strings.
  * @returns {string[][]} An array of arrays, each containing a group of anagrams.
  */
 function groupAnagrams(strings) {
-    // Handle the edge case of an empty input array.
     if (strings.length === 0) {
         return [];
     }
 
-    // Step 1: Create a Map to store anagram groups.
-    // Keys will be the canonical form (sorted string), values will be arrays of original strings.
+    // Group by canonical form: the sorted characters of a string.
     const anagramGroups = new Map();
 
-    // Step 2: Iterate through each string in the input array.
     for (const string of strings) {
-        // Step 3: Compute the canonical form of the current string.
-        // Convert the string to an array of characters, sort it, and join back into a string.
-        const chars = Array.from(string); // Convert string to array of chars
-        chars.sort();                     // Sort the array of characters alphabetically
-        const canonical = chars.join(''); // Join the sorted characters back into a string
+        const chars = Array.from(string);
+        chars.sort();
+        const canonical = chars.join('');
 
-        // Step 4 & 5: Use the canonical form as the key in the map to group anagrams.
-        // Check if a group for this canonical form already exists in the map.
         if (anagramGroups.has(canonical)) {
-            // If a group exists, get the array associated with this canonical key
-            // and push the current original string into that array.
             anagramGroups.get(canonical).push(string);
         } else {
-            // If no group exists for this canonical form, create a new array
-            // containing the current original string, and set this new array
-            // as the value for the canonical key in the map.
             const group = [string];
             anagramGroups.set(canonical, group);
         }
     }
 
-    // Step 6 & 7: Extract all the values (the arrays of anagram groups) from the map
-    // and return them as a new array of arrays.
     return Array.from(anagramGroups.values());
 }
 

@@ -5,12 +5,19 @@ class TrieNode {
     }
 }
 
+/**
+ * Trie (prefix tree): stores strings character-by-character along root-to-node
+ * paths so that words sharing a prefix share the same path.
+ */
 class Trie {
     constructor() {
         this.root = new TrieNode();
     }
 
-    // Insert a word into the Trie
+    /**
+     * Insert a word into the Trie, creating nodes for any missing characters.
+     * Time: O(L)  Space: O(L), where L is the word length
+     */
     insert(word) {
         let node = this.root;
 
@@ -20,10 +27,13 @@ class Trie {
             }
             node = node.children[char];
         }
-        node.isEndOfWord = true;  // Mark the end of the word
+        node.isEndOfWord = true;
     }
 
-    // Search for a word in the Trie
+    /**
+     * Search for an exact word in the Trie.
+     * Time: O(L)  Space: O(1), where L is the word length
+     */
     search(word) {
         let node = this.root;
 
@@ -37,7 +47,10 @@ class Trie {
         return node.isEndOfWord;  // Return true if it's a complete word
     }
 
-    // Check if there is any word in the Trie that starts with the given prefix
+    /**
+     * Check if any word in the Trie starts with the given prefix.
+     * Time: O(L)  Space: O(1), where L is the prefix length
+     */
     startsWith(prefix) {
         let node = this.root;
 

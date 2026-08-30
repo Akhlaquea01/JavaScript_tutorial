@@ -1,3 +1,7 @@
+/**
+ * Sorts an array using the merge sort divide-and-conquer algorithm.
+ * Time: O(n log n)  Space: O(n)
+ */
 function mergeSort(arr) {
     // Base case: a single-element array is already sorted
     if (arr.length <= 1) return arr;

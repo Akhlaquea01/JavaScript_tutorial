@@ -1,3 +1,7 @@
+/**
+ * Defines a read-only property (getter returns the fixed value, setter throws) on an object.
+ * Time: O(1)  Space: O(1)
+ */
 function createImmutableProperty(object, symbol, value) {
     Object.defineProperty(object, symbol, {
         get() {

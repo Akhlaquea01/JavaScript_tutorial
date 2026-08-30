@@ -1,3 +1,8 @@
+/**
+ * Sorts an array in ascending order by repeatedly swapping adjacent
+ * out-of-order elements.
+ * Time: O(n^2)  Space: O(1) (in-place)
+ */
 function bubbleSort(arr) {
     const n = arr.length;
 

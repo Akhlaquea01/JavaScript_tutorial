@@ -70,6 +70,11 @@ class LinkedList {
     */
 
     // Helper methods
+    makeEmpty() {
+        this.head = null;
+        this.length = 0;
+    }
+
     printList() {
         let current = this.head;
         let output = "";

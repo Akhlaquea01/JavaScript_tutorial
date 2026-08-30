@@ -1,3 +1,7 @@
+/**
+ * Array-backed deque. Rear operations are O(1); front operations are O(n)
+ * because they shift every remaining element.
+ */
 class DequeArray {
     constructor() {
         this.items = [];

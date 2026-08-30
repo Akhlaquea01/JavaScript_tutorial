@@ -58,7 +58,7 @@ console.log(count); // 2
 
 let total = 1;
 try {
-    eval('let total = 2;'); // SyntaxError: Identifier 'total' has already been declared
+    eval('let total = 2;'); // no error — eval() gets its own lexical scope, so this `let total` shadows the outer `total` instead of clashing with it (outer `total` stays 1)
 } catch (err) {
     console.log(err.message);
 }

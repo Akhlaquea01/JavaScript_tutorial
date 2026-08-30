@@ -1,14 +1,16 @@
+/**
+ * Array-based Stack (LIFO). push/pop/peek operate on the end of the array.
+ * Time: O(1) push/pop/peek  Space: O(n)
+ */
 class Stack {
     constructor() {
         this.items = [];
     }
 
-    // Pushes an element onto the stack
     push(element) {
         this.items.push(element);
     }
 
-    // Pops the top element off the stack and returns it
     pop() {
         if (this.isEmpty()) {
             throw new Error("Stack is empty");
@@ -16,7 +18,6 @@ class Stack {
         return this.items.pop();
     }
 
-    // Returns the top element of the stack without removing it
     peek() {
         if (this.isEmpty()) {
             throw new Error("Stack is empty");
@@ -24,27 +25,23 @@ class Stack {
         return this.items[this.items.length - 1];
     }
 
-    // Returns true if the stack is empty, false otherwise
     isEmpty() {
         return this.items.length === 0;
     }
 
-    // Returns the number of elements in the stack
     size() {
         return this.items.length;
     }
 
-    // Removes all elements from the stack
     clear() {
         this.items = [];
     }
 
-    // Returns a string representation of the stack
     toString() {
         return this.items.toString();
     }
 
-    // Returns the first element added to the stack (the oldest element)
+    // Bottom-of-stack element (oldest, i.e. first pushed) — not the same as peek().
     first() {
         if (this.isEmpty()) {
             throw new Error("Stack is empty");

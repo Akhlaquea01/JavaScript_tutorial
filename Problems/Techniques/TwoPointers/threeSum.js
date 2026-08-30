@@ -2,6 +2,7 @@
  * Finds all unique triplets that sum to zero using two pointers
  * @param {number[]} nums - Array of numbers
  * @returns {number[][]} - Array of unique triplets
+ * Time: O(n^2)  Space: O(1) extra (excluding output and sort)
  */
 function threeSum(nums) {
     nums.sort((a, b) => a - b);

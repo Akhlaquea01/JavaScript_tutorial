@@ -72,7 +72,10 @@ class DoublyLinkedList {
         this.length = 0;
     }
 
-    /** 🛠️ swapFirstLast(): Swaps the values of first and last nodes */
+    /**
+     * Swaps the values of the first and last nodes (links unchanged).
+     * Time: O(1)  Space: O(1)
+     */
     swapFirstLast() {
         if (this.length < 2) return;
         const temp = this.head.value;

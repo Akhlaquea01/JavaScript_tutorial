@@ -1,3 +1,9 @@
+/**
+ * Binary Heap: a complete binary tree (stored as an array) that maintains
+ * the heap-order property — every parent is <= (min-heap) or >= (max-heap)
+ * its children. Array index i has children at 2i+1/2i+2 and parent at
+ * floor((i-1)/2).
+ */
 class Heap {
     /**
      * @param {string} type - 'min' for Min-Heap, 'max' for Max-Heap
@@ -27,6 +33,7 @@ class Heap {
     /**
      * Peek at the root element
      * @returns {*} - The root element
+     * Time: O(1)  Space: O(1)
      */
     peek() {
         if (this.heap.length === 0) throw new Error('Heap is empty');
@@ -36,6 +43,7 @@ class Heap {
     /**
      * Remove and return the root element
      * @returns {*} - The root element
+     * Time: O(log n)  Space: O(1)
      */
     poll() {
         if (this.heap.length === 0) throw new Error('Heap is empty');
@@ -49,6 +57,7 @@ class Heap {
     /**
      * Add a new element to the heap
      * @param {*} item - The element to add
+     * Time: O(log n)  Space: O(1)
      */
     add(item) {
         this.heap.push(item);
@@ -57,6 +66,7 @@ class Heap {
 
     /**
      * Move the last element up to maintain heap property
+     * Time: O(log n)  Space: O(1)
      */
     heapifyUp() {
         let index = this.heap.length - 1;
@@ -71,6 +81,7 @@ class Heap {
 
     /**
      * Move the root element down to maintain heap property
+     * Time: O(log n)  Space: O(1)
      */
     heapifyDown() {
         let index = 0;

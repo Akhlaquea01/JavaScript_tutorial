@@ -1,3 +1,8 @@
+/**
+ * Polyfill for Promise.any: resolves with the first promise to fulfill, or rejects with an
+ * AggregateError once every promise has rejected.
+ * Time: O(n)  Space: O(n)
+ */
 function myPromiseAny(promises) {
     return new Promise((resolve, reject) => {
         // Handle empty iterable edge case.

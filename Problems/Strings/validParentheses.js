@@ -27,6 +27,7 @@
  * Method 1: Original Approach
  * Checks for specific opening and closing sets.
  * Note: usage of two objects is slightly redundant but functional.
+ * Time: O(n)  Space: O(n)
  */
 function isValid(s) {
     // Map of opening brackets to their expected closing counterparts (values unused in logic below, only keys checked)

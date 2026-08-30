@@ -1,9 +1,14 @@
+/**
+ * Parses lines of "<amount> <description>" text into { description, amount } objects.
+ * The description is optional — a line with just a number still matches, with an empty description.
+ * Time: O(n) over lines  Space: O(n)
+ */
 function parseExpenseData(expenseData) {
     const lines = expenseData.split('\n').filter(line => line.trim() !== '');
     const result = [];
 
     // Regex: Capture FIRST number as amount, rest as description
-    const regex = /^\s*(\d+)\s+(.*?)\s*$/;
+    const regex = /^\s*(\d+)\s*(.*?)\s*$/;
 
     for (const line of lines) {
         const match = line.match(regex);

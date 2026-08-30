@@ -32,7 +32,7 @@ console.log(countOdds(3, 7))
 
 // Approach 2:
 /**
- * 
+ *
  Input: low = 3, high = 7
  OddHigh=⌊(7+1)/2⌋=4
  OddLow=⌊3/2⌋=1

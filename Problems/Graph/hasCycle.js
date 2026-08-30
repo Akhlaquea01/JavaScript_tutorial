@@ -1,37 +1,38 @@
-// Function to detect cycles in a directed graph using DFS
+/**
+ * Detects a cycle in a directed graph using DFS.
+ * Time: O(V + E)  Space: O(V)
+ */
 function hasCycle(graph) {
-    const visited = new Set(); // Set to keep track of visited nodes
-    const recursionStack = new Set(); // Set to keep track of nodes in the current recursion stack
+    const visited = new Set(); // nodes fully explored, across any component
+    const recursionStack = new Set(); // nodes on the current DFS path
 
-    // Recursive function to detect cycles
     function dfs(node) {
+        // node is already on the current path -> back edge -> cycle
         if (recursionStack.has(node)) {
-            return true; // Cycle detected
+            return true;
         }
 
         if (!visited.has(node)) {
-            visited.add(node); // Mark the current node as visited
-            recursionStack.add(node); // Add the current node to the recursion stack
+            visited.add(node);
+            recursionStack.add(node);
 
-            // Traverse all adjacent nodes of the current node
             for (const neighbor of graph[node]) {
                 if (dfs(neighbor)) {
-                    return true; // Cycle detected
+                    return true;
                 }
             }
 
-            recursionStack.delete(node); // Remove the current node from the recursion stack
+            recursionStack.delete(node); // backtrack: leaving this path
         }
 
-        return false; // No cycle found
+        return false;
     }
 
-    // Iterate through all nodes in the graph
     for (const node in graph) {
         if (dfs(node)) {
-            return true; // Cycle detected
+            return true;
         }
     }
 
-    return false; // No cycle found
+    return false;
 }

@@ -28,144 +28,71 @@
  * The end of the array is considered the top of the stack.
  */
 class Stack {
-    /**
-     * Creates an instance of Stack.
-     * Initializes an empty array to store stack elements.
-     */
     constructor() {
-        this.stackList = []; // Array to hold the stack elements
+        this.stackList = [];
     }
 
-    /**
-     * Returns the internal array representing the stack.
-     * Primarily used for testing purposes to easily check stack contents.
-     * @returns {Array} The internal array.
-     */
+    /** Returns the internal array (mainly for tests). */
     getStackList() {
         return this.stackList;
     }
 
-    /**
-     * Prints the elements of the stack from top to bottom.
-     */
+    /** Prints the elements of the stack from top to bottom. */
     printStack() {
         console.log("--- Stack (Top to Bottom) ---");
-        // Iterate from the end of the array (top) to the beginning (bottom)
         for (let i = this.stackList.length - 1; i >= 0; i--) {
             console.log(this.stackList[i]);
         }
         console.log("---------------------------");
     }
 
-    /**
-     * Checks if the stack is empty.
-     * @returns {boolean} True if the stack has no elements, false otherwise.
-     */
     isEmpty() {
         return this.stackList.length === 0;
     }
 
-    /**
-     * Returns the value of the top element without removing it.
-     * @returns {*} The value of the top element, or null if the stack is empty.
-     */
     peek() {
-        if (this.isEmpty()) {
-            return null;
-        } else {
-            // The top element is the last element in the array
-            return this.stackList[this.stackList.length - 1];
-        }
+        return this.isEmpty() ? null : this.stackList[this.stackList.length - 1];
     }
 
-    /**
-     * Returns the number of elements in the stack.
-     * @returns {number} The current size of the stack.
-     */
     size() {
         return this.stackList.length;
     }
 
-    /**
-     * Adds an element to the top of the stack (push operation).
-     * @param {*} value - The value to push onto the stack.
-     */
     push(value) {
-        // Add the new element to the end of the array
         this.stackList.push(value);
     }
 
-    /**
-     * Removes and returns the top element from the stack (pop operation).
-     * @returns {*} The value of the top element, or null if the stack is empty.
-     */
     pop() {
-        if (this.isEmpty()) {
-            return null;
-        } else {
-            // Remove and return the last element of the array
-            return this.stackList.pop();
-        }
+        return this.isEmpty() ? null : this.stackList.pop();
     }
 }
 
 
 /**
- * Sorts a stack in ascending order (smallest element on top) using an
- * additional temporary stack.
- *
- * The algorithm works by repeatedly popping an element from the input stack
- * and inserting it into the temporary stack in a sorted manner (descending
- * order in the temporary stack, largest on top). Elements are moved back
- * to the input stack temporarily if they are larger than the element being
- * inserted into the temporary stack. Finally, all elements are moved back
- * from the temporary stack to the input stack.
+ * Sorts a stack into ascending order (smallest on top) using a single
+ * temporary stack, insertion-sort style.
+ * Time: O(n^2)  Space: O(n)
  *
  * @param {Stack} stack - The stack of integers to be sorted. Modified in place.
  */
 function sortStack(stack) {
-    // Create the single additional temporary stack as allowed by the constraint.
     const additionalStack = new Stack();
 
-    // Step 1: Process elements from the original stack until it's empty.
-    // We will move elements to the additionalStack, ensuring additionalStack
-    // remains sorted in DESCENDING order (largest on top) at each step.
-    // This is because when we move them back later, the largest will go in
-    // first (at the bottom of the original stack), leading to ascending order
-    // in the original stack (smallest on top).
     while (!stack.isEmpty()) {
-        // Pop the top element from the original stack.
         const temp = stack.pop();
 
-        // Now, insert 'temp' into 'additionalStack' in its correct sorted position.
-        // Move elements from 'additionalStack' back to 'stack' as long as they
-        // are GREATER than 'temp'. This ensures 'additionalStack' maintains
-        // descending order (largest on top).
+        // Keep additionalStack in descending order (largest on top) so that
+        // moving everything back later lands smallest-on-top in `stack`.
         while (!additionalStack.isEmpty() && additionalStack.peek() > temp) {
-            // If the top of additionalStack is greater than temp,
-            // pop it from additionalStack and push it back onto the original stack.
             stack.push(additionalStack.pop());
         }
 
-        // Once the inner loop finishes, the top of 'additionalStack' is either
-        // less than or equal to 'temp', or 'additionalStack' is empty.
-        // This is the correct position to push 'temp' into 'additionalStack'
-        // to maintain the descending order (largest on top).
         additionalStack.push(temp);
     }
 
-    // Step 2: All elements are now in 'additionalStack', sorted in descending order
-    // (largest on top). Transfer them back to the original stack.
-    // Since we are popping from the top (largest first) and pushing onto the
-    // original stack, the original stack will receive elements in descending
-    // order, resulting in the smallest element ending up on top (ascending order).
     while (!additionalStack.isEmpty()) {
-        // Pop from the top of the additional stack and push onto the original stack.
         stack.push(additionalStack.pop());
     }
-
-    // The original stack is now sorted in ascending order (smallest on top).
-    // No explicit return needed as the input stack is modified in place.
 }
 
 

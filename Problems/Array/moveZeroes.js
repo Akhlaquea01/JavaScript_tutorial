@@ -1,9 +1,10 @@
 /**
- * Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+ * Moves all zeroes in the array to the end while preserving the relative order of non-zero elements.
+ * Time: O(n)  Space: O(n)
  */
 var moveZeroes = function (nums) {
     const Arr = new Array(nums.length).fill(0);
-    let = ind=0;
+    let ind = 0;
     for (let index = 0; index < nums.length; index++) {
         if (nums[index]) {
             Arr[ind] = nums[index];
@@ -15,6 +16,10 @@ var moveZeroes = function (nums) {
 
 console.log(moveZeroes([0, 1, 0, 3, 12]));
 
+/**
+ * In-place variant: moves zeroes to the end using a two-pointer overwrite pass.
+ * Time: O(n)  Space: O(1)
+ */
 var moveZeroes2 = function (nums) {
     let nonZeroIndex = 0;
 

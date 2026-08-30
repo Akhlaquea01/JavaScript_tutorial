@@ -20,6 +20,7 @@
 /**
  * Finds all pairs of numbers (one from arr1, one from arr2) that sum up to the target.
  * Uses a Set for efficient lookup of complements from arr1.
+ * Time: O(n+m)  Space: O(n)
  *
  * @param {number[]} arr1 - The first input array of numbers.
  * @param {number[]} arr2 - The second input array of numbers.
@@ -27,39 +28,18 @@
  * @returns {number[][]} An array of pairs [number_from_arr1, number_from_arr2] that sum to the target.
  */
 function findPairs(arr1, arr2, target) {
-    // Step 1: Create a Set from the elements of arr1.
-    // This allows for O(1) average time complexity when checking if a number exists in arr1.
-    const mySet = new Set(arr1); // Directly initialize Set from arr1
-
-    // Alternative Step 1 (manual loop):
-    // const mySet = new Set();
-    // for (const num of arr1) {
-    //     mySet.add(num);
-    // }
-
-    // Initialize an empty array to store the pairs that sum up to the target.
+    const mySet = new Set(arr1);
     const pairs = [];
 
-    // Step 2: Iterate through the second array, arr2.
     for (const num of arr2) {
-        // For each number in arr2, calculate the 'complement' needed from arr1
-        // to reach the target sum.
+        // Complement is looked up from arr1's Set; result order is [arr1 value, arr2 value].
         const complement = target - num;
 
-        // Check if this calculated 'complement' exists in the Set created from arr1.
-        // If it exists, it means we have found a number in arr1 that pairs with
-        // the current number from arr2 to sum up to the target.
         if (mySet.has(complement)) {
-            // If a complement is found in the Set, add the pair [complement, num]
-            // to our results array. The problem specifies the first number in the
-            // pair should be from arr1 (which is our complement) and the second
-            // from arr2 (which is the current num).
             pairs.push([complement, num]);
         }
     }
 
-    // Return the array containing all the pairs found.
-    // If no pairs were found, the 'pairs' array will be empty, which is the correct behavior.
     return pairs;
 }
 

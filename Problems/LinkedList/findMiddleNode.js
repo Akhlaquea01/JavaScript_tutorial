@@ -49,6 +49,12 @@ class LinkedList {
     */
 
     // Helper methods
+    makeEmpty() {
+        this.head = null;
+        this.tail = null;
+        this.length = 0;
+    }
+
     push(value) {
         const newNode = new Node(value);
         if (!this.head) {

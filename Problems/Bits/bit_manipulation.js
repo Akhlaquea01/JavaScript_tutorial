@@ -1,8 +1,12 @@
+/**
+ * Counts the number of set (1) bits in num.
+ * Time: O(log n)  Space: O(1)
+ */
 function countSetBits(num) {
     let count = 0;
     while (num) {
-        count += num & 1; // Count the rightmost bit if it is set
-        num >>= 1; // Right shift the number by 1 to check the next bit
+        count += num & 1;
+        num >>= 1;
     }
     return count;
 }
@@ -32,8 +36,12 @@ console.log(bitwiseOR(5, 3)); // Output: 7 (Binary representation of 5: 101, Bin
 console.log(bitwiseXOR(5, 3)); // Output: 6 (Binary representation of 5: 101, Binary representation of 3: 011, Bitwise XOR: 110)
 
 
+/**
+ * Checks whether num is a power of two (exactly one bit set).
+ * Time: O(1)  Space: O(1)
+ */
 function isPowerOfTwo(num) {
-    // A number is a power of two if it has only one bit set in its binary representation
+    // n & (n-1) clears the lowest set bit; a zero result means only one bit was set.
     return num > 0 && (num & (num - 1)) === 0;
 }
 

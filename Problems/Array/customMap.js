@@ -1,15 +1,14 @@
-// Extend the Array prototype with a custom map method
+/**
+ * Polyfill for Array.prototype.map: returns a new array with callback applied to each element.
+ * Time: O(n)  Space: O(n)
+ */
 Array.prototype.customMap = function (callback) {
-    // Initialize an empty array to store the mapped results
     const mappedArray = [];
 
-    // Iterate over each element of the array
     for (let i = 0; i < this.length; i++) {
-        // Apply the callback function to the current element and store the result
         mappedArray.push(callback(this[i], i, this));
     }
 
-    // Return the mapped array
     return mappedArray;
 };
 

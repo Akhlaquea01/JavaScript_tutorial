@@ -1,7 +1,7 @@
 /**
- * write a function to find the sum of all even numbers in that array
+ * Sums all even numbers in an array.
+ * Time: O(n)  Space: O(1)
  */
-
 function sumOfEven(arr) {
     let sum = 0;
     for (let i = 0; i < arr.length; i++) {

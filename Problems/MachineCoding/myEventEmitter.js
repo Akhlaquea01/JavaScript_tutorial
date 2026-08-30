@@ -20,7 +20,6 @@ class MyEventEmitter {
         this.events = {};
     }
 
-    // Register a listener for a specific event
     on(event, listener) {
         if (!this.events[event]) {
             this.events[event] = [];
@@ -28,21 +27,18 @@ class MyEventEmitter {
         this.events[event].push(listener);
     }
 
-    // Trigger an event, calling all its listeners with provided data
     emit(event, ...args) {
         if (this.events[event]) {
             this.events[event].forEach(listener => listener(...args));
         }
     }
 
-    // Unregister a specific listener from an event
     off(event, listenerToRemove) {
         if (!this.events[event]) return;
 
         this.events[event] = this.events[event].filter(listener => listener !== listenerToRemove);
     }
 
-    // Register a listener that only executes once
     once(event, listener) {
         const wrapper = (...args) => {
             listener(...args);

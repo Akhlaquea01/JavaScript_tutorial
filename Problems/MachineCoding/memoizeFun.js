@@ -1,3 +1,7 @@
+/**
+ * Memoizes a function's results in a Map keyed by function name + JSON-stringified args.
+ * Time: O(1) amortized per call after the first (cache lookup)  Space: O(n) cached entries
+ */
 function memoize(fn) {
     const cache = new Map();
 

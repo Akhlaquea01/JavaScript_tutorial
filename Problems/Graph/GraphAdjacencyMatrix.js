@@ -1,22 +1,10 @@
 /**
- * Problem Description: Graph Adjacency Matrix Implementation
- *
- * Implement a directed, unweighted graph using an adjacency matrix.
- * The class should support initializing the graph, adding edges,
- * checking for edge existence, and printing the matrix.
- *
- * Representation:
- * An adjacency matrix 'matrix' where matrix[i][j] = 1 if there's a directed
- * edge from vertex i to vertex j, and 0 otherwise.
- */
-
-/**
- * Represents a directed, unweighted graph using an adjacency matrix.
+ * Directed, unweighted graph backed by an adjacency matrix: matrix[i][j] = 1
+ * means there's an edge from vertex i to vertex j, 0 otherwise. Vertices are 0-indexed.
+ * Time: O(1) addEdge/hasEdge, O(V) getNeighbors  Space: O(V^2)
  */
 class GraphAdjacencyMatrix {
     /**
-     * Creates an instance of GraphAdjacencyMatrix.
-     * Initializes the adjacency matrix with all zeros.
      * @param {number} numVertices - The number of vertices in the graph.
      */
     constructor(numVertices) {
@@ -29,17 +17,9 @@ class GraphAdjacencyMatrix {
         }
 
         this.numVertices = numVertices;
-        // Initialize the adjacency matrix with dimensions numVertices x numVertices.
-        // All entries are initially 0, indicating no edges.
         this.matrix = Array(numVertices).fill(null).map(() => Array(numVertices).fill(0));
     }
 
-    /**
-     * Adds a directed edge from vertex v1 to vertex v2.
-     * Assumes vertices are 0-indexed.
-     * @param {number} v1 - The starting vertex (source).
-     * @param {number} v2 - The ending vertex (destination).
-     */
     addEdge(v1, v2) {
         // Validate vertex indices
         if (v1 < 0 || v1 >= this.numVertices || v2 < 0 || v2 >= this.numVertices) {
@@ -47,32 +27,20 @@ class GraphAdjacencyMatrix {
             return;
         }
 
-        // In a directed graph, an edge from v1 to v2 is represented by setting matrix[v1][v2] to 1.
         this.matrix[v1][v2] = 1;
         console.log(`Added edge from ${v1} to ${v2}`);
     }
 
-    /**
-     * Checks if a directed edge exists from vertex v1 to vertex v2.
-     * Assumes vertices are 0-indexed.
-     * @param {number} v1 - The starting vertex.
-     * @param {number} v2 - The ending vertex.
-     * @returns {boolean} True if an edge exists, false otherwise.
-     */
     hasEdge(v1, v2) {
         // Validate vertex indices
         if (v1 < 0 || v1 >= this.numVertices || v2 < 0 || v2 >= this.numVertices) {
             console.error(`Error: Invalid vertex indices. Vertices must be between 0 and ${this.numVertices - 1}.`);
-            return false; // Cannot have an edge with invalid vertices
+            return false;
         }
 
-        // Check the value in the adjacency matrix. 1 indicates an edge.
         return this.matrix[v1][v2] === 1;
     }
 
-    /**
-     * Prints the adjacency matrix to the console.
-     */
     printMatrix() {
         console.log("\n--- Adjacency Matrix ---");
         // Print column headers (vertex indices)
@@ -83,11 +51,10 @@ class GraphAdjacencyMatrix {
         console.log(header);
         console.log("---" + "-".repeat(this.numVertices * 2)); // Separator line
 
-        // Print each row (vertex) and its connections
         for (let i = 0; i < this.numVertices; i++) {
             let row = i + "| "; // Row header (vertex index)
             for (let j = 0; j < this.numVertices; j++) {
-                row += this.matrix[i][j] + " "; // Add the matrix value (0 or 1)
+                row += this.matrix[i][j] + " ";
             }
             console.log(row);
         }
@@ -95,22 +62,17 @@ class GraphAdjacencyMatrix {
     }
 
     /**
-     * (Optional) Get the neighbors of a vertex.
-     * For a directed graph, this means vertices reachable by an outgoing edge.
-     * @param {number} v - The vertex to find neighbors for.
-     * @returns {number[]} An array of neighbor vertex indices.
+     * Returns the vertices reachable from v by an outgoing edge.
      */
     getNeighbors(v) {
         // Validate vertex index
         if (v < 0 || v >= this.numVertices) {
             console.error(`Error: Invalid vertex index. Vertex must be between 0 and ${this.numVertices - 1}.`);
-            return []; // No neighbors for invalid vertex
+            return [];
         }
 
         const neighbors = [];
-        // Iterate through the row corresponding to vertex v
         for (let i = 0; i < this.numVertices; i++) {
-            // If the matrix entry is 1, there is an edge from v to i, so i is a neighbor.
             if (this.matrix[v][i] === 1) {
                 neighbors.push(i);
             }

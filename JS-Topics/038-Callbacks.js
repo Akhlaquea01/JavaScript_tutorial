@@ -1,3 +1,7 @@
+// TOPIC: CALLBACKS
+// Passing a function as an argument so it can be invoked
+// later — asynchronously (setTimeout) or synchronously.
+
 // Example 1: Asynchronous Callbacks
 
 // Simulates an asynchronous operation

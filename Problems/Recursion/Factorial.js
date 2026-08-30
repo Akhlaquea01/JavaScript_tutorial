@@ -1,10 +1,13 @@
+/**
+ * Computes n! recursively.
+ * Time: O(n)  Space: O(n) (call stack)
+ */
 function factorial(n) {
-    // 1. Base Case
+    // Base case
     if (n === 0 || n === 1) {
         return 1;
     }
 
-    // 2. Recursive Call & Relation
     return n * factorial(n - 1);
 }
 

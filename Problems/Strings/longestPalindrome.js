@@ -2,6 +2,7 @@
  * Finds the longest palindromic substring.
  * @param {string} s - Input string
  * @returns {string} - Longest palindrome
+ * Time: O(n^2)  Space: O(1)
  */
 function longestPalindrome(s) {
     if (s.length < 1) return "";
@@ -33,6 +34,7 @@ function longestPalindrome(s) {
  * @param {number} left - Left expansion index
  * @param {number} right - Right expansion index
  * @returns {number} - Length of the palindrome
+ * Time: O(n)  Space: O(1)
  */
 function expandAroundCenter(s, left, right) {
     while (left >= 0 && right < s.length && s[left] === s[right]) {

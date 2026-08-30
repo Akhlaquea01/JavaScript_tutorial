@@ -1,3 +1,7 @@
+/**
+ * Flattens an array up to the given depth (like Array.prototype.flat).
+ * Time: O(n)  Space: O(n)
+ */
 function flatten(array, depth = 1) {
     if (!Array.isArray(array)) {
         return [];

@@ -3,6 +3,7 @@
  * @param {number[]} nums - Array of numbers
  * @param {number} target - Target sum
  * @returns {number[][]} - Array of unique quadruplets
+ * Time: O(n^3)  Space: O(1) extra (excluding output and sort)
  */
 function fourSum(nums, target) {
     nums.sort((a, b) => a - b);

@@ -12,6 +12,7 @@ class ListNode {
  * Detects a cycle in a linked list using Floyd's algorithm.
  * @param {ListNode} head - Head of the linked list
  * @return {boolean} - True if a cycle exists, false otherwise
+ * Time: O(n)  Space: O(1)
  */
 function hasCycle(head) {
     // Edge case: empty list or single node without a cycle
@@ -34,7 +35,7 @@ function createCyclicList(values, cycleIndex) {
     if (!values.length) return null;
     const head = new ListNode(values[0]);
     let current = head;
-    let cycleNode = null;
+    let cycleNode = cycleIndex === 0 ? head : null;
 
     for (let i = 1; i < values.length; i++) {
         current.next = new ListNode(values[i]);
@@ -57,6 +58,7 @@ console.log(hasCycle(acyclicList)); // Output: false
  * Finds the starting node of the cycle if it exists.
  * @param {ListNode} head - Head of the linked list
  * @return {ListNode|null} - Start node if cycle exists, null otherwise
+ * Time: O(n)  Space: O(1)
  */
 function detectCycleStart(head) {
     let slow = head, fast = head;
@@ -92,6 +94,7 @@ console.log(cycleStartNode?.val); // Output: 2
  * Calculates the length of the cycle if it exists.
  * @param {ListNode} head - Head of the linked list
  * @return {number} - Length of the cycle (0 if no cycle)
+ * Time: O(n)  Space: O(1)
  */
 function getCycleLength(head) {
     let slow = head, fast = head;

@@ -1,4 +1,5 @@
 // Initialize variables
+const N = 10;
 let a = 0, b = 0;
 
 // First nested loop - sum values for 'a'

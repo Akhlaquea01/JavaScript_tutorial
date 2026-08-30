@@ -1,14 +1,18 @@
+/**
+ * Removes duplicate elements from an array, preserving order of first occurrence.
+ * Time: O(n)  Space: O(n)
+ */
 function removeDuplicates(arr) {
-    // Create an object to store unique elements
-    const uniqueElements = {};
+    // Use a real Set (not a plain object) so a number and its string
+    // equivalent, e.g. 1 and "1", aren't coerced into the same key.
+    const uniqueElements = new Set();
 
-    // Filter out duplicate elements
     const uniqueArray = arr.filter(element => {
-        if (!uniqueElements[element]) {
-            uniqueElements[element] = true;
-            return true; // Include the element in the filtered array
+        if (!uniqueElements.has(element)) {
+            uniqueElements.add(element);
+            return true;
         }
-        return false; // Exclude the element from the filtered array
+        return false;
     });
 
     return uniqueArray;

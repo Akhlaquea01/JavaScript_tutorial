@@ -2,6 +2,10 @@ const data = ['Akhlaque', 'Ashfaque', 'Ayan', 'Ayan', 'Bob', 'Charle', 'Dhruv', 
 
 const favAlphabet = 'A';
 
+/**
+ * Splits an array of strings into those starting with favAlphabet and the rest.
+ * Time: O(n)  Space: O(n)
+ */
 function separateFavAlphabet(data, favAlphabet) {
     const result = {
         fav: [],

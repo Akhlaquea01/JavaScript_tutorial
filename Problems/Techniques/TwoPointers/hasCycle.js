@@ -23,6 +23,7 @@ class LinkedListNode {
  * 
  * @param {LinkedListNode} head - The starting node of the linked list
  * @returns {boolean} - True if a cycle exists, false otherwise
+ * Time: O(n)  Space: O(1)
  */
 function hasCycle(head) {
     // Initialize two pointers at the head of the list

@@ -3,6 +3,7 @@
  * @param {number[]} nums - Array of integers (positive/negative)
  * @param {number} K - Target sum
  * @returns {number} - Length of the longest subarray
+ * Time: O(n)  Space: O(n)
  */
 function longestSubarrayWithSumK(nums, K) {
     const prefixSumMap = new Map();

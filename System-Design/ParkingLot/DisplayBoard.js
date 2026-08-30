@@ -1,4 +1,6 @@
-// Shows the availability of slots on each floor
+/**
+ * Aggregates floors and reports slot availability/status across the lot.
+ */
 export class DisplayBoard {
     constructor() {
         this.floors = [];

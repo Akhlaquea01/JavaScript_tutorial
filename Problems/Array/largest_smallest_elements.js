@@ -1,6 +1,10 @@
+/**
+ * Finds the minimum and maximum values in an array.
+ * Time: O(n)  Space: O(1)
+ */
 function findMinMax(arr) {
     if (arr.length === 0) {
-        return null; // Array is empty
+        return null;
     }
 
     let min = arr[0];

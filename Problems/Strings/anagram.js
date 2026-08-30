@@ -2,15 +2,14 @@
  * Groups anagrams together using a hash map.
  * @param {string[]} strs - Array of strings
  * @returns {string[][]} - Groups of anagrams
+ * Time: O(n * k log k)  Space: O(n * k)
  */
 function groupAnagrams(strs) {
     const anagramMap = new Map();
 
     for (const str of strs) {
-        // Sort the string to use as a key
         const sortedStr = str.split('').sort().join('');
 
-        // Group anagrams in the map
         if (anagramMap.has(sortedStr)) {
             anagramMap.get(sortedStr).push(str);
         } else {

@@ -1,9 +1,7 @@
 /**
- * Calculates the product of all elements except the current element for each position
- * @param {number[]} nums - Input array of numbers
- * @return {number[]} Array where each element is product of all other elements
+ * Brute-force: for each index, multiplies every other element together (nested loop).
+ * Time: O(n^2)  Space: O(n)
  */
-
 function productExceptSelf(nums) {
     let n = nums.length;
     let result = [];
@@ -12,7 +10,7 @@ function productExceptSelf(nums) {
         let product = 1;
         for (let j = 0; j < n; j++) {
             if (i !== j) {
-                product *= nums[j]; // Multiply all numbers except nums[i]
+                product *= nums[j];
             }
         }
         result.push(product);
@@ -22,27 +20,25 @@ function productExceptSelf(nums) {
 }
 
 
+/**
+ * Optimized: builds the result from running left-side and right-side products in two passes.
+ * Time: O(n)  Space: O(n)
+ */
 function productExceptSelf2(nums) {
     let n = nums.length;
     let result = new Array(n).fill(1);
 
-    // For each position, multiply all elements to its left
-    // We calculate the product of all left-side elements before each index:[1,1,2,6]
+    // Pass 1: result[i] becomes the product of all elements to the left of i
     let leftProduct = 1;
     for (let i = 0; i < n; i++) {
-        // Store the product of all left elements
         result[i] = leftProduct;
-        // Update leftProduct for next iteration
         leftProduct *= nums[i];
     }
 
-    // For each position, multiply all elements to its right with the existing left product
-    // multiply each element by the product of all right-side elements:[24*1,12*1,4*2,1*6]
+    // Pass 2: multiply in the product of all elements to the right of i
     let rightProduct = 1;
     for (let i = n - 1; i >= 0; i--) {
-        // Multiply the existing left product with right product
         result[i] *= rightProduct;
-        // Update rightProduct for next iteration
         rightProduct *= nums[i];
     }
 

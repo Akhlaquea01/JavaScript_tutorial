@@ -50,6 +50,15 @@ class LinkedList {
     // Helper Methods
 
     /**
+     * Empties the list
+     */
+    makeEmpty() {
+        this.head = null;
+        this.tail = null;
+        this.length = 0;
+    }
+
+    /**
      * Adds a node to the end of the list
      * @param {*} value Value to add
      */

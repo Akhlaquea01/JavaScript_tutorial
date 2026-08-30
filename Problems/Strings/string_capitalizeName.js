@@ -1,9 +1,12 @@
+/**
+ * Capitalizes the first letter of each word in a name and logs the result.
+ * Time: O(n)  Space: O(n)
+ */
 const capitalizeName = function (name) {
     const names = name.split(' ');
     const namesUpper = [];
 
     for (const n of names) {
-        // namesUpper.push(n[0].toUpperCase() + n.slice(1));
         namesUpper.push(n.replace(n[0], n[0].toUpperCase()));
     }
     console.log(namesUpper.join(' '));

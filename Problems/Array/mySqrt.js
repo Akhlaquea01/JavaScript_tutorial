@@ -1,6 +1,6 @@
 /**
- * @param {number} x
- * @return {number}
+ * Computes the integer square root of x via linear search.
+ * Time: O(sqrt(x))  Space: O(1)
  */
 function mySqrt(x) {
     let i = 0;
