@@ -72,13 +72,33 @@
 <script src="DSA-Notes/19-recursion.js"></script>
 <script src="DSA-Notes/20-backtracking.js"></script>
 <script src="DSA-Notes/21-pruning.js"></script>
+<script src="DSA-Notes/22-trees-intro.js"></script>
+<script src="DSA-Notes/23-tree-dfs-traversals.js"></script>
+<script src="DSA-Notes/24-tree-bfs-level-order.js"></script>
+<script src="DSA-Notes/25-tree-recursion-pattern.js"></script>
+<script src="DSA-Notes/26-tree-height-diameter.js"></script>
+<script src="DSA-Notes/27-tree-lca.js"></script>
+<script src="DSA-Notes/28-tree-types-overview.js"></script>
+<script src="DSA-Notes/29-bst.js"></script>
+<script src="DSA-Notes/30-trie.js"></script>
+<script src="DSA-Notes/31-heap.js"></script>
+<script src="DSA-Notes/32-top-k.js"></script>
+<script src="DSA-Notes/33-two-heaps-median.js"></script>
+<script src="DSA-Notes/34-quickselect.js"></script>
+<script src="DSA-Notes/35-intervals.js"></script>
+<script src="DSA-Notes/36-sweep-line.js"></script>
+<script src="DSA-Notes/37-greedy.js"></script>
+<script src="DSA-Notes/38-graph-basics.js"></script>
+<script src="DSA-Notes/39-graph-bfs.js"></script>
+<script src="DSA-Notes/40-graph-dfs.js"></script>
+<script src="DSA-Notes/41-dsa-prep-strategy.js"></script>
 
 <script>
 /* =========================================================
    REUSABLE TAILWIND CLASS BUNDLES (single source of truth —
    no custom CSS, only Tailwind utility strings)
    ========================================================= */
-const PROSE = `text-sm leading-7 text-slate-600 dark:text-slate-300
+const PROSE = `text-sm leading-7 text-slate-600 dark:text-slate-300 overflow-x-auto break-words
   [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5
   [&_strong]:text-slate-900 [&_strong]:dark:text-white [&_strong]:font-semibold
   [&_table]:w-full [&_table]:text-sm [&_table]:my-1 [&_table]:border-collapse
@@ -88,7 +108,7 @@ const PROSE = `text-sm leading-7 text-slate-600 dark:text-slate-300
 const CODE_WRAP = "group relative bg-slate-950 border border-slate-800 rounded-lg p-3 pr-16 overflow-x-auto text-[13px] leading-relaxed my-2";
 const CODE_TEXT = "text-cyan-300 font-mono whitespace-pre";
 const COPY_BTN = "copy-btn absolute top-2 right-2 text-[11px] px-2 py-1 rounded bg-slate-800 border border-slate-700 text-slate-400 hover:text-slate-200 opacity-0 group-hover:opacity-100 transition-opacity";
-const NOTE = "mt-3 pl-3 py-2 border-l-2 border-violet-500 bg-violet-50 dark:bg-violet-500/10 rounded-r-lg text-[13px] text-slate-600 dark:text-slate-400";
+const NOTE = "mt-3 pl-3 py-2 border-l-2 border-violet-500 bg-violet-50 dark:bg-violet-500/10 rounded-r-lg text-[13px] text-slate-600 dark:text-slate-400 break-words";
 
 const NAV_BASE = "nav-item flex items-center gap-2 px-2.5 py-2 rounded-lg text-[13px] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-700 dark:hover:text-slate-200 mb-0.5 transition-colors";
 const NAV_ACTIVE = ["bg-slate-100","dark:bg-slate-800","text-blue-600","dark:text-blue-400","font-semibold","border-l-2","border-blue-500","dark:border-blue-400"];
