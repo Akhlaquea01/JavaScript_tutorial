@@ -1,345 +1,87 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DSA Quick Revision Notes</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = { darkMode: 'class' };
-</script>
+<title>DSA Learn</title>
+<link rel="stylesheet" href="DSA-Learn/learn.css">
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-700 dark:text-slate-300 font-sans transition-colors duration-300">
-
-<header class="sticky top-0 z-50 flex items-center gap-3 md:gap-4 px-4 md:px-6 py-3 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
-  <button id="hamburger" aria-label="Toggle sidebar" class="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300">☰</button>
-  <div class="flex items-center gap-2 font-bold text-slate-900 dark:text-white whitespace-nowrap">
-    <span>📘</span><span class="hidden sm:inline">DSA Notes</span><span class="text-cyan-500 dark:text-cyan-400">•</span>
-  </div>
-  <div class="flex-1 max-w-md relative">
-    <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs opacity-60">🔍</span>
-    <input id="searchInput" type="text" placeholder="Search topics... (e.g. binary search, hashmap)"
-      class="w-full pl-8 pr-3 py-2 rounded-lg text-sm bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500">
-  </div>
-  <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 w-16 sm:w-auto sm:min-w-[160px]">
-    <span id="progressLabel" class="whitespace-nowrap">0/0</span>
-    <div class="flex-1 h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
-      <div id="progressFill" class="h-full w-0 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-500"></div>
-    </div>
-  </div>
-  <a href="dsa-learn.html" title="New learn-first format: analogy, animation, code notes, practice (being rolled out topic by topic)" class="hidden sm:inline-flex items-center gap-1 h-9 px-3 rounded-lg border border-cyan-500 text-cyan-600 dark:text-cyan-400 hover:bg-cyan-50 dark:hover:bg-cyan-500/10 text-xs font-semibold whitespace-nowrap">✨ New format</a>
-  <button id="themeToggle" aria-label="Toggle dark mode" class="w-9 h-9 inline-flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm">🌙</button>
-</header>
-
-<div class="flex max-w-[1400px] mx-auto items-start relative">
-  <nav id="sidebar" class="fixed md:sticky top-[57px] left-0 -translate-x-full md:translate-x-0 transition-transform duration-300 z-40 w-72 flex-shrink-0 h-[calc(100vh-57px)] overflow-y-auto p-3 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 shadow-xl md:shadow-none"></nav>
-
-  <main class="flex-1 min-w-0 px-4 md:px-8 py-6 pb-32">
-    <div class="mb-7">
-      <h1 class="text-2xl font-bold text-slate-900 dark:text-white mb-1">📘 DSA Quick Revision Notes</h1>
-      <p class="text-sm text-slate-500 dark:text-slate-400">Easy Hinglish revision notes — click a topic in the sidebar, check it off once revised, and search anytime. New topics get added here as prep progresses.</p>
-    </div>
-    <div id="sections"></div>
-    <div id="noResults" class="hidden text-center py-16 text-slate-500 dark:text-slate-400">😕 Koi topic match nahi hua. Try a different keyword.</div>
-    <footer class="text-center text-xs text-slate-400 dark:text-slate-500 pt-8 pb-16">Made for quick DSA revision — keep adding topics as you go 🚀</footer>
-  </main>
-</div>
+<body>
 
 <!-- =========================================================
-     TOPIC DATA — one file per topic in DSA-Notes/, loaded in
-     order and merged into window.DSA_TOPICS (see the main
-     script below). To add a new topic: create a new
-     DSA-Notes/NN-topic-id.js file (copy an existing one's
-     shape) and add its <script> line here, in numeric order.
+     PAGE STRUCTURE ONLY (no notes live here).
+       DSA-Learn/learn.css        all styling
+       DSA-Learn/engine/*.js      helpers, visualisers and the step-through widget
+       DSA-Learn/renderer.js      builds the sidebar, home page and the topic template
+       DSA-Learn/data/*.js        the notes: one file per topic (shape documented in 00-meta.js)
+     To add a topic: create data/NN-id.js and add one <script> line below, before renderer.js.
      ========================================================= -->
-<script src="DSA-Notes/01-data-structures.js"></script>
-<script src="DSA-Notes/02-algorithms.js"></script>
-<script src="DSA-Notes/03-time-complexity.js"></script>
-<script src="DSA-Notes/04-space-complexity.js"></script>
-<script src="DSA-Notes/05-prefix-sum.js"></script>
-<script src="DSA-Notes/06-hashmap.js"></script>
-<script src="DSA-Notes/07-frequency-map.js"></script>
-<script src="DSA-Notes/08-hashset.js"></script>
-<script src="DSA-Notes/09-prefix-product.js"></script>
-<script src="DSA-Notes/10-two-pointer.js"></script>
-<script src="DSA-Notes/11-three-pointer.js"></script>
-<script src="DSA-Notes/12-sliding-window.js"></script>
-<script src="DSA-Notes/13-searching.js"></script>
-<script src="DSA-Notes/14-linear-search.js"></script>
-<script src="DSA-Notes/15-binary-search.js"></script>
-<script src="DSA-Notes/16-stack.js"></script>
-<script src="DSA-Notes/17-queue-deque.js"></script>
-<script src="DSA-Notes/18-linked-list.js"></script>
-<script src="DSA-Notes/19-recursion.js"></script>
-<script src="DSA-Notes/20-backtracking.js"></script>
-<script src="DSA-Notes/21-pruning.js"></script>
-<script src="DSA-Notes/22-trees-intro.js"></script>
-<script src="DSA-Notes/23-tree-dfs-traversals.js"></script>
-<script src="DSA-Notes/24-tree-bfs-level-order.js"></script>
-<script src="DSA-Notes/25-tree-recursion-pattern.js"></script>
-<script src="DSA-Notes/26-tree-height-diameter.js"></script>
-<script src="DSA-Notes/27-tree-lca.js"></script>
-<script src="DSA-Notes/28-tree-types-overview.js"></script>
-<script src="DSA-Notes/29-bst.js"></script>
-<script src="DSA-Notes/30-trie.js"></script>
-<script src="DSA-Notes/31-heap.js"></script>
-<script src="DSA-Notes/32-top-k.js"></script>
-<script src="DSA-Notes/33-two-heaps-median.js"></script>
-<script src="DSA-Notes/34-quickselect.js"></script>
-<script src="DSA-Notes/35-intervals.js"></script>
-<script src="DSA-Notes/36-sweep-line.js"></script>
-<script src="DSA-Notes/37-greedy.js"></script>
-<script src="DSA-Notes/38-graph-basics.js"></script>
-<script src="DSA-Notes/39-graph-bfs.js"></script>
-<script src="DSA-Notes/40-graph-dfs.js"></script>
-<script src="DSA-Notes/41-dsa-prep-strategy.js"></script>
 
-<script>
-/* =========================================================
-   REUSABLE TAILWIND CLASS BUNDLES (single source of truth —
-   no custom CSS, only Tailwind utility strings)
-   ========================================================= */
-const PROSE = `text-sm leading-7 text-slate-600 dark:text-slate-300 overflow-x-auto break-words
-  [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5
-  [&_strong]:text-slate-900 [&_strong]:dark:text-white [&_strong]:font-semibold
-  [&_table]:w-full [&_table]:text-sm [&_table]:my-1 [&_table]:border-collapse
-  [&_th]:border [&_th]:border-slate-200 [&_th]:dark:border-slate-700 [&_th]:bg-slate-50 [&_th]:dark:bg-slate-800 [&_th]:text-slate-900 [&_th]:dark:text-white [&_th]:px-3 [&_th]:py-1.5 [&_th]:text-left
-  [&_td]:border [&_td]:border-slate-200 [&_td]:dark:border-slate-700 [&_td]:px-3 [&_td]:py-1.5`;
+<header class="top">
+  <button id="menuBtn" class="icon-btn" aria-label="Show topics">☰</button>
+  <a class="brand" href="#" title="Home">📘 <span id="pageTitle">DSA Learn</span><b>•</b></a>
+  <div class="search-wrap"><input id="search" type="search" placeholder="Search topics…  (press / )" autocomplete="off" aria-label="Search topics"></div>
+  <div class="progress" id="progBox"><span id="progLabel">0/0</span><div class="bar"><i id="progFill"></i></div></div>
+  <a class="icon-btn" href="lld-notes.html" title="Open the Low Level Design notes">🏗️ <span class="lbl">LLD notes</span></a>
+  <button id="themeBtn" class="icon-btn" aria-label="Toggle light / dark theme">🌙</button>
+</header>
 
-const CODE_WRAP = "group relative bg-slate-950 border border-slate-800 rounded-lg p-3 pr-16 overflow-x-auto text-[13px] leading-relaxed my-2";
-const CODE_TEXT = "text-cyan-300 font-mono whitespace-pre";
-const COPY_BTN = "copy-btn absolute top-2 right-2 text-[11px] px-2 py-1 rounded bg-slate-800 border border-slate-700 text-slate-400 hover:text-slate-200 opacity-0 group-hover:opacity-100 transition-opacity";
-const NOTE = "mt-3 pl-3 py-2 border-l-2 border-violet-500 bg-violet-50 dark:bg-violet-500/10 rounded-r-lg text-[13px] text-slate-600 dark:text-slate-400 break-words";
+<div class="shell">
+  <nav id="side" class="side" aria-label="Topics"></nav>
+  <main id="main" class="main"></main>
+</div>
 
-const NAV_BASE = "nav-item flex items-center gap-2 px-2.5 py-2 rounded-lg text-[13px] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-700 dark:hover:text-slate-200 mb-0.5 transition-colors";
-const NAV_ACTIVE = ["bg-slate-100","dark:bg-slate-800","text-blue-600","dark:text-blue-400","font-semibold","border-l-2","border-blue-500","dark:border-blue-400"];
+<!-- engine -->
+<script src="DSA-Learn/engine/util.js"></script>
+<script src="DSA-Learn/engine/viz.js"></script>
+<script src="DSA-Learn/engine/viz-more.js"></script>
+<script src="DSA-Learn/engine/stepper.js"></script>
 
-const SECTION_BASE = "section opacity-0 translate-y-6 transition-all duration-700 ease-out bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 md:p-6 mb-5 scroll-mt-20";
-const SECTION_VISIBLE = ["opacity-100","translate-y-0"];
-const SECTION_HIDDEN_INIT = ["opacity-0","translate-y-6"];
+<!-- data -->
+<script src="DSA-Learn/data/00-meta.js"></script>
+<script src="DSA-Learn/data/01-data-structures.js"></script>
+<script src="DSA-Learn/data/02-algorithms.js"></script>
+<script src="DSA-Learn/data/03-time-complexity.js"></script>
+<script src="DSA-Learn/data/04-space-complexity.js"></script>
+<script src="DSA-Learn/data/05-prefix-sum.js"></script>
+<script src="DSA-Learn/data/06-hashmap.js"></script>
+<script src="DSA-Learn/data/07-frequency-map.js"></script>
+<script src="DSA-Learn/data/08-hashset.js"></script>
+<script src="DSA-Learn/data/09-prefix-product.js"></script>
+<script src="DSA-Learn/data/10-two-pointer.js"></script>
+<script src="DSA-Learn/data/11-three-pointer.js"></script>
+<script src="DSA-Learn/data/12-sliding-window.js"></script>
+<script src="DSA-Learn/data/13-searching.js"></script>
+<script src="DSA-Learn/data/14-linear-search.js"></script>
+<script src="DSA-Learn/data/15-binary-search.js"></script>
+<script src="DSA-Learn/data/16-stack.js"></script>
+<script src="DSA-Learn/data/17-queue-deque.js"></script>
+<script src="DSA-Learn/data/18-linked-list.js"></script>
+<script src="DSA-Learn/data/19-recursion.js"></script>
+<script src="DSA-Learn/data/20-backtracking.js"></script>
+<script src="DSA-Learn/data/21-pruning.js"></script>
+<script src="DSA-Learn/data/22-trees-intro.js"></script>
+<script src="DSA-Learn/data/23-tree-dfs-traversals.js"></script>
+<script src="DSA-Learn/data/24-tree-bfs-level-order.js"></script>
+<script src="DSA-Learn/data/25-tree-recursion-pattern.js"></script>
+<script src="DSA-Learn/data/26-tree-height-diameter.js"></script>
+<script src="DSA-Learn/data/27-tree-lca.js"></script>
+<script src="DSA-Learn/data/28-tree-types-overview.js"></script>
+<script src="DSA-Learn/data/29-bst.js"></script>
+<script src="DSA-Learn/data/30-trie.js"></script>
+<script src="DSA-Learn/data/31-heap.js"></script>
+<script src="DSA-Learn/data/32-top-k.js"></script>
+<script src="DSA-Learn/data/33-two-heaps-median.js"></script>
+<script src="DSA-Learn/data/34-quickselect.js"></script>
+<script src="DSA-Learn/data/35-intervals.js"></script>
+<script src="DSA-Learn/data/36-sweep-line.js"></script>
+<script src="DSA-Learn/data/37-greedy.js"></script>
+<script src="DSA-Learn/data/38-graph-basics.js"></script>
+<script src="DSA-Learn/data/39-graph-bfs.js"></script>
+<script src="DSA-Learn/data/40-graph-dfs.js"></script>
+<script src="DSA-Learn/data/41-dsa-prep-strategy.js"></script>
 
-/* =========================================================
-   DATA LAYER — loaded from DSA-Notes/*.js (script tags above)
-   into window.DSA_TOPICS, one file per topic for easy editing.
-   ========================================================= */
-const topics = window.DSA_TOPICS;
-
-/* =========================================================
-   RENDERER
-   ========================================================= */
-function escAttr(str){ return String(str).replace(/"/g,"&quot;"); }
-
-function renderSidebar() {
-  const nav = document.getElementById('sidebar');
-  const progress = getProgress();
-  nav.innerHTML = topics.map(t => `
-    <a href="#${t.id}" class="${NAV_BASE}" data-id="${t.id}" data-search="${escAttr((t.title + ' ' + t.summary).toLowerCase())}">
-      <input type="checkbox" autocomplete="off" class="check w-4 h-4 accent-emerald-500 cursor-pointer flex-shrink-0" data-id="${t.id}" title="Mark as revised">
-      <span class="opacity-50 text-[11px] min-w-[18px]">${String(t.num).padStart(2,'0')}</span>
-      <span class="flex-1">${t.emoji} ${t.title}</span>
-    </a>`).join('');
-  // set the .checked property explicitly (not just the HTML attribute) so
-  // browser form-autofill/restore can't leave stale ticks after a reload
-  nav.querySelectorAll('.check').forEach(cb => {
-    cb.checked = progress.has(cb.dataset.id);
-  });
-}
-
-function renderSection(t) {
-  const subs = t.sections.map(s => {
-    const bodyHtml = s.body ? `<div class="${PROSE}">${s.body}</div>` : '';
-    const codeHtml = s.code ? `<pre class="${CODE_WRAP}"><button class="${COPY_BTN}">Copy</button><code class="${CODE_TEXT}">${s.code.replace(/</g,'&lt;')}</code></pre>` : '';
-    const noteHtml = s.note ? `<div class="${NOTE}"><strong class="text-violet-600 dark:text-violet-400">Note:</strong> ${s.note}</div>` : '';
-    return `<div class="mt-4">
-      <h3 class="text-sm font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400 mb-2">${s.heading}</h3>
-      ${bodyHtml}${codeHtml}${noteHtml}
-    </div>`;
-  }).join('');
-
-  const problemsHtml = (t.problems && t.problems.length) ? `
-    <div class="mt-5 pt-4 border-t border-dashed border-slate-200 dark:border-slate-700">
-      <div class="text-xs font-bold uppercase tracking-wide text-orange-600 dark:text-orange-400 mb-2.5">🧠 Practice Problems</div>
-      ${t.problems.map(p => `
-        <div class="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg p-3.5 mb-3">
-          <div class="text-sm font-semibold text-slate-900 dark:text-white mb-1.5 flex items-center gap-1.5"><span class="text-xs">🧩</span>${p.title}</div>
-          <pre class="${CODE_WRAP} !my-0"><button class="${COPY_BTN}">Copy</button><code class="${CODE_TEXT}">${p.pseudocode.replace(/</g,'&lt;')}</code></pre>
-        </div>`).join('')}
-    </div>` : '';
-
-  return `
-    <section id="${t.id}" class="${SECTION_BASE}" data-search="${escAttr((t.title + ' ' + t.summary + ' ' + t.sections.map(s=>s.heading).join(' ')).toLowerCase())}">
-      <h2 class="flex items-center gap-2.5 text-lg font-bold text-slate-900 dark:text-white mb-1">
-        <span class="text-[11px] border border-cyan-500 dark:border-cyan-400 text-cyan-600 dark:text-cyan-400 rounded px-1.5 py-0.5">${String(t.num).padStart(2,'0')}</span>
-        <span>${t.emoji} ${t.title}</span>
-      </h2>
-      <p class="text-slate-500 dark:text-slate-400 text-sm mb-1 leading-relaxed">📌 ${t.summary}</p>
-      ${subs}
-      ${problemsHtml}
-    </section>`;
-}
-
-function renderContent() {
-  document.getElementById('sections').innerHTML = topics.map(renderSection).join('');
-}
-
-/* =========================================================
-   PROGRESS TRACKER (localStorage)
-   ========================================================= */
-const PROGRESS_KEY = 'dsa-progress';
-function getProgress() {
-  try { return new Set(JSON.parse(localStorage.getItem(PROGRESS_KEY)) || []); }
-  catch (e) { return new Set(); }
-}
-function saveProgress(set) {
-  localStorage.setItem(PROGRESS_KEY, JSON.stringify([...set]));
-}
-function updateProgressBar() {
-  const done = getProgress().size;
-  const total = topics.length;
-  document.getElementById('progressLabel').textContent = `${done}/${total}`;
-  document.getElementById('progressFill').style.width = total ? `${(done/total)*100}%` : '0%';
-}
-function setupProgressHandlers() {
-  const sidebar = document.getElementById('sidebar');
-  sidebar.addEventListener('click', (e) => {
-    if (e.target.classList.contains('check')) e.stopPropagation();
-  });
-  sidebar.addEventListener('change', (e) => {
-    if (!e.target.classList.contains('check')) return;
-    const id = e.target.dataset.id;
-    const set = getProgress();
-    if (e.target.checked) set.add(id); else set.delete(id);
-    saveProgress(set);
-    updateProgressBar();
-  });
-}
-
-/* =========================================================
-   THEME TOGGLE (Tailwind class strategy)
-   ========================================================= */
-const THEME_KEY = 'dsa-theme';
-function applyTheme(theme) {
-  document.documentElement.classList.toggle('dark', theme === 'dark');
-  const btn = document.getElementById('themeToggle');
-  btn.textContent = theme === 'dark' ? '🌙' : '☀️';
-  btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
-}
-function setupTheme() {
-  const saved = localStorage.getItem(THEME_KEY) || 'dark';
-  applyTheme(saved);
-  document.getElementById('themeToggle').addEventListener('click', () => {
-    const current = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-    const next = current === 'dark' ? 'light' : 'dark';
-    localStorage.setItem(THEME_KEY, next);
-    applyTheme(next);
-  });
-}
-
-/* =========================================================
-   SCROLL ANIMATIONS + ACTIVE NAV HIGHLIGHT
-   ========================================================= */
-function setupScrollObservers() {
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const sections = document.querySelectorAll('.section');
-
-  if (reduced) {
-    sections.forEach(s => { s.classList.remove(...SECTION_HIDDEN_INIT); s.classList.add(...SECTION_VISIBLE); });
-  } else {
-    const animObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.remove(...SECTION_HIDDEN_INIT);
-          entry.target.classList.add(...SECTION_VISIBLE);
-          animObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
-    sections.forEach(s => animObserver.observe(s));
-  }
-
-  const navLinks = document.querySelectorAll('.nav-item');
-  const activeObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      const link = document.querySelector(`.nav-item[data-id="${entry.target.id}"]`);
-      if (!link) return;
-      if (entry.isIntersecting) {
-        navLinks.forEach(l => l.classList.remove(...NAV_ACTIVE));
-        link.classList.add(...NAV_ACTIVE);
-      }
-    });
-  }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
-  sections.forEach(s => activeObserver.observe(s));
-}
-
-/* =========================================================
-   SEARCH / FILTER
-   ========================================================= */
-function setupSearch() {
-  const input = document.getElementById('searchInput');
-  input.addEventListener('input', () => {
-    const q = input.value.trim().toLowerCase();
-    let anyVisible = false;
-    document.querySelectorAll('.section').forEach(sec => {
-      const match = !q || sec.dataset.search.includes(q);
-      sec.classList.toggle('hidden', !match);
-      if (match) anyVisible = true;
-    });
-    document.querySelectorAll('.nav-item').forEach(link => {
-      const match = !q || link.dataset.search.includes(q);
-      link.classList.toggle('hidden', !match);
-    });
-    document.getElementById('noResults').classList.toggle('hidden', anyVisible);
-  });
-}
-
-/* =========================================================
-   COPY-CODE BUTTONS
-   ========================================================= */
-function setupCopyButtons() {
-  document.getElementById('sections').addEventListener('click', (e) => {
-    if (!e.target.classList.contains('copy-btn')) return;
-    const code = e.target.nextElementSibling.textContent;
-    navigator.clipboard.writeText(code).then(() => {
-      e.target.textContent = 'Copied!';
-      e.target.classList.add('!opacity-100','!text-emerald-400','!border-emerald-500');
-      setTimeout(() => { e.target.textContent = 'Copy'; e.target.classList.remove('!opacity-100','!text-emerald-400','!border-emerald-500'); }, 1500);
-    });
-  });
-}
-
-/* =========================================================
-   MOBILE SIDEBAR
-   ========================================================= */
-function setupHamburger() {
-  const sidebar = document.getElementById('sidebar');
-  document.getElementById('hamburger').addEventListener('click', () => {
-    sidebar.classList.toggle('-translate-x-full');
-    sidebar.classList.toggle('translate-x-0');
-  });
-  sidebar.addEventListener('click', (e) => {
-    if (e.target.closest('a.nav-item') && window.innerWidth < 768) {
-      sidebar.classList.add('-translate-x-full');
-      sidebar.classList.remove('translate-x-0');
-    }
-  });
-}
-
-/* =========================================================
-   INIT
-   ========================================================= */
-function init() {
-  renderSidebar();
-  renderContent();
-  setupProgressHandlers();
-  updateProgressBar();
-  setupTheme();
-  setupScrollObservers();
-  setupSearch();
-  setupCopyButtons();
-  setupHamburger();
-}
-
-document.addEventListener('DOMContentLoaded', init);
-</script>
+<!-- renderer (must be last) -->
+<script src="DSA-Learn/renderer.js"></script>
 </body>
 </html>

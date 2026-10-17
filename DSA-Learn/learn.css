@@ -1,4 +1,4 @@
-/* DSA-Learn/learn.css — all styling for dsa-learn.html (no CDN, works offline). */
+/* DSA-Learn/learn.css — all styling for index.html (no CDN, works offline). */
 
 :root {
   --bg: #f4f7fb; --panel: #ffffff; --panel2: #eef2f7; --ink: #1e293b; --muted: #64748b; --line: #d9e2ec;
@@ -49,8 +49,10 @@ strong { color: var(--ink); }
 .icon-btn {
   height: 36px; min-width: 36px; padding: 0 10px; border-radius: 10px; border: 1px solid var(--line);
   background: transparent; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  color: var(--ink); text-decoration: none; font-size: 13px; white-space: nowrap;
 }
 .icon-btn:hover { background: var(--panel2); }
+@media (max-width: 560px) { .icon-btn .lbl { display: none; } }
 .progress { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); min-width: 120px; }
 .progress .bar { flex: 1; height: 8px; border-radius: 99px; background: var(--panel2); overflow: hidden; }
 .progress .bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #06b6d4, #3b82f6); transition: width 0.4s; }
@@ -76,9 +78,6 @@ strong { color: var(--ink); }
 .nav-i .n { opacity: 0.55; font-size: 11px; min-width: 18px; }
 .nav-i .t { flex: 1; }
 .nav-i input { accent-color: #10b981; cursor: pointer; flex: none; }
-.nav-i.legacy { opacity: 0.7; }
-.tag { font-size: 10px; padding: 1px 6px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
-.tag.new { color: var(--good); border-color: var(--good); }
 .hidden { display: none !important; }
 
 /* ---------- home ---------- */
@@ -96,7 +95,6 @@ strong { color: var(--ink); }
   background: var(--panel); text-decoration: none; color: var(--ink); font-size: 13.5px;
 }
 .pill:hover { border-color: var(--accent); }
-.pill.legacy { color: var(--muted); }
 .cont { margin-top: 18px; padding: 12px 16px; border-radius: var(--radius); background: var(--accent-soft); }
 
 /* ---------- topic header ---------- */

@@ -6,9 +6,9 @@
 //   In 30 seconds -> Idea -> Analogy -> See it work -> Code line by line -> Speed/memory
 //   -> Common mistakes -> How to remember -> Practice -> Check yourself -> Related
 //
-// `legacy` below lists all 41 topics of the old dashboard (index.html + DSA-Notes/).
-// A topic that has a NEW data file here (same id) replaces its legacy entry automatically;
-// topics without one stay in the sidebar and open the old notes. Nothing else to update.
+// `order` below lists all 41 topics (id, group, emoji, title) in the order the sidebar shows them.
+// Every id needs a data file with the same id. To add a topic: add a line here, create
+// data/NN-id.js, and add its <script> tag to index.html before renderer.js.
 //
 // TOPIC FILE SHAPE  (data/NN-id.js  ->  window.DSA_TOPICS.push({...}))
 //   id, group, emoji, title, tagline, level?, needs?: [topicIds]
@@ -75,7 +75,7 @@ window.DSA_META = {
     { id: "graphs",    emoji: "🕸️", title: "Graphs",                  desc: "Things connected to other things." },
     { id: "strategy",  emoji: "🧠", title: "Strategy",                desc: "How to approach and prepare for problems." }
   ],
-  legacy: [
+  order: [
     { id: "data-structures", group: "basics", emoji: "🗂️", title: "Data Structures (DS)" },
     { id: "algorithms", group: "basics", emoji: "⚙️", title: "Algorithms" },
     { id: "time-complexity", group: "basics", emoji: "⏱️", title: "Time Complexity" },

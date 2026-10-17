@@ -1,27 +1,23 @@
 # JavaScript Tutorial & DSA Prep
 
 Personal collection of JavaScript language notes, data-structure/algorithm problem
-solutions, and system-design practice, plus a browsable revision dashboard.
+solutions, and system-design practice, plus browsable revision notes (DSA and Low-Level Design).
 
 ## Layout
 
-- **`DSA-Notes/` + `index.html`** — the DSA revision dashboard. Each `DSA-Notes/NN-topic-id.js`
-  file holds one topic's notes and practice problems; `index.html` loads them all and renders
-  a searchable, checkable sidebar. Open `index.html` in a browser (or serve the folder locally)
-  to use it. To add a topic, copy an existing `DSA-Notes/*.js` file's shape into a new
-  `NN-your-topic-id.js` and add a matching `<script>` tag in `index.html`, in numeric order.
-
-- **`dsa-learn.html` + `DSA-Learn/`** — the DSA notes rebuilt to be understood after a long break.
+- **`index.html` + `DSA-Learn/`** — the main page: DSA notes written to be understood after a long
+  break (open `index.html` in a browser, or serve the folder locally, e.g. `python -m http.server`).
   Every topic uses the same template: 30-second recap, plain-words idea, real-world analogy, an
   **animated step-through you can re-run on your own input** (with the code line highlighted as it
   runs), code with a note on every important line, complexity in plain words, common mistakes, a
-  memory trick, a practice problem with hints and a solution, and recall questions. All 41 topics of
-  the old dashboard are converted (the old `index.html` + `DSA-Notes/` stay as they were). Content
-  lives in `DSA-Learn/data/NN-topic.js` (shape documented at the top of `data/00-meta.js`), the
-  drawing code (array, tree, linked list, grid, bars, heap, intervals, graph) in `DSA-Learn/engine/`
-  and `renderer.js`. To add or edit a topic, add its `<script>` tag to `dsa-learn.html` before
-  `renderer.js`, then run `node DSA-Learn/check.js`: it executes the displayed code against the
-  animation on 60+ inputs and runs every practice solution against its tests.
+  memory trick, a practice problem with hints and a solution, and recall questions. 41 topics, with
+  search, per-topic "revised" ticks and a dark/light theme. Content lives in
+  `DSA-Learn/data/NN-topic.js` (shape documented at the top of `data/00-meta.js`), the drawing code
+  (array, tree, linked list, grid, bars, heap, intervals, graph) in `DSA-Learn/engine/` and
+  `renderer.js`. To add or edit a topic, add its `<script>` tag to `index.html` before
+  `renderer.js` (and its id to `order` in `00-meta.js`), then run `node DSA-Learn/check.js`: it
+  executes the displayed code against the animation on 60+ inputs and runs every practice solution
+  against its tests. The header links to the LLD notes below, and they link back.
 
 - **`lld-notes.html` + `LLD-Notes/`** — short revision notes for Low-Level Design (OOP pillars,
   class relationships, SOLID and friends), distilled from the class transcripts in

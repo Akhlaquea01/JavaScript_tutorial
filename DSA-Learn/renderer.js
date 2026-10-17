@@ -1,34 +1,34 @@
 /* DSA-Learn/renderer.js
-   Builds dsa-learn.html from window.DSA_META + window.DSA_TOPICS (DSA-Learn/data/*.js):
+   Builds index.html from window.DSA_META + window.DSA_TOPICS (DSA-Learn/data/*.js):
    sidebar, home page, and the fixed learn-first template every topic is shown in.
    No note content lives here. The topic shape is documented at the top of data/00-meta.js. */
 (function () {
   "use strict";
   const DSA = window.DSA;
   const { esc, inline } = DSA.util;
-  const META = Object.assign({ title: "DSA Learn", groups: [], legacy: [], storagePrefix: "dsa-learn" }, window.DSA_META);
+  const META = Object.assign({ title: "DSA Learn", groups: [], order: [], storagePrefix: "dsa-learn" }, window.DSA_META);
   const TOPICS = window.DSA_TOPICS || [];
 
   /* =========================================================
-     1. CATALOG: every topic in learning order (new format or still old)
+     1. CATALOG: every topic in learning order (META.order lists the ids in order;
+        a topic that is missing from it goes last in its group)
      ========================================================= */
   const byId = new Map(TOPICS.map((t) => [t.id, t]));
   const groupOf = new Map(META.groups.map((g, i) => [g.id, { ...g, rank: i }]));
   const catalog = [];
   META.groups.forEach((g) => {
-    META.legacy
-      .filter((l) => l.group === g.id)
+    META.order
+      .filter((l) => l.group === g.id && byId.has(l.id))
       .forEach((l) => {
         const t = byId.get(l.id);
-        catalog.push({ id: l.id, group: g.id, emoji: t ? t.emoji : l.emoji, title: t ? t.title : l.title, topic: t || null });
+        catalog.push({ id: l.id, group: g.id, emoji: t.emoji, title: t.title, topic: t });
         byId.delete(l.id);
       });
-    // new topics that are not in the legacy list yet
     TOPICS.filter((t) => t.group === g.id && byId.has(t.id)).forEach((t) => catalog.push({ id: t.id, group: g.id, emoji: t.emoji, title: t.title, topic: t }));
   });
   catalog.forEach((c, i) => (c.num = i + 1));
   const entry = new Map(catalog.map((c) => [c.id, c]));
-  const newCount = catalog.filter((c) => c.topic).length;
+  const total = catalog.length;
 
   const collect = (v, out) => {
     if (typeof v === "string") out.push(v);
@@ -37,7 +37,7 @@
   };
   catalog.forEach((c) => {
     const parts = [c.title, groupOf.get(c.group).title];
-    if (c.topic) collect(c.topic, parts);
+    collect(c.topic, parts);
     c.search = parts.join(" ").replace(/[`*]/g, "").toLowerCase();
   });
 
@@ -160,7 +160,7 @@
       const link = (id) => {
         const e = entry.get(id);
         if (!e) return "";
-        return e.topic ? `<a class="chip" href="#${esc(id)}">${e.emoji} ${esc(e.title)}</a>` : `<a class="chip" href="index.html#${esc(id)}" title="Old-format notes">${e.emoji} ${esc(e.title)} (old notes)</a>`;
+        return `<a class="chip" href="#${esc(id)}">${e.emoji} ${esc(e.title)}</a>`;
       };
       return (
         (r.topics ? `<div class="chips">${r.topics.map(link).join("")}</div>` : "") +
@@ -180,13 +180,12 @@
     const needs = (t.needs || []).map((id) => {
       const e = entry.get(id);
       if (!e) return "";
-      return `<a class="chip" href="${e.topic ? "#" + id : "index.html#" + id}">← ${esc(e.title)}</a>`;
+      return `<a class="chip" href="#${esc(id)}">← ${esc(e.title)}</a>`;
     }).join("");
     const idx = catalog.indexOf(c);
     const nav = (e, dir) => {
       if (!e) return `<span></span>`;
-      const href = e.topic ? "#" + e.id : "index.html#" + e.id;
-      return `<a class="${dir === "next" ? "r" : ""}" href="${href}"><small>${dir === "next" ? "Next topic →" : "← Previous topic"}</small>${e.emoji} ${esc(e.title)}${e.topic ? "" : " <small>(old-format notes)</small>"}</a>`;
+      return `<a class="${dir === "next" ? "r" : ""}" href="#${esc(e.id)}"><small>${dir === "next" ? "Next topic →" : "← Previous topic"}</small>${e.emoji} ${esc(e.title)}</a>`;
     };
 
     return `<div class="page">
@@ -231,10 +230,11 @@
         .map((g) => {
           const items = catalog.filter((c) => c.group === g.id);
           return `<div class="road-g"><h3>${g.emoji} ${esc(g.title)} <span style="text-transform:none;letter-spacing:0;font-weight:400">— ${esc(g.desc || "")}</span></h3><div class="road">${items
-            .map((c) => `<a class="pill${c.topic ? "" : " legacy"}" href="${c.topic ? "#" + c.id : "index.html#" + c.id}">${c.emoji} ${esc(c.title)} ${c.topic ? '<span class="tag new">new format</span>' : '<span class="tag">old notes</span>'}</a>`)
+            .map((c) => `<a class="pill" href="#${esc(c.id)}">${c.emoji} ${esc(c.title)}</a>`)
             .join("")}</div></div>`;
         })
         .join("")}
+      <div class="road-g"><h3>🏗️ More notes</h3><div class="road"><a class="pill" href="lld-notes.html">🏗️ Low Level Design notes: OOP, class relationships, SOLID and design patterns</a></div></div>
     </div>`;
   }
 
@@ -248,21 +248,17 @@
         const items = catalog.filter((c) => c.group === g.id);
         if (!items.length) return "";
         return `<div class="grp" data-g="${esc(g.id)}"><div class="g-title">${g.emoji} ${esc(g.title)}</div>${items
-          .map((c) =>
-            c.topic
-              ? `<a class="nav-i" href="#${esc(c.id)}" data-id="${esc(c.id)}" data-s="${esc(c.search)}"><input type="checkbox" data-check="${esc(c.id)}" title="Mark as revised" ${done.has(c.id) ? "checked" : ""}><span class="n">${String(c.num).padStart(2, "0")}</span><span class="t">${c.emoji} ${esc(c.title)}</span></a>`
-              : `<a class="nav-i legacy" href="index.html#${esc(c.id)}" data-id="${esc(c.id)}" data-s="${esc(c.search)}" title="Not rewritten yet. Opens the old notes."><span class="n">${String(c.num).padStart(2, "0")}</span><span class="t">${c.emoji} ${esc(c.title)}</span><span class="tag">old</span></a>`
-          )
+          .map((c) => `<a class="nav-i" href="#${esc(c.id)}" data-id="${esc(c.id)}" data-s="${esc(c.search)}"><input type="checkbox" data-check="${esc(c.id)}" title="Mark as revised" ${done.has(c.id) ? "checked" : ""}><span class="n">${String(c.num).padStart(2, "0")}</span><span class="t">${c.emoji} ${esc(c.title)}</span></a>`)
           .join("")}</div>`;
       })
-      .join("");
+      .join("") + `<div class="grp"><div class="g-title">More notes</div><a class="nav-i" href="lld-notes.html" data-s="low level design lld oop solid design patterns notes"><span class="n">🏗️</span><span class="t">Low Level Design notes</span></a></div>`;
   }
 
   function updateProgress() {
-    const done = [...revised()].filter((id) => entry.get(id) && entry.get(id).topic).length;
-    document.getElementById("progLabel").textContent = `${done}/${newCount}`;
-    document.getElementById("progFill").style.width = newCount ? (done / newCount) * 100 + "%" : "0%";
-    document.getElementById("progBox").title = `${done} of ${newCount} new-format topics marked as revised`;
+    const done = [...revised()].filter((id) => entry.has(id)).length;
+    document.getElementById("progLabel").textContent = `${done}/${total}`;
+    document.getElementById("progFill").style.width = total ? (done / total) * 100 + "%" : "0%";
+    document.getElementById("progBox").title = `${done} of ${total} topics marked as revised`;
   }
 
   let spy = null;
@@ -348,7 +344,7 @@
       updateProgress();
     });
 
-    // search filters the sidebar; Enter opens the first new-format match
+    // search filters the sidebar; Enter opens the first match
     const input = document.getElementById("search");
     input.addEventListener("input", () => {
       const terms = input.value.trim().toLowerCase().split(/\s+/).filter(Boolean);

@@ -24,7 +24,7 @@ sandbox.window = sandbox;
 vm.createContext(sandbox);
 const load = (f) => vm.runInContext(fs.readFileSync(f, "utf8"), sandbox, { filename: f });
 load(path.join(dir, "engine", "util.js"));
-const html = fs.readFileSync(path.join(root, "dsa-learn.html"), "utf8");
+const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
 const tags = [...html.matchAll(/<script src="(DSA-Learn\/[^"]+)"/g)].map((m) => m[1]);
 const dataTags = tags.filter((t) => t.includes("/data/"));
 const onDisk = fs.readdirSync(path.join(dir, "data")).filter((f) => f.endsWith(".js")).sort().map((f) => "DSA-Learn/data/" + f);
@@ -38,8 +38,9 @@ const U = DSA.util;
 const META = sandbox.DSA_META;
 const TOPICS = sandbox.DSA_TOPICS || [];
 const groupIds = new Set(META.groups.map((g) => g.id));
-const legacyIds = new Set(META.legacy.map((l) => l.id));
+const orderIds = new Set(META.order.map((l) => l.id));
 const topicIds = new Set(TOPICS.map((t) => t.id));
+for (const l of META.order) if (!topicIds.has(l.id)) fail("meta", "order lists '" + l.id + "' but no data file defines it");
 const strip = (s) => String(s).replace(/[`*]/g, "");
 
 const TONES = new Set(["cur", "good", "bad", "mark", "done", "dim"]);
@@ -200,13 +201,13 @@ for (const t of TOPICS) {
   if (ONLY && t.id !== ONLY) continue;
   const w = "topic " + t.id;
   if (!groupIds.has(t.group)) fail(w, "unknown group " + t.group);
-  if (!legacyIds.has(t.id)) fail(w, "id is not in META.legacy (so it would not replace an old entry)");
+  if (!orderIds.has(t.id)) fail(w, "id is not in META.order (so it would not appear in the sidebar order)");
   for (const f of ["emoji", "title", "tagline", "gist", "complexity", "idea", "analogy", "demos", "mistakes", "remember", "practice", "recall", "related"]) if (!t[f]) fail(w, "missing " + f);
   if (t.gist && (t.gist.length < 3 || t.gist.length > 5)) fail(w, "gist should have 3-5 bullets");
   if (t.mistakes && t.mistakes.length < 3) fail(w, "want at least 3 mistakes");
   if (t.recall && t.recall.length < 4) fail(w, "want at least 4 recall questions");
   if (t.practice && !(t.practice.hints && t.practice.hints.length >= 2)) fail(w, "practice needs 2+ hints");
-  for (const id of (t.needs || []).concat((t.related && t.related.topics) || [])) if (!legacyIds.has(id) && !topicIds.has(id)) fail(w, "unknown related topic " + id);
+  for (const id of (t.needs || []).concat((t.related && t.related.topics) || [])) if (!orderIds.has(id) && !topicIds.has(id)) fail(w, "unknown related topic " + id);
   for (const f of (t.related && t.related.files) || []) if (!fs.existsSync(path.join(root, f))) fail(w, "related file not found: " + f);
   checkStrings(t, w);
 
