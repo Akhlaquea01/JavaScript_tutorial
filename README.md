@@ -11,6 +11,15 @@ solutions, and system-design practice, plus a browsable revision dashboard.
   to use it. To add a topic, copy an existing `DSA-Notes/*.js` file's shape into a new
   `NN-your-topic-id.js` and add a matching `<script>` tag in `index.html`, in numeric order.
 
+- **`lld-notes.html` + `LLD-Notes/`** — short revision notes for Low-Level Design (OOP pillars,
+  class relationships, SOLID and friends), distilled from the class transcripts in
+  `Low Level Design/`. The HTML is only the page shell, `LLD-Notes/renderer.js` draws it, and
+  all content lives in `LLD-Notes/data/NN-topic.js` (one topic per file; the field and block
+  shapes are documented at the top of `data/00-meta.js`). To add a topic, create a new data
+  file and add its `<script>` tag in `lld-notes.html` before `renderer.js`. Features: search,
+  per-topic "revised" ticks, dark/light theme, and a ⚡ Quick revise mode that shows only the
+  key points.
+
 - **`Problems/`** — algorithm/DSA solutions, one file per problem, grouped by topic folder
   (`Array/`, `Strings/`, `Hash/`, `LinkedList/`, `Graph/`, `Tree/`, `Stack/`, `Queue/`,
   `Deque/`, `DoublyLinkedList/`, `Recursion/`, `Sort/`, `Numbers/`, `Bits/`, `Techniques/`,

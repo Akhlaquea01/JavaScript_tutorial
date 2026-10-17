@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LLD Quick Revision Notes</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { darkMode: 'class' };
+</script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-700 dark:text-slate-300 font-sans transition-colors duration-300">
+
+<!-- =========================================================
+     PAGE STRUCTURE ONLY.
+     - Content lives in LLD-Notes/data/*.js (one file per topic).
+     - Drawing logic lives in LLD-Notes/renderer.js.
+     To add a topic: create LLD-Notes/data/NN-your-topic.js (copy the
+     shape documented at the top of 00-meta.js) and add a <script> line
+     below, before renderer.js.
+     ========================================================= -->
+
+<header class="sticky top-0 z-50 flex items-center gap-3 md:gap-4 px-4 md:px-6 py-3 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+  <button id="hamburger" aria-label="Toggle sidebar" class="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300">☰</button>
+  <div class="hidden sm:flex items-center gap-2 font-bold text-slate-900 dark:text-white whitespace-nowrap">
+    <span>🏗️</span><span>LLD Notes</span><span class="text-cyan-500 dark:text-cyan-400">•</span>
+  </div>
+  <div class="flex-1 max-w-md relative">
+    <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs opacity-60">🔍</span>
+    <input id="searchInput" type="search" placeholder="Search…  (press / to focus)" autocomplete="off"
+      class="w-full pl-8 pr-3 py-2 rounded-lg text-sm bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500">
+  </div>
+  <button id="quickToggle" aria-pressed="false" title="Quick revise: show only the key points"
+    class="inline-flex items-center gap-1 h-9 px-2.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm whitespace-nowrap transition-colors">
+    <span>⚡</span><span class="hidden sm:inline">Quick revise</span>
+  </button>
+  <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 w-14 sm:w-auto sm:min-w-[150px]">
+    <span id="progressLabel" class="whitespace-nowrap">0/0</span>
+    <div class="flex-1 h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+      <div id="progressFill" class="h-full w-0 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-500"></div>
+    </div>
+  </div>
+  <button id="themeToggle" aria-label="Toggle dark mode" class="w-9 h-9 inline-flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm">🌙</button>
+</header>
+
+<div class="flex max-w-[1400px] mx-auto items-start relative">
+  <nav id="sidebar" aria-label="Topics" class="fixed md:sticky top-[57px] left-0 -translate-x-full md:translate-x-0 transition-transform duration-300 z-40 w-72 flex-shrink-0 h-[calc(100vh-57px)] overflow-y-auto p-3 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 shadow-xl md:shadow-none"></nav>
+
+  <main class="flex-1 min-w-0 px-4 md:px-8 py-6 pb-32">
+    <div class="mb-7">
+      <h1 id="pageTitle" class="text-2xl font-bold text-slate-900 dark:text-white mb-1">LLD Quick Revision Notes</h1>
+      <p id="pageSubtitle" class="text-sm text-slate-500 dark:text-slate-400 max-w-3xl"></p>
+    </div>
+    <div id="sections"></div>
+    <div id="noResults" class="hidden text-center py-16 text-slate-500 dark:text-slate-400">😕 No topic matches that search. Try another keyword.</div>
+    <footer class="text-center text-xs text-slate-400 dark:text-slate-500 pt-8 pb-16">Short notes for fast revision — add new topics under LLD-Notes/data/ 🚀</footer>
+  </main>
+</div>
+
+<!-- ============ DATA: loaded in this order (also the display order within a group) ============ -->
+<script src="LLD-Notes/data/00-meta.js"></script>
+<script src="LLD-Notes/data/01-lld-intro.js"></script>
+<script src="LLD-Notes/data/02-class-object.js"></script>
+<script src="LLD-Notes/data/03-encapsulation.js"></script>
+<script src="LLD-Notes/data/04-inheritance.js"></script>
+<script src="LLD-Notes/data/05-abstraction.js"></script>
+<script src="LLD-Notes/data/06-polymorphism.js"></script>
+<script src="LLD-Notes/data/07-relationships.js"></script>
+<script src="LLD-Notes/data/08-design-principles.js"></script>
+<script src="LLD-Notes/data/09-dry-kiss-yagni.js"></script>
+<script src="LLD-Notes/data/10-coupling-cohesion.js"></script>
+<script src="LLD-Notes/data/11-solid-overview.js"></script>
+<script src="LLD-Notes/data/12-srp.js"></script>
+<script src="LLD-Notes/data/13-ocp.js"></script>
+<script src="LLD-Notes/data/14-lsp.js"></script>
+<script src="LLD-Notes/data/15-isp.js"></script>
+<script src="LLD-Notes/data/16-dip.js"></script>
+<script src="LLD-Notes/data/17-design-mindset.js"></script>
+<script src="LLD-Notes/data/18-cheat-sheet.js"></script>
+
+<!-- ============ RENDERER: turns the data above into the page ============ -->
+<script src="LLD-Notes/renderer.js"></script>
+</body>
+</html>
