@@ -11,6 +11,18 @@ solutions, and system-design practice, plus a browsable revision dashboard.
   to use it. To add a topic, copy an existing `DSA-Notes/*.js` file's shape into a new
   `NN-your-topic-id.js` and add a matching `<script>` tag in `index.html`, in numeric order.
 
+- **`dsa-learn.html` + `DSA-Learn/`** — the DSA notes rebuilt to be understood after a long break.
+  Every topic uses the same template: 30-second recap, plain-words idea, real-world analogy, an
+  **animated step-through you can re-run on your own input** (with the code line highlighted as it
+  runs), code with a note on every important line, complexity in plain words, common mistakes, a
+  memory trick, a practice problem with hints and a solution, and recall questions. All 41 topics of
+  the old dashboard are converted (the old `index.html` + `DSA-Notes/` stay as they were). Content
+  lives in `DSA-Learn/data/NN-topic.js` (shape documented at the top of `data/00-meta.js`), the
+  drawing code (array, tree, linked list, grid, bars, heap, intervals, graph) in `DSA-Learn/engine/`
+  and `renderer.js`. To add or edit a topic, add its `<script>` tag to `dsa-learn.html` before
+  `renderer.js`, then run `node DSA-Learn/check.js`: it executes the displayed code against the
+  animation on 60+ inputs and runs every practice solution against its tests.
+
 - **`lld-notes.html` + `LLD-Notes/`** — short revision notes for Low-Level Design (OOP pillars,
   class relationships, SOLID and friends), distilled from the class transcripts in
   `Low Level Design/`. The HTML is only the page shell, `LLD-Notes/renderer.js` draws it, and
